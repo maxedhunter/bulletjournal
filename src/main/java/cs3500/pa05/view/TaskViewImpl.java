@@ -6,20 +6,20 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 
 /**
- * Represents a simple Journal GUI view.
+ * Represents a simple task creation GUI view.
  */
-public class ViewImpl implements View {
+public class TaskViewImpl implements View {
 
   FXMLLoader loader;
 
-  public ViewImpl(Controller controller) {
+  public TaskViewImpl(Controller controller) {
     // look up and store the layout
     this.loader = new FXMLLoader();
-    this.loader.setLocation(getClass().getClassLoader().getResource("Journal.fxml"));
+    this.loader.setLocation(getClass().getClassLoader().getResource("Task.fxml"));
     this.loader.setController(controller);
   }
   /**
-   * Loads a scene from a Journal GUI layout.
+   * Loads a scene for task creation in GUI layout.
    *
    * @return the layout
    */

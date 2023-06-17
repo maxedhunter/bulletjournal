@@ -3,7 +3,7 @@ package cs3500.pa05;
 import cs3500.pa05.controller.Controller;
 import cs3500.pa05.controller.ControllerImpl;
 import cs3500.pa05.view.View;
-import cs3500.pa05.view.ViewImpl;
+import cs3500.pa05.view.WeekViewImpl;
 import javafx.application.Application;
 import javafx.stage.Stage;
 
@@ -19,7 +19,7 @@ public class Driver extends Application {
   @Override
   public void start(Stage stage) {
     Controller controller = new ControllerImpl();
-    View view = new ViewImpl(controller);
+    View view = new WeekViewImpl(controller);
     stage.setTitle("Journal");
 
     try {

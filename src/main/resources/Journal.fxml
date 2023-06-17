@@ -284,6 +284,11 @@
                <Font size="18.0" />
             </font>
          </TextField>
+         <TextField layoutX="143.0" layoutY="48.0" prefHeight="26.0" prefWidth="113.0" promptText="Set maximum tasks:">
+            <font>
+               <Font size="10.0" />
+            </font>
+         </TextField>
       </children>
    </AnchorPane>
   </Scene>
