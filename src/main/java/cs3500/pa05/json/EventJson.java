@@ -1,4 +1,4 @@
-package cs3500.pa05.Json;
+package cs3500.pa05.json;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import cs3500.pa05.model.Day;

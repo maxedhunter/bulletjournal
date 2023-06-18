@@ -1,0 +1,294 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.Scene?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuButton?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.ProgressBar?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<Scene xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1">
+      <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0">
+      <children>
+         <MenuBar layoutY="-1.0" prefHeight="31.0" prefWidth="901.0" />
+         <HBox prefHeight="29.0" prefWidth="139.0">
+            <children>
+               <MenuButton mnemonicParsing="false" prefHeight="29.0" prefWidth="77.0" text="File">
+                 <items>
+                   <MenuItem mnemonicParsing="false" text="OpenFile" />
+                   <MenuItem mnemonicParsing="false" text="SaveFile" />
+                 <MenuItem mnemonicParsing="false" text="NewWeek" />
+                 </items>
+                  <font>
+                     <Font size="10.0" />
+                  </font>
+               </MenuButton>
+               <MenuButton mnemonicParsing="false" prefHeight="29.0" prefWidth="77.0" text="Edit">
+                  <items>
+                     <MenuItem mnemonicParsing="false" text="CreateEvent" />
+                     <MenuItem mnemonicParsing="false" text="CreateTask" />
+                     <MenuItem mnemonicParsing="false" text="DeleteEvent" />
+                     <MenuItem mnemonicParsing="false" text="DeleteTask" />
+                  </items>
+                  <font>
+                     <Font size="10.0" />
+                  </font>
+               </MenuButton>
+            </children>
+         </HBox>
+         <HBox layoutX="127.0" layoutY="92.0" prefHeight="509.0" prefWidth="773.0">
+            <children>
+               <VBox prefHeight="517.0" prefWidth="111.0">
+                  <children>
+                     <Label alignment="TOP_CENTER" contentDisplay="CENTER" prefHeight="14.0" prefWidth="108.0" text="Moday" textAlignment="CENTER">
+                        <font>
+                           <Font size="11.0" />
+                        </font>
+                     </Label>
+                     <VBox fx:id="progessBar" prefHeight="26.0" prefWidth="107.0">
+                        <children>
+                           <HBox prefHeight="5.0" prefWidth="107.0">
+                              <children>
+                                 <Label alignment="TOP_CENTER" prefHeight="10.0" prefWidth="63.0" text="Remaining tasks:">
+                                    <font>
+                                       <Font size="8.0" />
+                                    </font>
+                                 </Label>
+                                 <Label fx:id="remainingTask">
+                                    <font>
+                                       <Font size="5.0" />
+                                    </font>
+                                 </Label>
+                              </children>
+                           </HBox>
+                           <ProgressBar prefHeight="16.0" prefWidth="107.0" progress="0.0" />
+                        </children>
+                     </VBox>
+                  </children></VBox>
+               <VBox prefHeight="517.0" prefWidth="111.0">
+                  <children>
+                     <Label alignment="TOP_CENTER" prefHeight="14.0" prefWidth="109.0" text="Tuesday">
+                        <font>
+                           <Font size="11.0" />
+                        </font>
+                     </Label>
+                     <VBox fx:id="progessBar2" prefHeight="26.0" prefWidth="107.0">
+                        <children>
+                           <HBox prefHeight="5.0" prefWidth="107.0">
+                              <children>
+                                 <Label alignment="TOP_CENTER" prefHeight="10.0" prefWidth="63.0" text="Remaining tasks:">
+                                    <font>
+                                       <Font size="8.0" />
+                                    </font>
+                                 </Label>
+                                 <Label fx:id="remainingTask2">
+                                    <font>
+                                       <Font size="5.0" />
+                                    </font>
+                                 </Label>
+                              </children>
+                           </HBox>
+                           <ProgressBar prefHeight="16.0" prefWidth="107.0" progress="0.0" />
+                        </children>
+                     </VBox>
+                  </children>
+               </VBox>
+               <VBox prefHeight="517.0" prefWidth="111.0">
+                  <children>
+                     <Label alignment="TOP_CENTER" prefHeight="14.0" prefWidth="114.0" text="Wednesday">
+                        <font>
+                           <Font size="11.0" />
+                        </font>
+                     </Label>
+                     <VBox fx:id="progessBar3" prefHeight="26.0" prefWidth="107.0">
+                        <children>
+                           <HBox prefHeight="5.0" prefWidth="107.0">
+                              <children>
+                                 <Label alignment="TOP_CENTER" prefHeight="10.0" prefWidth="63.0" text="Remaining tasks:">
+                                    <font>
+                                       <Font size="8.0" />
+                                    </font>
+                                 </Label>
+                                 <Label fx:id="remainingTask7">
+                                    <font>
+                                       <Font size="5.0" />
+                                    </font>
+                                 </Label>
+                              </children>
+                           </HBox>
+                           <ProgressBar prefHeight="16.0" prefWidth="107.0" progress="0.0" />
+                        </children>
+                     </VBox>
+                  </children>
+               </VBox>
+               <VBox prefHeight="517.0" prefWidth="109.0">
+                  <children>
+                     <Label alignment="TOP_CENTER" prefHeight="14.0" prefWidth="110.0" text="Thursday">
+                        <font>
+                           <Font size="11.0" />
+                        </font>
+                     </Label>
+                     <VBox fx:id="progessBar1" prefHeight="26.0" prefWidth="107.0">
+                        <children>
+                           <HBox prefHeight="5.0" prefWidth="107.0">
+                              <children>
+                                 <Label alignment="TOP_CENTER" prefHeight="10.0" prefWidth="63.0" text="Remaining tasks:">
+                                    <font>
+                                       <Font size="8.0" />
+                                    </font>
+                                 </Label>
+                                 <Label fx:id="remainingTask1">
+                                    <font>
+                                       <Font size="5.0" />
+                                    </font>
+                                 </Label>
+                              </children>
+                           </HBox>
+                           <ProgressBar prefHeight="16.0" prefWidth="107.0" progress="0.0" />
+                        </children>
+                     </VBox>
+                  </children>
+               </VBox>
+               <VBox prefHeight="517.0" prefWidth="109.0">
+                  <children>
+                     <Label alignment="TOP_CENTER" prefHeight="14.0" prefWidth="117.0" text="Friday">
+                        <font>
+                           <Font size="11.0" />
+                        </font>
+                     </Label>
+                     <VBox fx:id="progessBar7" prefHeight="26.0" prefWidth="107.0">
+                        <children>
+                           <HBox prefHeight="5.0" prefWidth="107.0">
+                              <children>
+                                 <Label alignment="TOP_CENTER" prefHeight="10.0" prefWidth="63.0" text="Remaining tasks:">
+                                    <font>
+                                       <Font size="8.0" />
+                                    </font>
+                                 </Label>
+                                 <Label fx:id="remainingTask3">
+                                    <font>
+                                       <Font size="5.0" />
+                                    </font>
+                                 </Label>
+                              </children>
+                           </HBox>
+                           <ProgressBar prefHeight="16.0" prefWidth="107.0" progress="0.0" />
+                        </children>
+                     </VBox>
+                  </children>
+               </VBox>
+               <VBox prefHeight="517.0" prefWidth="111.0">
+                  <children>
+                     <Label alignment="TOP_CENTER" prefHeight="14.0" prefWidth="112.0" text="Saturday">
+                        <font>
+                           <Font size="11.0" />
+                        </font>
+                     </Label>
+                     <VBox fx:id="progessBar4" prefHeight="26.0" prefWidth="107.0">
+                        <children>
+                           <HBox prefHeight="5.0" prefWidth="107.0">
+                              <children>
+                                 <Label alignment="TOP_CENTER" prefHeight="10.0" prefWidth="63.0" text="Remaining tasks:">
+                                    <font>
+                                       <Font size="8.0" />
+                                    </font>
+                                 </Label>
+                                 <Label fx:id="remainingTask4">
+                                    <font>
+                                       <Font size="5.0" />
+                                    </font>
+                                 </Label>
+                              </children>
+                           </HBox>
+                           <ProgressBar prefHeight="16.0" prefWidth="107.0" progress="0.0" />
+                        </children>
+                     </VBox>
+                  </children>
+               </VBox>
+               <VBox prefHeight="539.0" prefWidth="106.0">
+                  <children>
+                     <Label alignment="TOP_CENTER" prefHeight="14.0" prefWidth="106.0" text="Sunday">
+                        <font>
+                           <Font size="11.0" />
+                        </font>
+                     </Label>
+                     <VBox fx:id="progessBar5" prefHeight="26.0" prefWidth="107.0">
+                        <children>
+                           <HBox prefHeight="5.0" prefWidth="107.0">
+                              <children>
+                                 <Label alignment="TOP_CENTER" prefHeight="10.0" prefWidth="63.0" text="Remaining tasks:">
+                                    <font>
+                                       <Font size="8.0" />
+                                    </font>
+                                 </Label>
+                                 <Label fx:id="remainingTask5">
+                                    <font>
+                                       <Font size="5.0" />
+                                    </font>
+                                 </Label>
+                              </children>
+                           </HBox>
+                           <ProgressBar prefHeight="16.0" prefWidth="107.0" progress="0.0" />
+                        </children>
+                     </VBox>
+                  </children>
+               </VBox>
+            </children>
+         </HBox>
+         <VBox layoutX="4.0" layoutY="42.0" prefHeight="553.0" prefWidth="118.0">
+            <children>
+               <Label alignment="TOP_CENTER" contentDisplay="CENTER" prefHeight="19.0" prefWidth="117.0" text="Task Queue" textAlignment="JUSTIFY">
+                  <font>
+                     <Font size="15.0" />
+                  </font>
+               </Label>
+            </children>
+         </VBox>
+         <VBox layoutX="287.0" layoutY="44.0" prefHeight="34.0" prefWidth="100.0">
+            <children>
+               <HBox prefHeight="14.0" prefWidth="67.0">
+                  <children>
+                     <Label text="Total tasks: " />
+                     <Label fx:id="totalTaskCount">
+                        <font>
+                           <Font size="10.0" />
+                        </font>
+                     </Label>
+                  </children>
+               </HBox>
+               <HBox prefHeight="14.0" prefWidth="77.0">
+                  <children>
+                     <Label text="Total events: " />
+                     <Label fx:id="totalEventCount">
+                        <font>
+                           <Font size="10.0" />
+                        </font>
+                     </Label>
+                  </children>
+               </HBox>
+            </children>
+         </VBox>
+         <HBox layoutX="620.0" layoutY="50.0" prefHeight="21.0" prefWidth="216.0">
+            <children>
+               <Label prefHeight="21.0" prefWidth="168.0" text="Weekly tasks completion(%):  " />
+               <Label fx:id="weeklyPercentage" prefHeight="18.0" prefWidth="0.0" />
+            </children>
+         </HBox>
+         <TextField alignment="TOP_CENTER" layoutX="430.0" layoutY="43.0" prefHeight="31.0" prefWidth="164.0" text="Week Name">
+            <font>
+               <Font size="18.0" />
+            </font>
+         </TextField>
+         <TextField layoutX="143.0" layoutY="48.0" prefHeight="26.0" prefWidth="113.0" promptText="Set maximum tasks:">
+            <font>
+               <Font size="10.0" />
+            </font>
+         </TextField>
+      </children>
+   </AnchorPane>
+  </Scene>
