@@ -1,8 +1,11 @@
-package cs3500.pa05.Json;
+package cs3500.pa05.json;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+/**
+ * Adds JSON utility methods.
+ */
 public class JsonUtils {
   /**
    * Converts a given record object to a JsonNode.

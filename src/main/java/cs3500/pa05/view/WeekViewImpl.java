@@ -12,12 +12,18 @@ public class WeekViewImpl implements View {
 
   FXMLLoader loader;
 
+  /**
+   * Initializes a controller
+   *
+   * @param controller a controller
+   */
   public WeekViewImpl(Controller controller) {
     // look up and store the layout
     this.loader = new FXMLLoader();
     this.loader.setLocation(getClass().getClassLoader().getResource("Journal.fxml"));
     this.loader.setController(controller);
   }
+
   /**
    * Loads a scene from a Journal GUI layout.
    *

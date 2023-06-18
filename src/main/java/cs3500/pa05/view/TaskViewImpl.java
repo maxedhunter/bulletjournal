@@ -12,12 +12,18 @@ public class TaskViewImpl implements View {
 
   FXMLLoader loader;
 
+  /**
+   * Initializes a controller
+   *
+   * @param controller to initialize
+   */
   public TaskViewImpl(Controller controller) {
     // look up and store the layout
     this.loader = new FXMLLoader();
     this.loader.setLocation(getClass().getClassLoader().getResource("Task.fxml"));
     this.loader.setController(controller);
   }
+
   /**
    * Loads a scene for task creation in GUI layout.
    *
