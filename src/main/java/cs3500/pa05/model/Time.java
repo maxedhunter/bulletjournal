@@ -8,6 +8,8 @@ public class Time {
   private final int minute;
 
   /**
+   * Initializes values for time
+   *
    * @param hour   the hour (from 0 - 24)
    * @param minute minutes (from 0 to 60)
    */

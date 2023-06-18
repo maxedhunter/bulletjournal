@@ -2,6 +2,7 @@ package cs3500.pa05;
 
 import cs3500.pa05.controller.Controller;
 import cs3500.pa05.controller.ControllerImpl;
+import cs3500.pa05.view.TaskViewImpl;
 import cs3500.pa05.view.View;
 import cs3500.pa05.view.WeekViewImpl;
 import javafx.application.Application;
@@ -19,8 +20,11 @@ public class Driver extends Application {
   @Override
   public void start(Stage stage) {
     Controller controller = new ControllerImpl();
-    View view = new WeekViewImpl(controller);
-    stage.setTitle("Journal");
+//    View view = new WeekViewImpl(controller);
+//    stage.setTitle("Journal");
+
+    View view = new TaskViewImpl(controller);
+    stage.setTitle("Task");
 
     try {
       // load and place the view's scene onto the stage
