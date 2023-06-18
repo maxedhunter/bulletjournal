@@ -10,5 +10,6 @@ import java.util.List;
  * @param days - days in the week
  */
 public record WeekJson(
+    @JsonProperty("name") String name,
     @JsonProperty("days") List<JsonNode> days) {
 }
