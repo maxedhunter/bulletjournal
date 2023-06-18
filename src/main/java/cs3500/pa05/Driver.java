@@ -2,6 +2,7 @@ package cs3500.pa05;
 
 import cs3500.pa05.controller.Controller;
 import cs3500.pa05.controller.ControllerImpl;
+import cs3500.pa05.controller.TaskControllerImpl;
 import cs3500.pa05.view.TaskViewImpl;
 import cs3500.pa05.view.View;
 import cs3500.pa05.view.WeekViewImpl;
@@ -19,11 +20,11 @@ public class Driver extends Application {
    */
   @Override
   public void start(Stage stage) {
-    Controller controller = new ControllerImpl();
+    Controller taskController = new TaskControllerImpl();
 //    View view = new WeekViewImpl(controller);
 //    stage.setTitle("Journal");
 
-    View view = new TaskViewImpl(controller);
+    View view = new TaskViewImpl(taskController);
     stage.setTitle("Task");
 
     try {

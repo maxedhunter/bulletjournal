@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<Scene xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="cs3500.pa05.controller.TaskControllerImpl">
+<Scene xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1">
     <AnchorPane prefHeight="453.0" prefWidth="628.0">
       <children>
          <VBox layoutY="-1.0" prefHeight="455.0" prefWidth="628.0">
@@ -21,7 +21,7 @@
                <TextField fx:id="dayField" prefHeight="73.0" prefWidth="628.0" promptText="Name" text="Day" />
                <TextField fx:id="nameField" prefHeight="81.0" prefWidth="628.0" promptText="Description" text="Name" />
                <TextField fx:id="descField" alignment="TOP_LEFT" prefHeight="231.0" prefWidth="628.0" text="Description" />
-               <Button fx:id="submit" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#submit" text="Submit" />
+               <Button fx:id="submit" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" />
             </children>
          </VBox>
       </children></AnchorPane>
