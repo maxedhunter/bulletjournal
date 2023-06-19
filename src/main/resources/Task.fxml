@@ -21,7 +21,7 @@
                <TextField fx:id="dayField" prefHeight="73.0" prefWidth="628.0" promptText="Name" text="Day" />
                <TextField fx:id="nameField" prefHeight="81.0" prefWidth="628.0" promptText="Description" text="Name" />
                <TextField fx:id="descField" alignment="TOP_LEFT" prefHeight="231.0" prefWidth="628.0" text="Description" />
-               <Button fx:id="submit" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" />
+               <Button fx:id="submit" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" text="Submit" />
             </children>
          </VBox>
       </children></AnchorPane>

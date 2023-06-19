@@ -1,7 +1,6 @@
 package cs3500.pa05.controller;
 
 import cs3500.pa05.model.Day;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
@@ -25,19 +24,17 @@ public class TaskControllerImpl implements Controller {
 
   @Override
   public void run() throws IllegalStateException {
-
+    submit.setOnAction(event -> submit());
   }
 
 
   /**
    * Handles user hitting the submit button
-   *
-   * @param event clicking the submit button
    */
-  public void submit(ActionEvent event) {
-    this.day = Day.valueOf(dayField.getText());
-    this.name = nameField.getText();
-    this.description = descField.getText();
+  public void submit() {
+    this.day = Day.valueOf(this.dayField.getText());
+    this.name = this.nameField.getText();
+    this.description = this.descField.getText();
 
     System.out.println(day + name + description);
   }
