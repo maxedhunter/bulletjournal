@@ -30,6 +30,8 @@ public class Driver extends Application {
       // load and place the view's scene onto the stage
       stage.setScene(view.load());
 
+      taskController.run();
+
       // render the stage
       stage.show();
     } catch (IllegalStateException exc) {
