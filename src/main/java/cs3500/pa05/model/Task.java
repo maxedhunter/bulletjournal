@@ -25,6 +25,10 @@ public class Task {
               @JsonProperty("description") String description,
               @JsonProperty("day") Day day,
               @JsonProperty("completion") boolean isDone) {
+    this.name = name;
+    this.description = description;
+    this.day = day;
+    this.isDone = isDone;
   }
 
   public String getName() {

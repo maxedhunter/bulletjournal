@@ -1,6 +1,7 @@
 package cs3500.pa05.controller;
 
 import cs3500.pa05.model.Day;
+import cs3500.pa05.model.Task;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
@@ -31,11 +32,16 @@ public class TaskControllerImpl implements Controller {
   /**
    * Handles user hitting the submit button
    */
-  public void submit() {
-    this.day = Day.valueOf(this.dayField.getText());
+  public Task submit() {
+    this.day = Day.valueOf(this.dayField.getText().toUpperCase());
     this.name = this.nameField.getText();
     this.description = this.descField.getText();
 
-    System.out.println(day + name + description);
+    Task submittedTask = new Task(this.name, this.description, this.day, false);
+    System.out.print(submittedTask.getName());
+    System.out.print(submittedTask.getDescription());
+    System.out.print(submittedTask.getDay());
+    System.out.print(submittedTask.getCompletion());
+    return submittedTask;
   }
 }
