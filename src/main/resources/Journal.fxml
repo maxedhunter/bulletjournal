@@ -31,7 +31,7 @@
                <MenuButton mnemonicParsing="false" prefHeight="29.0" prefWidth="77.0" text="Edit">
                   <items>
                      <MenuItem mnemonicParsing="false" text="CreateEvent" />
-                     <MenuItem mnemonicParsing="false" text="CreateTask" />
+                     <MenuItem fx:id="taskButton" mnemonicParsing="false" text="CreateTask" />
                      <MenuItem mnemonicParsing="false" text="DeleteEvent" />
                      <MenuItem mnemonicParsing="false" text="DeleteTask" />
                   </items>
@@ -66,7 +66,7 @@
                                  </Label>
                               </children>
                            </HBox>
-                           <ProgressBar prefHeight="16.0" prefWidth="107.0" progress="0.0" />
+                           <ProgressBar fx:id="mondayProgress" prefHeight="16.0" prefWidth="107.0" progress="0.0" />
                         </children>
                      </VBox>
                   </children></VBox>
@@ -240,7 +240,7 @@
                </VBox>
             </children>
          </HBox>
-         <VBox layoutX="4.0" layoutY="42.0" prefHeight="553.0" prefWidth="118.0">
+         <VBox fx:id="tasks" layoutX="4.0" layoutY="42.0" prefHeight="553.0" prefWidth="118.0">
             <children>
                <Label alignment="TOP_CENTER" contentDisplay="CENTER" prefHeight="19.0" prefWidth="117.0" text="Task Queue" textAlignment="JUSTIFY">
                   <font>

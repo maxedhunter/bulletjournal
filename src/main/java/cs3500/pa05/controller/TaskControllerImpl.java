@@ -5,6 +5,7 @@ import cs3500.pa05.model.Task;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
 
 /**
  * Represents a task controller.
@@ -17,6 +18,7 @@ public class TaskControllerImpl implements Controller {
   @FXML
   private TextField nameField;
   private String name;
+  private Stage stage = null;
   @FXML
   private TextField descField;
   private String description;

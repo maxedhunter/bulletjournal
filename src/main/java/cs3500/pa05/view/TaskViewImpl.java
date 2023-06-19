@@ -24,6 +24,7 @@ public class TaskViewImpl implements View {
     this.loader.setController(controller);
   }
 
+
   /**
    * Loads a scene for task creation in GUI layout.
    *
