@@ -1,7 +1,6 @@
 package cs3500.pa05;
 
 import cs3500.pa05.controller.Controller;
-import cs3500.pa05.controller.ControllerImpl;
 import cs3500.pa05.controller.TaskControllerImpl;
 import cs3500.pa05.view.TaskViewImpl;
 import cs3500.pa05.view.View;
