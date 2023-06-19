@@ -27,7 +27,10 @@ public class ControllerImpl implements Controller {
   @FXML
   private ProgressBar mondayProgress;
 
-  public ControllerImpl() {
+  TaskControllerImpl taskController;
+
+  public ControllerImpl(TaskControllerImpl taskController) {
+    this.taskController = taskController;
   }
 
   public void handleCreateNewTask() {
@@ -49,7 +52,6 @@ public class ControllerImpl implements Controller {
   }
 
   private void showPopupWindow() {
-    TaskControllerImpl taskController = new TaskControllerImpl();
     View taskView = new TaskViewImpl(taskController);
     Stage popupStage = new Stage();
     popupStage.setScene(taskView.load());

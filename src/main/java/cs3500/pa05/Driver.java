@@ -20,14 +20,10 @@ public class Driver extends Application {
    */
   @Override
   public void start(Stage stage) {
-    Controller controller = new ControllerImpl();
-    Controller taskController = new TaskControllerImpl();
+    TaskControllerImpl taskController = new TaskControllerImpl();
+    Controller controller = new ControllerImpl(taskController);
     View view = new WeekViewImpl(controller);
     stage.setTitle("Journal");
-//
-//    View view = new TaskViewImpl(taskController);
-//    stage.setTitle("Task");
-
 
     try {
       // load and place the view's scene onto the stage

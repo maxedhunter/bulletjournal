@@ -25,8 +25,11 @@ public class TaskControllerImpl implements Controller {
   @FXML
   private Button submit;
 
-  @Override
+  @FXML
   public void run() throws IllegalStateException {
+  }
+
+  public void initialize() {
     submit.setOnAction(event -> submit());
   }
 
