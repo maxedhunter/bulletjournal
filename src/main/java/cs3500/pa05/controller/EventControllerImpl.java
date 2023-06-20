@@ -3,6 +3,7 @@ package cs3500.pa05.controller;
 import cs3500.pa05.model.Day;
 import cs3500.pa05.model.Event;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
@@ -49,7 +50,9 @@ public class EventControllerImpl implements Controller {
     try {
       this.day = Day.valueOf(this.dayField.getText().toUpperCase());
     } catch (IllegalArgumentException e) {
-      System.err.println("Not a valid weekday");
+      showWarning();
+      Stage stage = (Stage) submit.getScene().getWindow();
+      stage.close();
     }
     this.name = this.nameField.getText();
     this.description = this.descField.getText();
@@ -62,6 +65,14 @@ public class EventControllerImpl implements Controller {
     eventCreated = submittedEvent;
     Stage stage = (Stage) submit.getScene().getWindow();
     stage.close();
+  }
+
+  public void showWarning() {
+    Alert alert = new Alert(Alert.AlertType.WARNING);
+    alert.setTitle("Alert");
+    alert.setHeaderText("Warning");
+    alert.setContentText("Invalid input for day");
+    alert.showAndWait();
   }
 
   public Event getEventCreated() {

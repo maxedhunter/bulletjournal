@@ -54,4 +54,8 @@ public class Task {
       return "Undone";
     }
   }
+
+  public void setCompletion() {
+    this.isDone = true;
+  }
 }

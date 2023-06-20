@@ -48,7 +48,7 @@
                            <Font size="11.0" />
                         </font>
                      </Label>
-                     <VBox fx:id="progessBar" prefHeight="26.0" prefWidth="107.0">
+                     <VBox prefHeight="26.0" prefWidth="107.0">
                         <children>
                            <HBox prefHeight="5.0" prefWidth="107.0">
                               <children>
@@ -64,7 +64,7 @@
                                  </Label>
                               </children>
                            </HBox>
-                           <ProgressBar fx:id="mondayProgress" prefHeight="16.0" prefWidth="107.0" progress="0.0" />
+                           <ProgressBar fx:id="sundayProgress" prefHeight="16.0" prefWidth="107.0" progress="0.0" />
                         </children>
                      </VBox>
                   </children></VBox>
@@ -75,7 +75,7 @@
                            <Font size="11.0" />
                         </font>
                      </Label>
-                     <VBox fx:id="progessBar2" prefHeight="26.0" prefWidth="107.0">
+                     <VBox prefHeight="26.0" prefWidth="107.0">
                         <children>
                            <HBox prefHeight="5.0" prefWidth="107.0">
                               <children>
@@ -91,7 +91,7 @@
                                  </Label>
                               </children>
                            </HBox>
-                           <ProgressBar prefHeight="16.0" prefWidth="107.0" progress="0.0" />
+                           <ProgressBar fx:id="mondayProgress" prefHeight="16.0" prefWidth="107.0" progress="0.0" />
                         </children>
                      </VBox>
                   </children>
@@ -103,7 +103,7 @@
                            <Font size="11.0" />
                         </font>
                      </Label>
-                     <VBox fx:id="progessBar3" prefHeight="26.0" prefWidth="107.0">
+                     <VBox prefHeight="26.0" prefWidth="107.0">
                         <children>
                            <HBox prefHeight="5.0" prefWidth="107.0">
                               <children>
@@ -119,7 +119,7 @@
                                  </Label>
                               </children>
                            </HBox>
-                           <ProgressBar prefHeight="16.0" prefWidth="107.0" progress="0.0" />
+                           <ProgressBar fx:id="tuesdayProgress" prefHeight="16.0" prefWidth="107.0" progress="0.0" />
                         </children>
                      </VBox>
                   </children>
@@ -131,7 +131,7 @@
                            <Font size="11.0" />
                         </font>
                      </Label>
-                     <VBox fx:id="progessBar1" prefHeight="26.0" prefWidth="107.0">
+                     <VBox prefHeight="26.0" prefWidth="107.0">
                         <children>
                            <HBox prefHeight="5.0" prefWidth="107.0">
                               <children>
@@ -147,7 +147,7 @@
                                  </Label>
                               </children>
                            </HBox>
-                           <ProgressBar prefHeight="16.0" prefWidth="107.0" progress="0.0" />
+                           <ProgressBar fx:id="wednesdayProgress" prefHeight="16.0" prefWidth="107.0" progress="0.0" />
                         </children>
                      </VBox>
                   </children>
@@ -159,7 +159,7 @@
                            <Font size="11.0" />
                         </font>
                      </Label>
-                     <VBox fx:id="progessBar7" prefHeight="26.0" prefWidth="107.0">
+                     <VBox prefHeight="26.0" prefWidth="107.0">
                         <children>
                            <HBox prefHeight="5.0" prefWidth="107.0">
                               <children>
@@ -175,7 +175,7 @@
                                  </Label>
                               </children>
                            </HBox>
-                           <ProgressBar prefHeight="16.0" prefWidth="107.0" progress="0.0" />
+                           <ProgressBar fx:id="thursdayProgress" prefHeight="16.0" prefWidth="107.0" progress="0.0" />
                         </children>
                      </VBox>
                   </children>
@@ -187,7 +187,7 @@
                            <Font size="11.0" />
                         </font>
                      </Label>
-                     <VBox fx:id="progessBar4" prefHeight="26.0" prefWidth="107.0">
+                     <VBox prefHeight="26.0" prefWidth="107.0">
                         <children>
                            <HBox prefHeight="5.0" prefWidth="107.0">
                               <children>
@@ -203,7 +203,7 @@
                                  </Label>
                               </children>
                            </HBox>
-                           <ProgressBar prefHeight="16.0" prefWidth="107.0" progress="0.0" />
+                           <ProgressBar fx:id="fridayProgress" prefHeight="16.0" prefWidth="107.0" progress="0.0" />
                         </children>
                      </VBox>
                   </children>
@@ -215,7 +215,7 @@
                            <Font size="11.0" />
                         </font>
                      </Label>
-                     <VBox fx:id="progessBar5" prefHeight="26.0" prefWidth="107.0">
+                     <VBox prefHeight="26.0" prefWidth="107.0">
                         <children>
                            <HBox prefHeight="5.0" prefWidth="107.0">
                               <children>
@@ -231,7 +231,7 @@
                                  </Label>
                               </children>
                            </HBox>
-                           <ProgressBar prefHeight="16.0" prefWidth="107.0" progress="0.0" />
+                           <ProgressBar fx:id="saturdayProgress" prefHeight="16.0" prefWidth="107.0" progress="0.0" />
                         </children>
                      </VBox>
                   </children>
@@ -252,29 +252,21 @@
                <HBox prefHeight="14.0" prefWidth="67.0">
                   <children>
                      <Label text="Total tasks: " />
-                     <Label fx:id="totalTaskCount">
-                        <font>
-                           <Font size="10.0" />
-                        </font>
-                     </Label>
+                     <Label fx:id="totalTaskCount" />
                   </children>
                </HBox>
                <HBox prefHeight="14.0" prefWidth="77.0">
                   <children>
                      <Label text="Total events: " />
-                     <Label fx:id="totalEventCount">
-                        <font>
-                           <Font size="10.0" />
-                        </font>
-                     </Label>
+                     <Label fx:id="totalEventCount" />
                   </children>
                </HBox>
             </children>
          </VBox>
          <HBox layoutX="620.0" layoutY="50.0" prefHeight="21.0" prefWidth="216.0">
             <children>
-               <Label prefHeight="21.0" prefWidth="168.0" text="Weekly tasks completion(%):  " />
-               <Label fx:id="weeklyPercentage" prefHeight="18.0" prefWidth="0.0" />
+               <Label prefHeight="21.0" prefWidth="168.0" text="Weekly tasks completion:  " />
+               <Label fx:id="weeklyPercentage" prefHeight="18.0" prefWidth="76.0" />
             </children>
          </HBox>
          <TextField alignment="TOP_CENTER" layoutX="430.0" layoutY="43.0" prefHeight="31.0" prefWidth="164.0" text="Week Name">
