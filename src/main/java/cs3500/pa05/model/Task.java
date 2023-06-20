@@ -43,7 +43,15 @@ public class Task {
     return this.day;
   }
 
-  public boolean getCompletion() {
+  public boolean getIsDone(){
     return this.isDone;
+  }
+
+  public String getCompletion() {
+    if (this.isDone) {
+      return "Complete";
+    } else {
+      return "Undone";
+    }
   }
 }
