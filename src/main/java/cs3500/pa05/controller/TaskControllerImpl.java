@@ -1,9 +1,7 @@
 package cs3500.pa05.controller;
 
-import cs3500.pa05.model.Day;
+import cs3500.pa05.model.Days;
 import cs3500.pa05.model.Task;
-import java.util.ArrayList;
-import java.util.List;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
@@ -17,7 +15,7 @@ public class TaskControllerImpl implements Controller {
 
   @FXML
   private TextField dayField;
-  private Day day;
+  private Days days;
   @FXML
   private TextField nameField;
   private String name;
@@ -43,7 +41,7 @@ public class TaskControllerImpl implements Controller {
    */
   public void submit() {
     try {
-      this.day = Day.valueOf(this.dayField.getText().toUpperCase());
+      this.days = Days.valueOf(this.dayField.getText().toUpperCase());
     } catch (IllegalArgumentException e) {
       showWarning();
       Stage stage = (Stage) submit.getScene().getWindow();
@@ -52,7 +50,7 @@ public class TaskControllerImpl implements Controller {
     this.name = this.nameField.getText();
     this.description = this.descField.getText();
 
-    Task submittedTask = new Task(this.name, this.description, this.day, false);
+    Task submittedTask = new Task(this.name, this.description, this.days, false);
     System.out.print(submittedTask.getName());
     System.out.print(submittedTask.getDescription());
     System.out.print(submittedTask.getDay());

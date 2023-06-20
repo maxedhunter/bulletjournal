@@ -1,7 +1,10 @@
 package cs3500.pa05.controller;
 
-import cs3500.pa05.model.Day;
+import static cs3500.pa05.model.Time.stringToTime;
+
+import cs3500.pa05.model.Days;
 import cs3500.pa05.model.Event;
+import cs3500.pa05.model.Time;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
@@ -14,7 +17,7 @@ import javafx.stage.Stage;
 public class EventControllerImpl implements Controller {
   @FXML
   private TextField dayField;
-  private Day day;
+  private Days days;
   @FXML
   private TextField nameField;
   private String name;
@@ -23,11 +26,11 @@ public class EventControllerImpl implements Controller {
   private String description = "";
   @FXML
   private TextField startField;
-  private String startTime;
+  private Time startTime;
 
   @FXML
   private TextField durationField;
-  private String duration;
+  private int duration;
 
   @FXML
   private Button submit;
@@ -48,18 +51,32 @@ public class EventControllerImpl implements Controller {
    */
   public void submit() {
     try {
-      this.day = Day.valueOf(this.dayField.getText().toUpperCase());
+      this.days = Days.valueOf(this.dayField.getText().toUpperCase());
     } catch (IllegalArgumentException e) {
-      showWarning();
+      showDayWarning();
       Stage stage = (Stage) submit.getScene().getWindow();
       stage.close();
     }
     this.name = this.nameField.getText();
     this.description = this.descField.getText();
-    this.startTime = this.startField.getText();
-    this.duration = this.durationField.getText();
 
-    Event submittedEvent = new Event(this.name, this.description, this.day,
+    try {
+      this.startTime = stringToTime(this.startField.getText());
+    } catch (Exception e) {
+      showTimeWarning();
+      Stage stage = (Stage) submit.getScene().getWindow();
+      stage.close();
+    }
+
+    try {
+      this.duration = Integer.parseInt(this.durationField.getText());
+    } catch (NumberFormatException e) {
+      showDurationWarning();
+      Stage stage = (Stage) submit.getScene().getWindow();
+      stage.close();
+    }
+
+    Event submittedEvent = new Event(this.name, this.description, this.days,
         this.startTime, this.duration);
 
     eventCreated = submittedEvent;
@@ -67,11 +84,27 @@ public class EventControllerImpl implements Controller {
     stage.close();
   }
 
-  public void showWarning() {
+  public void showDayWarning() {
     Alert alert = new Alert(Alert.AlertType.WARNING);
     alert.setTitle("Alert");
     alert.setHeaderText("Warning");
     alert.setContentText("Invalid input for day");
+    alert.showAndWait();
+  }
+
+  public void showTimeWarning() {
+    Alert alert = new Alert(Alert.AlertType.WARNING);
+    alert.setTitle("Alert");
+    alert.setHeaderText("Warning");
+    alert.setContentText("Invalid input for time");
+    alert.showAndWait();
+  }
+
+  public void showDurationWarning() {
+    Alert alert = new Alert(Alert.AlertType.WARNING);
+    alert.setTitle("Alert");
+    alert.setHeaderText("Warning");
+    alert.setContentText("Invalid input for time");
     alert.showAndWait();
   }
 

@@ -9,7 +9,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 public class Task {
   private String name;
   private String description;
-  private Day day;
+  private Days days;
   private boolean isDone;
 
   /**
@@ -17,17 +17,17 @@ public class Task {
    *
    * @param name - name of the task
    * @param description - description of the task
-   * @param day - day of the task
+   * @param days - day of the task
    * @param isDone - is the task finished
    */
   @JsonCreator
   public Task(@JsonProperty("name") String name,
               @JsonProperty("description") String description,
-              @JsonProperty("day") Day day,
+              @JsonProperty("day") Days days,
               @JsonProperty("completion") boolean isDone) {
     this.name = name;
     this.description = description;
-    this.day = day;
+    this.days = days;
     this.isDone = isDone;
   }
 
@@ -39,8 +39,8 @@ public class Task {
     return this.description;
   }
 
-  public Day getDay() {
-    return this.day;
+  public Days getDay() {
+    return this.days;
   }
 
   public boolean getIsDone(){

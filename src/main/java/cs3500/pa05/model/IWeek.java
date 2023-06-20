@@ -1,7 +1,6 @@
 package cs3500.pa05.model;
 
 import java.util.List;
-import javafx.event.Event;
 
 public interface IWeek {
   /**

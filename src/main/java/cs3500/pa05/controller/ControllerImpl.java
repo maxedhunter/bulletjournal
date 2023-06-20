@@ -1,6 +1,6 @@
 package cs3500.pa05.controller;
 
-import cs3500.pa05.model.Day;
+import cs3500.pa05.model.Days;
 import cs3500.pa05.model.Event;
 import cs3500.pa05.model.Task;
 import cs3500.pa05.view.EventViewImpl;
@@ -10,7 +10,6 @@ import java.util.ArrayList;
 import java.util.List;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
-import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ContextMenu;
@@ -18,10 +17,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.control.TextField;
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyCodeCombination;
 import javafx.scene.input.KeyCombination;
-import javafx.scene.input.Mnemonic;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
@@ -173,8 +169,8 @@ public class ControllerImpl implements Controller {
     Button eventButton = new Button(newEvent.getName());
     VBox eventDetails = new VBox();
     Label description = new Label(newEvent.getDescription());
-    Label startTime = new Label(newEvent.getStartTime());
-    Label duration = new Label(newEvent.getDuration());
+    Label startTime = new Label(newEvent.getStartTime().toString());
+    Label duration = new Label(Integer.toString(newEvent.getDuration()));
     eventDetails.getChildren().addAll(eventButton, description, startTime, duration);
     ContextMenu contextMenu = new ContextMenu();
     MenuItem removeButton = new MenuItem("Remove Event");
@@ -186,49 +182,49 @@ public class ControllerImpl implements Controller {
   }
 
   public void addTask(Task task, VBox taskDetails) {
-    if (task.getDay() == Day.MONDAY) {
+    if (task.getDay() == Days.MONDAY) {
       monday.getChildren().add(taskDetails);
       mondayTasks.add(task);
       tasksList.add(task);
       updateTotalTask(tasksList);
       addTaskQueue(task);
     }
-    if (task.getDay() == Day.TUESDAY) {
+    if (task.getDay() == Days.TUESDAY) {
       tuesday.getChildren().add(taskDetails);
       tuesdayTasks.add(task);
       tasksList.add(task);
       updateTotalTask(tasksList);
       addTaskQueue(task);
     }
-    if (task.getDay() == Day.WEDNESDAY) {
+    if (task.getDay() == Days.WEDNESDAY) {
       wednesday.getChildren().add(taskDetails);
       wednesdayTasks.add(task);
       tasksList.add(task);
       updateTotalTask(tasksList);
       addTaskQueue(task);
     }
-    if (task.getDay() == Day.THURSDAY) {
+    if (task.getDay() == Days.THURSDAY) {
       thursday.getChildren().add(taskDetails);
       thursdayTasks.add(task);
       tasksList.add(task);
       updateTotalTask(tasksList);
       addTaskQueue(task);
     }
-    if (task.getDay() == Day.FRIDAY) {
+    if (task.getDay() == Days.FRIDAY) {
       friday.getChildren().add(taskDetails);
       fridayTasks.add(task);
       tasksList.add(task);
       updateTotalTask(tasksList);
       addTaskQueue(task);
     }
-    if (task.getDay() == Day.SATURDAY) {
+    if (task.getDay() == Days.SATURDAY) {
       saturday.getChildren().add(taskDetails);
       saturdayTasks.add(task);
       tasksList.add(task);
       updateTotalTask(tasksList);
       addTaskQueue(task);
     }
-    if (task.getDay() == Day.SUNDAY) {
+    if (task.getDay() == Days.SUNDAY) {
       sunday.getChildren().add(taskDetails);
       sundayTasks.add(task);
       tasksList.add(task);
@@ -240,43 +236,43 @@ public class ControllerImpl implements Controller {
   }
 
   public void addEvent(Event newEvent, VBox eventDetails) {
-    if (newEvent.getDay() == Day.MONDAY) {
+    if (newEvent.getDay() == Days.MONDAY) {
       monday.getChildren().add(eventDetails);
       mondayEvents.add(newEvent);
       eventsList.add(newEvent);
       updateTotalEvent(eventsList);
     }
-    if (newEvent.getDay() == Day.TUESDAY) {
+    if (newEvent.getDay() == Days.TUESDAY) {
       tuesday.getChildren().add(eventDetails);
       tuesdayEvents.add(newEvent);
       eventsList.add(newEvent);
       updateTotalEvent(eventsList);
     }
-    if (newEvent.getDay() == Day.WEDNESDAY) {
+    if (newEvent.getDay() == Days.WEDNESDAY) {
       wednesday.getChildren().add(eventDetails);
       wednesdayEvents.add(newEvent);
       eventsList.add(newEvent);
       updateTotalEvent(eventsList);
     }
-    if (newEvent.getDay() == Day.THURSDAY) {
+    if (newEvent.getDay() == Days.THURSDAY) {
       thursday.getChildren().add(eventDetails);
       thursdayEvents.add(newEvent);
       eventsList.add(newEvent);
       updateTotalEvent(eventsList);
     }
-    if (newEvent.getDay() == Day.FRIDAY) {
+    if (newEvent.getDay() == Days.FRIDAY) {
       friday.getChildren().add(eventDetails);
       fridayEvents.add(newEvent);
       eventsList.add(newEvent);
       updateTotalEvent(eventsList);
     }
-    if (newEvent.getDay() == Day.SATURDAY) {
+    if (newEvent.getDay() == Days.SATURDAY) {
       saturday.getChildren().add(eventDetails);
       saturdayEvents.add(newEvent);
       eventsList.add(newEvent);
       updateTotalEvent(eventsList);
     }
-    if (newEvent.getDay() == Day.SUNDAY) {
+    if (newEvent.getDay() == Days.SUNDAY) {
       sunday.getChildren().add(eventDetails);
       sundayEvents.add(newEvent);
       eventsList.add(newEvent);
@@ -420,25 +416,25 @@ public class ControllerImpl implements Controller {
     completion.setText(task.getCompletion());
     setCompletionInQueue(task);
     completedTasksList.add(task);
-    if (task.getDay() == Day.MONDAY) {
+    if (task.getDay() == Days.MONDAY) {
       mondayCompletedTasks.add(task);
     }
-    if (task.getDay() == Day.TUESDAY) {
+    if (task.getDay() == Days.TUESDAY) {
       tuesdayCompletedTasks.add(task);
     }
-    if (task.getDay() == Day.WEDNESDAY) {
+    if (task.getDay() == Days.WEDNESDAY) {
       wednesdayCompletedTasks.add(task);
     }
-    if (task.getDay() == Day.THURSDAY) {
+    if (task.getDay() == Days.THURSDAY) {
       thursdayCompletedTasks.add(task);
     }
-    if (task.getDay() == Day.FRIDAY) {
+    if (task.getDay() == Days.FRIDAY) {
       fridayCompletedTasks.add(task);
     }
-    if (task.getDay() == Day.SATURDAY) {
+    if (task.getDay() == Days.SATURDAY) {
       saturdayCompletedTasks.add(task);
     }
-    if (task.getDay() == Day.SUNDAY) {
+    if (task.getDay() == Days.SUNDAY) {
       sundayCompletedTasks.add(task);
     }
     updateProgress(task);
@@ -446,26 +442,26 @@ public class ControllerImpl implements Controller {
   }
 
   public void updateProgress(Task task) {
-    if (task.getDay() == Day.MONDAY) {
+    if (task.getDay() == Days.MONDAY) {
       mondayProgress.setProgress((double) mondayCompletedTasks.size() / mondayTasks.size());
     }
-    if (task.getDay() == Day.TUESDAY) {
+    if (task.getDay() == Days.TUESDAY) {
       tuesdayProgress.setProgress((double) tuesdayCompletedTasks.size() / tuesdayTasks.size());
     }
-    if (task.getDay() == Day.WEDNESDAY) {
+    if (task.getDay() == Days.WEDNESDAY) {
       wednesdayProgress.setProgress(
           (double) wednesdayCompletedTasks.size() / wednesdayTasks.size());
     }
-    if (task.getDay() == Day.THURSDAY) {
+    if (task.getDay() == Days.THURSDAY) {
       thursdayProgress.setProgress((double) thursdayCompletedTasks.size() / thursdayTasks.size());
     }
-    if (task.getDay() == Day.FRIDAY) {
+    if (task.getDay() == Days.FRIDAY) {
       fridayProgress.setProgress((double) fridayCompletedTasks.size() / fridayTasks.size());
     }
-    if (task.getDay() == Day.SATURDAY) {
+    if (task.getDay() == Days.SATURDAY) {
       saturdayProgress.setProgress((double) saturdayCompletedTasks.size() / saturdayTasks.size());
     }
-    if (task.getDay() == Day.SUNDAY) {
+    if (task.getDay() == Days.SUNDAY) {
       sundayProgress.setProgress((double) sundayCompletedTasks.size() / sundayTasks.size());
     }
   }
@@ -486,7 +482,6 @@ public class ControllerImpl implements Controller {
       }
     }
   }
-
 
   /**
    * Initializes a game of Whack-a-Mole.

@@ -41,7 +41,45 @@ public class Time {
    *
    * @return the minute
    */
-  public  int getMinute() {
+  public int getMinute() {
     return this.minute;
+  }
+
+  /**
+   * Converts a string into a time.
+   *
+   * @param string to be converted into time
+   * @return returns a time
+   */
+  public static Time stringToTime(String string) {
+    Time time;
+    try {
+      int colon = string.indexOf(":");
+      int hourString = Integer.parseInt(string.substring(0, colon));
+      int minuteString = Integer.parseInt(string.substring(colon + 1));
+      time = new Time(hourString, minuteString);
+    } catch (NumberFormatException e) {
+      throw new RuntimeException("Unable to parse time");
+    }
+    return time;
+  }
+
+  public String toString() {
+    StringBuilder builder = new StringBuilder();
+    if (hour < 10) {
+      builder.append("0").append(hour);
+    } else {
+      builder.append(hour);
+    }
+
+    builder.append(":");
+
+    if (minute < 10) {
+      builder.append("0").append(minute);
+    } else {
+      builder.append(minute);
+    }
+
+    return builder.toString();
   }
 }
