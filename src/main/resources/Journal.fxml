@@ -30,10 +30,8 @@
                </MenuButton>
                <MenuButton mnemonicParsing="false" prefHeight="29.0" prefWidth="77.0" text="Edit">
                   <items>
-                     <MenuItem mnemonicParsing="false" text="CreateEvent" />
+                     <MenuItem fx:id="eventButton" mnemonicParsing="false" text="CreateEvent" />
                      <MenuItem fx:id="taskButton" mnemonicParsing="false" text="CreateTask" />
-                     <MenuItem mnemonicParsing="false" text="DeleteEvent" />
-                     <MenuItem mnemonicParsing="false" text="DeleteTask" />
                   </items>
                   <font>
                      <Font size="10.0" />
@@ -41,7 +39,7 @@
                </MenuButton>
             </children>
          </HBox>
-         <HBox layoutX="127.0" layoutY="92.0" prefHeight="509.0" prefWidth="773.0">
+         <HBox fx:id="weekdays" layoutX="127.0" layoutY="92.0" prefHeight="509.0" prefWidth="773.0">
             <children>
                <VBox fx:id="sunday" prefHeight="517.0" prefWidth="111.0">
                   <children>
@@ -284,7 +282,12 @@
                <Font size="18.0" />
             </font>
          </TextField>
-         <TextField layoutX="143.0" layoutY="48.0" prefHeight="26.0" prefWidth="113.0" promptText="Set maximum tasks:">
+         <TextField fx:id="maximumTasks" layoutX="139.0" layoutY="37.0" prefHeight="26.0" prefWidth="113.0" promptText="Set maximum tasks:">
+            <font>
+               <Font size="10.0" />
+            </font>
+         </TextField>
+         <TextField fx:id="maximumEvents" layoutX="139.0" layoutY="65.0" prefHeight="26.0" prefWidth="113.0" promptText="Set maximum events:">
             <font>
                <Font size="10.0" />
             </font>

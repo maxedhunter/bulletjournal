@@ -1,9 +1,7 @@
 package cs3500.pa05.controller;
 
 import cs3500.pa05.model.Day;
-import cs3500.pa05.model.Task;
-import java.util.ArrayList;
-import java.util.List;
+import cs3500.pa05.model.Event;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
@@ -12,8 +10,7 @@ import javafx.stage.Stage;
 /**
  * Represents a task controller.
  */
-public class TaskControllerImpl implements Controller {
-
+public class EventControllerImpl implements Controller {
   @FXML
   private TextField dayField;
   private Day day;
@@ -24,9 +21,17 @@ public class TaskControllerImpl implements Controller {
   private TextField descField;
   private String description = "";
   @FXML
+  private TextField startField;
+  private String startTime;
+
+  @FXML
+  private TextField durationField;
+  private String duration;
+
+  @FXML
   private Button submit;
 
-  private Task taskCreated;
+  private Event eventCreated;
 
   @FXML
   public void run() throws IllegalStateException {
@@ -48,18 +53,18 @@ public class TaskControllerImpl implements Controller {
     }
     this.name = this.nameField.getText();
     this.description = this.descField.getText();
+    this.startTime = this.startField.getText();
+    this.duration = this.durationField.getText();
 
-    Task submittedTask = new Task(this.name, this.description, this.day, false);
-    System.out.print(submittedTask.getName());
-    System.out.print(submittedTask.getDescription());
-    System.out.print(submittedTask.getDay());
-    System.out.print(submittedTask.getCompletion());
-    taskCreated = submittedTask;
+    Event submittedEvent = new Event(this.name, this.description, this.day,
+        this.startTime, this.duration);
+
+    eventCreated = submittedEvent;
     Stage stage = (Stage) submit.getScene().getWindow();
     stage.close();
   }
 
-  public Task getTaskCreated() {
-    return this.taskCreated;
+  public Event getEventCreated() {
+    return this.eventCreated;
   }
 }
