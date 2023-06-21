@@ -58,4 +58,12 @@ public class Task {
   public void setCompletion() {
     this.completion = true;
   }
+
+  public void setName(String newName) {
+    this.name = newName;
+  }
+
+  public void setDescription(String newDescription) {
+    this.description = newDescription;
+  }
 }

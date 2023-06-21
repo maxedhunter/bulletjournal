@@ -2,10 +2,12 @@ package cs3500.pa05.controller;
 
 import cs3500.pa05.model.DayEnum;
 import cs3500.pa05.model.Task;
+import cs3500.pa05.view.TaskViewImpl;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.scene.control.TextInputDialog;
 import javafx.stage.Stage;
 
 /**
@@ -35,6 +37,8 @@ public class TaskControllerImpl implements Controller {
     submit.setOnAction(event -> submit());
   }
 
+  TaskViewImpl taskView = new TaskViewImpl(this);
+
 
   /**
    * Handles user hitting the submit button
@@ -43,7 +47,7 @@ public class TaskControllerImpl implements Controller {
     try {
       this.dayEnum = DayEnum.valueOf(this.dayField.getText().toUpperCase());
     } catch (IllegalArgumentException e) {
-      showWarning();
+      taskView.showWarning();
       Stage stage = (Stage) submit.getScene().getWindow();
       stage.close();
     }
@@ -54,14 +58,6 @@ public class TaskControllerImpl implements Controller {
     taskCreated = submittedTask;
     Stage stage = (Stage) submit.getScene().getWindow();
     stage.close();
-  }
-
-  public void showWarning() {
-    Alert alert = new Alert(Alert.AlertType.WARNING);
-    alert.setTitle("Alert");
-    alert.setHeaderText("Warning");
-    alert.setContentText("Invalid input for day");
-    alert.showAndWait();
   }
 
   public Task getTaskCreated() {

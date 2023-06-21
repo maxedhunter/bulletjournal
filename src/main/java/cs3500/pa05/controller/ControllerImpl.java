@@ -8,7 +8,9 @@ import cs3500.pa05.view.EventViewImpl;
 import cs3500.pa05.view.TaskViewImpl;
 import cs3500.pa05.view.View;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Alert;
@@ -27,9 +29,19 @@ import javafx.stage.Stage;
  * Represents the controller for a bullet journal.
  */
 public class ControllerImpl implements Controller {
+  private Map<DayEnum, Day> weekSum = new HashMap<>();
+
+  private Day mon;
+  private Day tues;
+  private Day wed;
+  private Day thurs;
+  private Day fri;
+  private Day sat;
+  private Day sun;
 
   private List<Task> tasksList = new ArrayList<>();
   private List<Event> eventsList = new ArrayList<>();
+
   private List<Task> mondayTasks = new ArrayList<>();
   private List<Task> tuesdayTasks = new ArrayList<>();
   private List<Task> wednesdayTasks = new ArrayList<>();
@@ -39,6 +51,7 @@ public class ControllerImpl implements Controller {
   private List<Task> sundayTasks = new ArrayList<>();
 
   private List<Task> completedTasksList = new ArrayList<>();
+
   private List<Task> mondayCompletedTasks = new ArrayList<>();
   private List<Task> tuesdayCompletedTasks = new ArrayList<>();
   private List<Task> wednesdayCompletedTasks = new ArrayList<>();
@@ -84,6 +97,7 @@ public class ControllerImpl implements Controller {
   private Label totalTaskCount;
   @FXML
   private Label totalEventCount;
+
   int maxTask = 1000;
   int maxEvent = 1000;
 
@@ -106,8 +120,8 @@ public class ControllerImpl implements Controller {
   private Label weeklyPercentage;
 
 
-  TaskControllerImpl taskController;
-  EventControllerImpl eventController;
+  private TaskControllerImpl taskController;
+  private EventControllerImpl eventController;
 
   /**
    * Initializes the main controllers with sub controllers.
@@ -179,13 +193,20 @@ public class ControllerImpl implements Controller {
 
 
     ContextMenu contextMenu = new ContextMenu();
-    MenuItem removeButton = new MenuItem("Remove Task");
+    MenuItem removeButton = new MenuItem("Remove task");
     removeButton.setOnAction(event -> removeTask(task, taskDetails));
     removeButton.setAccelerator(KeyCombination.keyCombination("Ctrl+R"));
-    MenuItem completeButton = new MenuItem("Set Complete");
+
+    MenuItem changeName = new MenuItem("Change name");
+    TextField nameField = new TextField();
+    changeName.setGraphic(nameField);
+    changeName.setOnAction(event -> changeName(task, taskButton, nameField.getText()));
+
+    MenuItem completeButton = new MenuItem("Set complete");
     completeButton.setAccelerator(KeyCombination.keyCombination("Ctrl+C"));
     completeButton.setOnAction(event -> setCompletion(task, completion));
-    contextMenu.getItems().addAll(removeButton, completeButton);
+
+    contextMenu.getItems().addAll(removeButton, completeButton, changeName);
     taskButton.setContextMenu(contextMenu);
     taskDetails.getChildren().addAll(taskButton, description, completion);
     taskDetails.setId(task.getName());
@@ -476,6 +497,12 @@ public class ControllerImpl implements Controller {
     updateWeeklyProgress();
   }
 
+  public void changeName(Task task, Button taskButton, String name) {
+    taskButton.setText(name);
+    changeNameInQueue(task, name);
+    changeNameInQueue(task, name);
+  }
+
   public void updateProgress(Task task) {
     if (task.getDay() == DayEnum.MONDAY) {
       mondayProgress.setProgress((double) mondayCompletedTasks.size() / mondayTasks.size());
@@ -556,5 +583,6 @@ public class ControllerImpl implements Controller {
   public void run() throws IllegalStateException {
     checkTaskCommitment();
     checkEventCommitment();
+    sumUp();
   }
 }

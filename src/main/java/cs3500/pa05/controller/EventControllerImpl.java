@@ -5,8 +5,8 @@ import static cs3500.pa05.model.Time.stringToTime;
 import cs3500.pa05.model.DayEnum;
 import cs3500.pa05.model.Event;
 import cs3500.pa05.model.Time;
+import cs3500.pa05.view.EventViewImpl;
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
@@ -37,6 +37,8 @@ public class EventControllerImpl implements Controller {
 
   private Event eventCreated;
 
+  private EventViewImpl eventView = new EventViewImpl(this);
+
   @FXML
   public void run() throws IllegalStateException {
   }
@@ -53,7 +55,7 @@ public class EventControllerImpl implements Controller {
     try {
       this.dayEnum = DayEnum.valueOf(this.dayField.getText().toUpperCase());
     } catch (IllegalArgumentException e) {
-      showDayWarning();
+      eventView.showDayWarning();
       Stage stage = (Stage) submit.getScene().getWindow();
       stage.close();
     }
@@ -63,7 +65,7 @@ public class EventControllerImpl implements Controller {
     try {
       this.startTime = stringToTime(this.startField.getText());
     } catch (Exception e) {
-      showTimeWarning();
+      eventView.showTimeWarning();
       Stage stage = (Stage) submit.getScene().getWindow();
       stage.close();
     }
@@ -71,7 +73,7 @@ public class EventControllerImpl implements Controller {
     try {
       this.duration = Integer.parseInt(this.durationField.getText());
     } catch (NumberFormatException e) {
-      showDurationWarning();
+      eventView.showDurationWarning();
       Stage stage = (Stage) submit.getScene().getWindow();
       stage.close();
     }
@@ -82,30 +84,6 @@ public class EventControllerImpl implements Controller {
     eventCreated = submittedEvent;
     Stage stage = (Stage) submit.getScene().getWindow();
     stage.close();
-  }
-
-  public void showDayWarning() {
-    Alert alert = new Alert(Alert.AlertType.WARNING);
-    alert.setTitle("Alert");
-    alert.setHeaderText("Warning");
-    alert.setContentText("Invalid input for day");
-    alert.showAndWait();
-  }
-
-  public void showTimeWarning() {
-    Alert alert = new Alert(Alert.AlertType.WARNING);
-    alert.setTitle("Alert");
-    alert.setHeaderText("Warning");
-    alert.setContentText("Invalid input for time");
-    alert.showAndWait();
-  }
-
-  public void showDurationWarning() {
-    Alert alert = new Alert(Alert.AlertType.WARNING);
-    alert.setTitle("Alert");
-    alert.setHeaderText("Warning");
-    alert.setContentText("Invalid input for time");
-    alert.showAndWait();
   }
 
   public Event getEventCreated() {
