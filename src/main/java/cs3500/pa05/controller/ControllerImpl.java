@@ -1,9 +1,12 @@
 package cs3500.pa05.controller;
 
+import static cs3500.pa05.model.Time.stringToTime;
+
 import cs3500.pa05.model.Day;
 import cs3500.pa05.model.DayEnum;
 import cs3500.pa05.model.Event;
 import cs3500.pa05.model.Task;
+import cs3500.pa05.model.Time;
 import cs3500.pa05.view.EventViewImpl;
 import cs3500.pa05.view.TaskViewImpl;
 import cs3500.pa05.view.View;
@@ -126,7 +129,7 @@ public class ControllerImpl implements Controller {
   /**
    * Initializes the main controllers with sub controllers.
    *
-   * @param taskController represents a task controller
+   * @param taskController  represents a task controller
    * @param eventController represents an event controller
    */
   public ControllerImpl(TaskControllerImpl taskController, EventControllerImpl eventController) {
@@ -200,13 +203,20 @@ public class ControllerImpl implements Controller {
     MenuItem changeName = new MenuItem("Change name");
     TextField nameField = new TextField();
     changeName.setGraphic(nameField);
-    changeName.setOnAction(event -> changeName(task, taskButton, nameField.getText()));
+    changeName.setOnAction(
+        event -> changeTaskName(task, taskButton, taskDetails, nameField.getText()));
+
+    MenuItem changeDescription = new MenuItem("Change description");
+    TextField descriptionField = new TextField();
+    changeDescription.setGraphic(descriptionField);
+    changeDescription.setOnAction(
+        event -> changeTaskDescription(task, description, descriptionField.getText()));
 
     MenuItem completeButton = new MenuItem("Set complete");
     completeButton.setAccelerator(KeyCombination.keyCombination("Ctrl+C"));
     completeButton.setOnAction(event -> setCompletion(task, completion));
 
-    contextMenu.getItems().addAll(removeButton, completeButton, changeName);
+    contextMenu.getItems().addAll(removeButton, completeButton, changeName, changeDescription);
     taskButton.setContextMenu(contextMenu);
     taskDetails.getChildren().addAll(taskButton, description, completion);
     taskDetails.setId(task.getName());
@@ -223,13 +233,40 @@ public class ControllerImpl implements Controller {
     Label description = new Label(newEvent.getDescription());
     Label startTime = new Label(newEvent.getStartTime().toString());
     Label duration = new Label(Integer.toString(newEvent.getDuration()));
-    eventDetails.getChildren().addAll(eventButton, description, startTime, duration);
+
     ContextMenu contextMenu = new ContextMenu();
     MenuItem removeButton = new MenuItem("Remove Event");
     removeButton.setOnAction(event -> removeEvent(newEvent, eventDetails));
     removeButton.setAccelerator(KeyCombination.keyCombination("Ctrl+D"));
-    contextMenu.getItems().add(removeButton);
+
+    MenuItem changeName = new MenuItem("Change name");
+    TextField nameField = new TextField();
+    changeName.setGraphic(nameField);
+    changeName.setOnAction(
+        event -> changeEventName(newEvent, eventButton, nameField.getText()));
+
+    MenuItem changeDescription = new MenuItem("Change description");
+    TextField descriptionField = new TextField();
+    changeDescription.setGraphic(descriptionField);
+    changeDescription.setOnAction(
+        event -> changeEventDescription(newEvent, description, descriptionField.getText()));
+
+    MenuItem changeStartTime = new MenuItem("Change start time");
+    TextField startTimeField = new TextField();
+    changeStartTime.setGraphic(startTimeField);
+    changeStartTime.setOnAction(
+        event -> changeEventStartTime(newEvent, startTime, stringToTime(startTimeField.getText())));
+
+    MenuItem changeDuration = new MenuItem("Change duration");
+    TextField durationField = new TextField();
+    changeDuration.setGraphic(durationField);
+    changeDuration.setOnAction(
+        event -> changeEventDuration(newEvent, duration, Integer.parseInt(durationField.getText())));
+
+    contextMenu.getItems()
+        .addAll(removeButton, changeName, changeDescription, changeStartTime, changeDuration);
     eventButton.setContextMenu(contextMenu);
+    eventDetails.getChildren().addAll(eventButton, description, startTime, duration);
     addEvent(newEvent, eventDetails);
   }
 
@@ -497,10 +534,36 @@ public class ControllerImpl implements Controller {
     updateWeeklyProgress();
   }
 
-  public void changeName(Task task, Button taskButton, String name) {
+  public void changeTaskName(Task task, Button taskButton, VBox taskDetails, String name) {
     taskButton.setText(name);
+    taskDetails.setId(name);
     changeNameInQueue(task, name);
-    changeNameInQueue(task, name);
+    task.setName(name);
+  }
+
+  public void changeTaskDescription(Task task, Label taskDescription, String description) {
+    taskDescription.setText(description);
+    task.setDescription(description);
+  }
+
+  public void changeEventName(Event event, Button eventButton, String name) {
+    eventButton.setText(name);
+    event.setName(name);
+  }
+
+  public void changeEventDescription(Event event, Label description, String newDescription) {
+    description.setText(newDescription);
+    event.setDescription(newDescription);
+  }
+
+  public void changeEventStartTime(Event event, Label startTime, Time newTime) {
+    startTime.setText(String.valueOf(newTime));
+    event.setStartTime(newTime);
+  }
+
+  public void changeEventDuration(Event event, Label duration, int newDuration) {
+    duration.setText(String.valueOf(newDuration));
+    event.setDuration(newDuration);
   }
 
   public void updateProgress(Task task) {
@@ -557,7 +620,7 @@ public class ControllerImpl implements Controller {
     }
   }
 
-  public void sumUp(){
+  public void sumUp() {
     mon = new Day(mondayTasks, mondayCompletedTasks, mondayEvents);
     weekSum.put(DayEnum.MONDAY, mon);
     tues = new Day(tuesdayTasks, tuesdayCompletedTasks, tuesdayEvents);

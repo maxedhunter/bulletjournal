@@ -45,4 +45,20 @@ public class Event {
   public int getDuration() {
     return this.duration;
   }
+
+  public void setName(String newName) {
+    this.name = newName;
+  }
+
+  public void setDescription(String newDescription) {
+    this.description = newDescription;
+  }
+
+  public void setStartTime(Time newTime) {
+    this.startTime = newTime;
+  }
+
+  public void setDuration(int newDuration) {
+    this.duration = newDuration;
+  }
 }
