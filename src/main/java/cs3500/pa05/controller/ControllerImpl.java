@@ -13,6 +13,7 @@ import cs3500.pa05.model.JsonUtils;
 import cs3500.pa05.model.Task;
 import cs3500.pa05.model.TasksJson;
 import cs3500.pa05.model.Time;
+import cs3500.pa05.model.Week;
 import cs3500.pa05.model.WeekJson;
 import cs3500.pa05.view.EventViewImpl;
 import cs3500.pa05.view.TaskViewImpl;
@@ -128,6 +129,23 @@ public class ControllerImpl implements Controller {
   @FXML
   private Label weeklyPercentage;
 
+  @FXML
+  private TextField weekNameField;
+
+  @FXML
+  private MenuItem openFileButton;
+
+  @FXML
+  private TextField filePath;
+
+  @FXML
+  private MenuItem saveWeekButton;
+
+  private String weekName = "Week";
+
+  @FXML
+  private MenuItem newFileButton;
+
 
   private TaskControllerImpl taskController;
   private EventControllerImpl eventController;
@@ -141,6 +159,37 @@ public class ControllerImpl implements Controller {
   public ControllerImpl(TaskControllerImpl taskController, EventControllerImpl eventController) {
     this.taskController = taskController;
     this.eventController = eventController;
+  }
+
+  /**
+   * Handles getting the week name
+   */
+  public void getWeekName() {
+    weekName = weekNameField.getText();
+  }
+
+  //TODO
+  public void handleSaveFile() {
+    saveWeekButton.setOnAction(event -> sumUp());
+  }
+
+  public void handleOpenFile() {
+    openFileButton.setOnAction(event -> sumUp()); //TODO fix this
+  }
+
+  public void handleNewFile() {
+    newFileButton.setOnAction(event -> );
+  }
+
+  public void loadFile(Week week) {
+    reset();
+    weekNameField.setText(week.getName());
+    mondayTasks.addAll(week.getDays().get(DayEnum.MONDAY).getTasks());
+    mondayCompletedTasks.addAll(week.getDays().get(DayEnum.MONDAY).getCompletedTasks());
+  }
+
+  public void reset() {
+
   }
 
   /**
@@ -649,8 +698,7 @@ public class ControllerImpl implements Controller {
     TasksJson tasksJson = new TasksJson(tasksList);
     EventsJson eventsJson = new EventsJson(eventsList);
 
-    //TODO week name
-    JsonNode week = createWeek("placeholder name", tasksJson, eventsJson, daysJson);
+    JsonNode week = createWeek(weekName, tasksJson, eventsJson, daysJson);
     return week;
   }
 
@@ -673,8 +721,8 @@ public class ControllerImpl implements Controller {
    */
   @FXML
   public void run() throws IllegalStateException {
+    getWeekName();
     checkTaskCommitment();
     checkEventCommitment();
-    sumUp();
   }
 }
