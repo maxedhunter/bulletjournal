@@ -2,11 +2,18 @@ package cs3500.pa05.controller;
 
 import static cs3500.pa05.model.Time.stringToTime;
 
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import cs3500.pa05.model.Day;
 import cs3500.pa05.model.DayEnum;
+import cs3500.pa05.model.DaysJson;
 import cs3500.pa05.model.Event;
+import cs3500.pa05.model.EventsJson;
+import cs3500.pa05.model.JsonUtils;
 import cs3500.pa05.model.Task;
+import cs3500.pa05.model.TasksJson;
 import cs3500.pa05.model.Time;
+import cs3500.pa05.model.WeekJson;
 import cs3500.pa05.view.EventViewImpl;
 import cs3500.pa05.view.TaskViewImpl;
 import cs3500.pa05.view.View;
@@ -33,7 +40,6 @@ import javafx.stage.Stage;
  */
 public class ControllerImpl implements Controller {
   private Map<DayEnum, Day> weekSum = new HashMap<>();
-
   private Day mon;
   private Day tues;
   private Day wed;
@@ -621,9 +627,9 @@ public class ControllerImpl implements Controller {
   }
 
   /**
-   * Returns the JSON
+   * Returns the JSON.
    */
-  public void sumUp() {
+  private JsonNode sumUp() {
     mon = new Day(mondayTasks, mondayCompletedTasks, mondayEvents);
     weekSum.put(DayEnum.MONDAY, mon);
     tues = new Day(tuesdayTasks, tuesdayCompletedTasks, tuesdayEvents);
@@ -638,6 +644,26 @@ public class ControllerImpl implements Controller {
     weekSum.put(DayEnum.SATURDAY, sat);
     sun = new Day(sundayTasks, sundayCompletedTasks, sundayEvents);
     weekSum.put(DayEnum.SUNDAY, sun);
+
+    DaysJson daysJson = new DaysJson(weekSum);
+    TasksJson tasksJson = new TasksJson(tasksList);
+    EventsJson eventsJson = new EventsJson(eventsList);
+
+    //TODO week name
+    JsonNode week = createWeek("placeholder name", tasksJson, eventsJson, daysJson);
+    return week;
+  }
+
+  /**
+   * Creates the week (adapted from createMessage)
+   */
+  private JsonNode createWeek(String weekName, Record tasks, Record events, Record days) {
+    WeekJson week =
+        new WeekJson(weekName,
+            JsonUtils.serializeRecord(tasks, new ObjectMapper()),
+            JsonUtils.serializeRecord(events, new ObjectMapper()),
+            JsonUtils.serializeRecord(days, new ObjectMapper()));
+    return JsonUtils.serializeRecord(week, new ObjectMapper());
   }
 
   /**
