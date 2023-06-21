@@ -1,5 +1,8 @@
 package cs3500.pa05.model;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 /**
  * Represents time (from 00:00 to 24:00).
  */
@@ -13,7 +16,9 @@ public class Time {
    * @param hour   the hour (from 0 - 24)
    * @param minute minutes (from 0 to 60)
    */
-  public Time(int hour, int minute) {
+  @JsonCreator
+  public Time(@JsonProperty("hour") int hour,
+              @JsonProperty("minute") int minute) {
     if ((hour >= 0) && (hour <= 24)) {
       this.hour = hour;
     } else {

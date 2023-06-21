@@ -1,12 +1,14 @@
 package cs3500.pa05.model;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.List;
 import java.util.Map;
 
 /**
  * represents a week for a bullet journal
  */
-public class Week implements IWeek {
+public class Week  {
   private String name;
   private final List<Task> tasks;
   private final List<Event> events;
@@ -19,29 +21,29 @@ public class Week implements IWeek {
    * @param tasks  - tasks for the week
    * @param events - events during the week
    */
-  public Week(String name, List<Task> tasks, List<Event> events, Map<DayEnum, Day> days) {
+  @JsonCreator
+  public Week(@JsonProperty("name") String name,
+              @JsonProperty("tasks") List<Task> tasks,
+              @JsonProperty ("events") List<Event> events,
+              @JsonProperty ("days") Map<DayEnum, Day> days) {
     this.name = name;
     this.tasks = tasks;
     this.events = events;
     this.days = days;
   }
 
-  @Override
   public List<Task> getTasks() {
     return this.tasks;
   }
 
-  @Override
   public List<Event> getEvents() {
     return this.events;
   }
 
-  @Override
   public String getName() {
     return this.name;
   }
 
-  @Override
   public Map<DayEnum, Day> getDays() {
     return this.days;
   }

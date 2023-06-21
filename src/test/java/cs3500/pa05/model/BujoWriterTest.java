@@ -100,40 +100,4 @@ class BujoWriterTest {
   }
 
 
-  /**
-   * Try converting the current test log to a string of a certain class. Modified from
-   * mock example.
-   *
-   * @param <T> Type to try converting the current test stream to.
-   */
-  private <T> void responseToClass() {
-    try {
-      JsonParser jsonParser = new ObjectMapper().createParser(this.appendable.toString());
-
-      // first convert to weekjson
-      WeekJson weekJson = jsonParser.readValueAs(WeekJson.class);
-
-      // now parse tasks of weekjson
-      String tasks = weekJson.tasks().toString();
-      JsonParser jsonParser1 = new ObjectMapper().createParser(tasks);
-      jsonParser1.readValueAs(TasksJson.class);
-
-      // now parse events
-      String events = weekJson.events().toString();
-      JsonParser jsonParser2 = new ObjectMapper().createParser(events);
-      jsonParser2.readValueAs(EventsJson.class);
-
-      // finally parse days
-      String days = weekJson.days().toString();
-      JsonParser jsonParser3 = new ObjectMapper().createParser(days);
-      jsonParser3.readValueAs(DaysJson.class);
-
-    } catch (IOException e) {
-      // Could not read
-      // -> exception thrown
-      // -> test fails since it must have been the wrong type of response.
-      e.printStackTrace();
-      fail();
-    }
-  }
 }
