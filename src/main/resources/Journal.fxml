@@ -1,18 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.Scene?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.MenuBar?>
-<?import javafx.scene.control.MenuButton?>
-<?import javafx.scene.control.MenuItem?>
-<?import javafx.scene.control.ProgressBar?>
-<?import javafx.scene.control.TextField?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.VBox?>
-<?import javafx.scene.text.Font?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-<Scene xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<Scene xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1">
       <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0">
       <children>
          <MenuBar layoutY="-1.0" prefHeight="31.0" prefWidth="901.0" />
@@ -269,7 +262,7 @@
                <Label fx:id="weeklyPercentage" prefHeight="18.0" prefWidth="76.0" />
             </children>
          </HBox>
-         <TextField alignment="TOP_CENTER" layoutX="430.0" layoutY="43.0" prefHeight="31.0" prefWidth="164.0" text="Week Name">
+         <TextField alignment="TOP_CENTER" layoutX="430.0" layoutY="43.0" prefHeight="31.0" prefWidth="164.0" promptText="Week Name">
             <font>
                <Font size="18.0" />
             </font>
