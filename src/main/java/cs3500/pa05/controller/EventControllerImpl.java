@@ -2,7 +2,7 @@ package cs3500.pa05.controller;
 
 import static cs3500.pa05.model.Time.stringToTime;
 
-import cs3500.pa05.model.Days;
+import cs3500.pa05.model.DayEnum;
 import cs3500.pa05.model.Event;
 import cs3500.pa05.model.Time;
 import javafx.fxml.FXML;
@@ -17,7 +17,7 @@ import javafx.stage.Stage;
 public class EventControllerImpl implements Controller {
   @FXML
   private TextField dayField;
-  private Days days;
+  private DayEnum dayEnum;
   @FXML
   private TextField nameField;
   private String name;
@@ -51,7 +51,7 @@ public class EventControllerImpl implements Controller {
    */
   public void submit() {
     try {
-      this.days = Days.valueOf(this.dayField.getText().toUpperCase());
+      this.dayEnum = DayEnum.valueOf(this.dayField.getText().toUpperCase());
     } catch (IllegalArgumentException e) {
       showDayWarning();
       Stage stage = (Stage) submit.getScene().getWindow();
@@ -76,7 +76,7 @@ public class EventControllerImpl implements Controller {
       stage.close();
     }
 
-    Event submittedEvent = new Event(this.name, this.description, this.days,
+    Event submittedEvent = new Event(this.name, this.description, this.dayEnum,
         this.startTime, this.duration);
 
     eventCreated = submittedEvent;

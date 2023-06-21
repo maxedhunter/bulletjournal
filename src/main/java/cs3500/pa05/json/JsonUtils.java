@@ -1,6 +1,7 @@
 package cs3500.pa05.json;
 
 import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.MapperFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 /**
@@ -19,7 +20,7 @@ public class JsonUtils {
       ObjectMapper mapper = new ObjectMapper();
       return mapper.convertValue(record, JsonNode.class);
     } catch (IllegalArgumentException e) {
-      throw new IllegalArgumentException("Given record cannot be serialized");
+      throw new IllegalArgumentException("Given record cannot be serialized" + e);
     }
   }
 }

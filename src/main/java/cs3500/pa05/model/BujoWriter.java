@@ -1,8 +1,8 @@
 package cs3500.pa05.model;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import cs3500.pa05.json.WeekJson;
 import java.io.IOException;
 import java.util.Objects;
 
@@ -18,7 +18,7 @@ public class BujoWriter {
     this.appendable = Objects.requireNonNull(appendable);
   }
 
-  public Appendable write(WeekJson data) {
+  public Appendable write(JsonNode data) {
     ObjectMapper mapper = new ObjectMapper();
     String values;
 

@@ -1,6 +1,7 @@
 package cs3500.pa05.controller;
 
-import cs3500.pa05.model.Days;
+import cs3500.pa05.model.Day;
+import cs3500.pa05.model.DayEnum;
 import cs3500.pa05.model.Event;
 import cs3500.pa05.model.Task;
 import cs3500.pa05.view.EventViewImpl;
@@ -23,7 +24,7 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 /**
- * Represents the controller for a game of Whack-a-Mole.
+ * Represents the controller for a bullet journal.
  */
 public class ControllerImpl implements Controller {
 
@@ -108,26 +109,48 @@ public class ControllerImpl implements Controller {
   TaskControllerImpl taskController;
   EventControllerImpl eventController;
 
+  /**
+   * Initializes the main controllers with sub controllers.
+   *
+   * @param taskController represents a task controller
+   * @param eventController represents an event controller
+   */
   public ControllerImpl(TaskControllerImpl taskController, EventControllerImpl eventController) {
     this.taskController = taskController;
     this.eventController = eventController;
   }
 
+  /**
+   * Handles creating a new task
+   */
   public void handleCreateNewTask() {
     taskButton.setOnAction(event -> showTaskPage());
     taskButton.setAccelerator(KeyCombination.keyCombination("Ctrl+T"));
   }
 
+  /**
+   * Handles creating a new event
+   */
   public void handleCreateNewEvent() {
     eventButton.setOnAction(event -> showEventPage());
     eventButton.setAccelerator(KeyCombination.keyCombination("Ctrl+E"));
   }
 
+  /**
+   * Creates a task in the task queue
+   *
+   * @param task to be added
+   */
   public void addTaskQueue(Task task) {
-    Button taskQButton = new Button(task.getName() + " " + task.getCompletion());
+    Button taskQButton = new Button(task.getName() + " " + task.getCompletionString());
     tasks.getChildren().add(taskQButton);
   }
 
+  /**
+   * Removes a task from the queue
+   *
+   * @param task to be removed
+   */
   public void removeFromQueue(VBox task) {
     Button toBeRemoved = null;
     for (Node child : tasks.getChildren()) {
@@ -144,12 +167,17 @@ public class ControllerImpl implements Controller {
     }
   }
 
+  /**
+   * Sets up creating task.
+   */
   public void creatTaskButton() {
     Task task = taskController.getTaskCreated();
     Button taskButton = new Button(task.getName());
     VBox taskDetails = new VBox();
     Label description = new Label(task.getDescription());
-    Label completion = new Label(task.getCompletion());
+    Label completion = new Label(task.getCompletionString());
+
+
     ContextMenu contextMenu = new ContextMenu();
     MenuItem removeButton = new MenuItem("Remove Task");
     removeButton.setOnAction(event -> removeTask(task, taskDetails));
@@ -164,6 +192,9 @@ public class ControllerImpl implements Controller {
     addTask(task, taskDetails);
   }
 
+  /**
+   * Sets up creating an event
+   */
   public void creatEventButton() {
     Event newEvent = eventController.getEventCreated();
     Button eventButton = new Button(newEvent.getName());
@@ -181,50 +212,54 @@ public class ControllerImpl implements Controller {
     addEvent(newEvent, eventDetails);
   }
 
+  /**
+   * @param task
+   * @param taskDetails
+   */
   public void addTask(Task task, VBox taskDetails) {
-    if (task.getDay() == Days.MONDAY) {
+    if (task.getDay() == DayEnum.MONDAY) {
       monday.getChildren().add(taskDetails);
       mondayTasks.add(task);
       tasksList.add(task);
       updateTotalTask(tasksList);
       addTaskQueue(task);
     }
-    if (task.getDay() == Days.TUESDAY) {
+    if (task.getDay() == DayEnum.TUESDAY) {
       tuesday.getChildren().add(taskDetails);
       tuesdayTasks.add(task);
       tasksList.add(task);
       updateTotalTask(tasksList);
       addTaskQueue(task);
     }
-    if (task.getDay() == Days.WEDNESDAY) {
+    if (task.getDay() == DayEnum.WEDNESDAY) {
       wednesday.getChildren().add(taskDetails);
       wednesdayTasks.add(task);
       tasksList.add(task);
       updateTotalTask(tasksList);
       addTaskQueue(task);
     }
-    if (task.getDay() == Days.THURSDAY) {
+    if (task.getDay() == DayEnum.THURSDAY) {
       thursday.getChildren().add(taskDetails);
       thursdayTasks.add(task);
       tasksList.add(task);
       updateTotalTask(tasksList);
       addTaskQueue(task);
     }
-    if (task.getDay() == Days.FRIDAY) {
+    if (task.getDay() == DayEnum.FRIDAY) {
       friday.getChildren().add(taskDetails);
       fridayTasks.add(task);
       tasksList.add(task);
       updateTotalTask(tasksList);
       addTaskQueue(task);
     }
-    if (task.getDay() == Days.SATURDAY) {
+    if (task.getDay() == DayEnum.SATURDAY) {
       saturday.getChildren().add(taskDetails);
       saturdayTasks.add(task);
       tasksList.add(task);
       updateTotalTask(tasksList);
       addTaskQueue(task);
     }
-    if (task.getDay() == Days.SUNDAY) {
+    if (task.getDay() == DayEnum.SUNDAY) {
       sunday.getChildren().add(taskDetails);
       sundayTasks.add(task);
       tasksList.add(task);
@@ -236,43 +271,43 @@ public class ControllerImpl implements Controller {
   }
 
   public void addEvent(Event newEvent, VBox eventDetails) {
-    if (newEvent.getDay() == Days.MONDAY) {
+    if (newEvent.getDay() == DayEnum.MONDAY) {
       monday.getChildren().add(eventDetails);
       mondayEvents.add(newEvent);
       eventsList.add(newEvent);
       updateTotalEvent(eventsList);
     }
-    if (newEvent.getDay() == Days.TUESDAY) {
+    if (newEvent.getDay() == DayEnum.TUESDAY) {
       tuesday.getChildren().add(eventDetails);
       tuesdayEvents.add(newEvent);
       eventsList.add(newEvent);
       updateTotalEvent(eventsList);
     }
-    if (newEvent.getDay() == Days.WEDNESDAY) {
+    if (newEvent.getDay() == DayEnum.WEDNESDAY) {
       wednesday.getChildren().add(eventDetails);
       wednesdayEvents.add(newEvent);
       eventsList.add(newEvent);
       updateTotalEvent(eventsList);
     }
-    if (newEvent.getDay() == Days.THURSDAY) {
+    if (newEvent.getDay() == DayEnum.THURSDAY) {
       thursday.getChildren().add(eventDetails);
       thursdayEvents.add(newEvent);
       eventsList.add(newEvent);
       updateTotalEvent(eventsList);
     }
-    if (newEvent.getDay() == Days.FRIDAY) {
+    if (newEvent.getDay() == DayEnum.FRIDAY) {
       friday.getChildren().add(eventDetails);
       fridayEvents.add(newEvent);
       eventsList.add(newEvent);
       updateTotalEvent(eventsList);
     }
-    if (newEvent.getDay() == Days.SATURDAY) {
+    if (newEvent.getDay() == DayEnum.SATURDAY) {
       saturday.getChildren().add(eventDetails);
       saturdayEvents.add(newEvent);
       eventsList.add(newEvent);
       updateTotalEvent(eventsList);
     }
-    if (newEvent.getDay() == Days.SUNDAY) {
+    if (newEvent.getDay() == DayEnum.SUNDAY) {
       sunday.getChildren().add(eventDetails);
       sundayEvents.add(newEvent);
       eventsList.add(newEvent);
@@ -413,28 +448,28 @@ public class ControllerImpl implements Controller {
 
   public void setCompletion(Task task, Label completion) {
     task.setCompletion();
-    completion.setText(task.getCompletion());
+    completion.setText(task.getCompletionString());
     setCompletionInQueue(task);
     completedTasksList.add(task);
-    if (task.getDay() == Days.MONDAY) {
+    if (task.getDay() == DayEnum.MONDAY) {
       mondayCompletedTasks.add(task);
     }
-    if (task.getDay() == Days.TUESDAY) {
+    if (task.getDay() == DayEnum.TUESDAY) {
       tuesdayCompletedTasks.add(task);
     }
-    if (task.getDay() == Days.WEDNESDAY) {
+    if (task.getDay() == DayEnum.WEDNESDAY) {
       wednesdayCompletedTasks.add(task);
     }
-    if (task.getDay() == Days.THURSDAY) {
+    if (task.getDay() == DayEnum.THURSDAY) {
       thursdayCompletedTasks.add(task);
     }
-    if (task.getDay() == Days.FRIDAY) {
+    if (task.getDay() == DayEnum.FRIDAY) {
       fridayCompletedTasks.add(task);
     }
-    if (task.getDay() == Days.SATURDAY) {
+    if (task.getDay() == DayEnum.SATURDAY) {
       saturdayCompletedTasks.add(task);
     }
-    if (task.getDay() == Days.SUNDAY) {
+    if (task.getDay() == DayEnum.SUNDAY) {
       sundayCompletedTasks.add(task);
     }
     updateProgress(task);
@@ -442,26 +477,26 @@ public class ControllerImpl implements Controller {
   }
 
   public void updateProgress(Task task) {
-    if (task.getDay() == Days.MONDAY) {
+    if (task.getDay() == DayEnum.MONDAY) {
       mondayProgress.setProgress((double) mondayCompletedTasks.size() / mondayTasks.size());
     }
-    if (task.getDay() == Days.TUESDAY) {
+    if (task.getDay() == DayEnum.TUESDAY) {
       tuesdayProgress.setProgress((double) tuesdayCompletedTasks.size() / tuesdayTasks.size());
     }
-    if (task.getDay() == Days.WEDNESDAY) {
+    if (task.getDay() == DayEnum.WEDNESDAY) {
       wednesdayProgress.setProgress(
           (double) wednesdayCompletedTasks.size() / wednesdayTasks.size());
     }
-    if (task.getDay() == Days.THURSDAY) {
+    if (task.getDay() == DayEnum.THURSDAY) {
       thursdayProgress.setProgress((double) thursdayCompletedTasks.size() / thursdayTasks.size());
     }
-    if (task.getDay() == Days.FRIDAY) {
+    if (task.getDay() == DayEnum.FRIDAY) {
       fridayProgress.setProgress((double) fridayCompletedTasks.size() / fridayTasks.size());
     }
-    if (task.getDay() == Days.SATURDAY) {
+    if (task.getDay() == DayEnum.SATURDAY) {
       saturdayProgress.setProgress((double) saturdayCompletedTasks.size() / saturdayTasks.size());
     }
-    if (task.getDay() == Days.SUNDAY) {
+    if (task.getDay() == DayEnum.SUNDAY) {
       sundayProgress.setProgress((double) sundayCompletedTasks.size() / sundayTasks.size());
     }
   }
@@ -476,11 +511,40 @@ public class ControllerImpl implements Controller {
       if (child instanceof Button) {
         Button button = (Button) child;
         if (button.getText().contains(task.getName())) {
-          button.setText(task.getName() + " " + task.getCompletion());
+          button.setText(task.getName() + " " + task.getCompletionString());
           break;
         }
       }
     }
+  }
+
+  public void changeNameInQueue(Task task, String name) {
+    for (Node child : tasks.getChildren()) {
+      if (child instanceof Button) {
+        Button button = (Button) child;
+        if (button.getText().contains(task.getName())) {
+          button.setText(name + " " + task.getCompletionString());
+          break;
+        }
+      }
+    }
+  }
+
+  public void sumUp(){
+    mon = new Day(mondayTasks, mondayCompletedTasks, mondayEvents);
+    weekSum.put(DayEnum.MONDAY, mon);
+    tues = new Day(tuesdayTasks, tuesdayCompletedTasks, tuesdayEvents);
+    weekSum.put(DayEnum.TUESDAY, tues);
+    wed = new Day(wednesdayTasks, wednesdayCompletedTasks, wednesdayEvents);
+    weekSum.put(DayEnum.WEDNESDAY, wed);
+    thurs = new Day(thursdayTasks, thursdayCompletedTasks, thursdayEvents);
+    weekSum.put(DayEnum.THURSDAY, thurs);
+    fri = new Day(fridayTasks, fridayCompletedTasks, fridayEvents);
+    weekSum.put(DayEnum.FRIDAY, fri);
+    sat = new Day(saturdayTasks, saturdayCompletedTasks, saturdayEvents);
+    weekSum.put(DayEnum.SATURDAY, sat);
+    sun = new Day(sundayTasks, sundayCompletedTasks, sundayEvents);
+    weekSum.put(DayEnum.SUNDAY, sun);
   }
 
   /**

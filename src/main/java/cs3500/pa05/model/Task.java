@@ -9,26 +9,26 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 public class Task {
   private String name;
   private String description;
-  private Days days;
-  private boolean isDone;
+  private DayEnum dayEnum;
+  private boolean completion;
 
   /**
    * Initializes the values for a task.
    *
    * @param name - name of the task
    * @param description - description of the task
-   * @param days - day of the task
-   * @param isDone - is the task finished
+   * @param dayEnum - day of the task
+   * @param completion - is the task finished
    */
   @JsonCreator
   public Task(@JsonProperty("name") String name,
               @JsonProperty("description") String description,
-              @JsonProperty("day") Days days,
-              @JsonProperty("completion") boolean isDone) {
+              @JsonProperty("day") DayEnum dayEnum,
+              @JsonProperty("completion") boolean completion) {
     this.name = name;
     this.description = description;
-    this.days = days;
-    this.isDone = isDone;
+    this.dayEnum = dayEnum;
+    this.completion = completion;
   }
 
   public String getName() {
@@ -39,23 +39,23 @@ public class Task {
     return this.description;
   }
 
-  public Days getDay() {
-    return this.days;
+  public DayEnum getDay() {
+    return this.dayEnum;
   }
 
-  public boolean getIsDone(){
-    return this.isDone;
+  public boolean getCompletion(){
+    return this.completion;
   }
 
-  public String getCompletion() {
-    if (this.isDone) {
-      return "Complete";
+  public String getCompletionString() {
+    if (this.completion) {
+      return "(Complete)";
     } else {
-      return "Undone";
+      return "(Incomplete)";
     }
   }
 
   public void setCompletion() {
-    this.isDone = true;
+    this.completion = true;
   }
 }

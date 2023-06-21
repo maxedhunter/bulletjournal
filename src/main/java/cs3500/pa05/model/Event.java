@@ -1,20 +1,27 @@
 package cs3500.pa05.model;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 /**
  * Represents a bullet journal event.
  */
 public class Event {
   private String name;
   private String description;
-  private Days days;
+  private DayEnum dayEnum;
   private Time startTime;
   private int duration;
 
-
-  public Event(String name, String description, Days days, Time startTime, int duration) {
+  @JsonCreator
+  public Event(@JsonProperty("name") String name,
+               @JsonProperty("description") String description,
+               @JsonProperty("day") DayEnum dayEnum,
+               @JsonProperty("time") Time startTime,
+               @JsonProperty("duration") int duration) {
     this.name = name;
     this.description = description;
-    this.days = days;
+    this.dayEnum = dayEnum;
     this.startTime = startTime;
     this.duration = duration;
   }
@@ -27,8 +34,8 @@ public class Event {
     return this.description;
   }
 
-  public Days getDay() {
-    return this.days;
+  public DayEnum getDay() {
+    return this.dayEnum;
   }
 
   public Time getStartTime() {

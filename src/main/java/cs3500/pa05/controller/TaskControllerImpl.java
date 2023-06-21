@@ -1,6 +1,6 @@
 package cs3500.pa05.controller;
 
-import cs3500.pa05.model.Days;
+import cs3500.pa05.model.DayEnum;
 import cs3500.pa05.model.Task;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
@@ -15,7 +15,7 @@ public class TaskControllerImpl implements Controller {
 
   @FXML
   private TextField dayField;
-  private Days days;
+  private DayEnum dayEnum;
   @FXML
   private TextField nameField;
   private String name;
@@ -41,7 +41,7 @@ public class TaskControllerImpl implements Controller {
    */
   public void submit() {
     try {
-      this.days = Days.valueOf(this.dayField.getText().toUpperCase());
+      this.dayEnum = DayEnum.valueOf(this.dayField.getText().toUpperCase());
     } catch (IllegalArgumentException e) {
       showWarning();
       Stage stage = (Stage) submit.getScene().getWindow();
@@ -50,11 +50,7 @@ public class TaskControllerImpl implements Controller {
     this.name = this.nameField.getText();
     this.description = this.descField.getText();
 
-    Task submittedTask = new Task(this.name, this.description, this.days, false);
-    System.out.print(submittedTask.getName());
-    System.out.print(submittedTask.getDescription());
-    System.out.print(submittedTask.getDay());
-    System.out.print(submittedTask.getCompletion());
+    Task submittedTask = new Task(this.name, this.description, this.dayEnum, false);
     taskCreated = submittedTask;
     Stage stage = (Stage) submit.getScene().getWindow();
     stage.close();
