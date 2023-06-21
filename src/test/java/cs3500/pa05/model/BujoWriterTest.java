@@ -1,13 +1,15 @@
 package cs3500.pa05.model;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.fail;
 
+import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.databind.JsonNode;
-import cs3500.pa05.json.DaysJson;
-import cs3500.pa05.json.EventsJson;
-import cs3500.pa05.json.JsonUtils;
-import cs3500.pa05.json.TasksJson;
-import cs3500.pa05.json.WeekJson;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -21,12 +23,30 @@ import org.junit.jupiter.api.Test;
  */
 class BujoWriterTest {
   private Appendable appendable;
-  private BujoWriter bujoWriter;
+
+  private List<Task> tasks;
+  private TasksJson tasksJson;
+  private List<Event> events;
+  private EventsJson eventsJson;
+  Map<DayEnum, Day> days;
+  DaysJson daysJson;
+  JsonNode weekJson;
+
+  private static final String PATH = "src/test/resources/output.bujo";
 
   @BeforeEach
   public void setUp() {
     this.appendable = new StringBuilder();
-    this.bujoWriter = new BujoWriter(this.appendable);
+    tasks = new ArrayList<>(Arrays.asList(new Task("todo", "do it!",
+        DayEnum.MONDAY, false)));
+    tasksJson = new TasksJson(tasks);
+    events = new ArrayList<>(Arrays.asList(new Event("an event",
+        "test event", DayEnum.MONDAY, new Time(5, 6), 7)));
+    eventsJson = new EventsJson(events);
+    days = new HashMap<>();
+    days.put(DayEnum.MONDAY, new Day(tasks, null, events));
+    daysJson = new DaysJson(days);
+    weekJson = createWeek("this week!", tasksJson, eventsJson, daysJson);
   }
 
   /**
@@ -34,35 +54,86 @@ class BujoWriterTest {
    */
   @Test
   void testWrite() {
-    List<Task> tasks =
-        new ArrayList<>(Arrays.asList(new Task("todo", "do it!",
-            DayEnum.MONDAY, false)));
-    TasksJson tasksJson = new TasksJson(tasks);
+    BujoWriter writer = new BujoWriter(PATH);
+    writer.writeToFile(weekJson, new StringBuilder());
 
-    List<Event> events =
-        new ArrayList<>(Arrays.asList(new Event("an event",
-            "test event", DayEnum.SUNDAY, new Time(5, 6), 7)));
-    EventsJson eventsJson = new EventsJson(events);
+    String expectedString = "{\"name\":\"this week!\",\"tasks\":{\"tasks\":[{\"name\":\""
+            + "todo\",\"description\":\"do it!\",\"day\":\"MONDAY\",\"completion\":false}]},\""
+            + "events\":{\"events\":[{\"name\":\"an event\",\"description\":\"test event\",\""
+            + "day\":\"MONDAY\",\"duration\":7,\"startTime\":{\"hour\":5,\"minute\":6}}]},\""
+            + "days\":{\"days\":{\"MONDAY\":{\"tasks\":[{\"name\":\"todo\",\"description\":\""
+            + "do it!\",\"day\":\"MONDAY\",\"completion\":false}],\"events\":[{\"name\":\"an "
+            + "event\",\"description\":\"test event\",\"day\":\"MONDAY\",\"duration\":7,\""
+            + "startTime\":{\"hour\":5,\"minute\":6}}],\"completedTasks\":null}}}}";
 
-    Map<DayEnum, Day> days = new HashMap<>();
-    days.put(DayEnum.FRIDAY, new Day(tasks, null, events));
-    DaysJson daysJson = new DaysJson(days);
+    String actualContent;
 
-    JsonNode weekJson = createWeek("this week!", tasksJson, eventsJson, daysJson);
+    try {
+      actualContent = Files.readString(Path.of(PATH));
+    } catch (IOException e) {
+      throw new RuntimeException(e);
+    }
 
-    BujoWriter writer = new BujoWriter(new StringBuilder());
-    assertEquals("", writer.write(weekJson));
+    assertEquals(expectedString, actualContent);
   }
 
   /**
-   * //TODO
+   * Test mock exceptions.
+   */
+  @Test
+  void testException() {
+    BujoWriter writerException = new BujoWriter(PATH);
+    assertThrows(RuntimeException.class,
+        () -> writerException.writeToFile(weekJson, new MockAppendable()));
+  }
+
+  /**
+   * Creates the week (adapted from createMessage)
    */
   private JsonNode createWeek(String weekName, Record tasks, Record events, Record days) {
     WeekJson week =
         new WeekJson(weekName,
-            JsonUtils.serializeRecord(tasks),
-            JsonUtils.serializeRecord(events),
-            JsonUtils.serializeRecord(days));
-    return JsonUtils.serializeRecord(week);
+            JsonUtils.serializeRecord(tasks, new ObjectMapper()),
+            JsonUtils.serializeRecord(events, new ObjectMapper()),
+            JsonUtils.serializeRecord(days, new ObjectMapper()));
+    return JsonUtils.serializeRecord(week, new ObjectMapper());
+  }
+
+
+  /**
+   * Try converting the current test log to a string of a certain class. Modified from
+   * mock example.
+   *
+   * @param <T> Type to try converting the current test stream to.
+   */
+  private <T> void responseToClass() {
+    try {
+      JsonParser jsonParser = new ObjectMapper().createParser(this.appendable.toString());
+
+      // first convert to weekjson
+      WeekJson weekJson = jsonParser.readValueAs(WeekJson.class);
+
+      // now parse tasks of weekjson
+      String tasks = weekJson.tasks().toString();
+      JsonParser jsonParser1 = new ObjectMapper().createParser(tasks);
+      jsonParser1.readValueAs(TasksJson.class);
+
+      // now parse events
+      String events = weekJson.events().toString();
+      JsonParser jsonParser2 = new ObjectMapper().createParser(events);
+      jsonParser2.readValueAs(EventsJson.class);
+
+      // finally parse days
+      String days = weekJson.days().toString();
+      JsonParser jsonParser3 = new ObjectMapper().createParser(days);
+      jsonParser3.readValueAs(DaysJson.class);
+
+    } catch (IOException e) {
+      // Could not read
+      // -> exception thrown
+      // -> test fails since it must have been the wrong type of response.
+      e.printStackTrace();
+      fail();
+    }
   }
 }

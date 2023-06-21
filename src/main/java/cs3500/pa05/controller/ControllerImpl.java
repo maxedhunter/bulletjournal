@@ -620,6 +620,9 @@ public class ControllerImpl implements Controller {
     }
   }
 
+  /**
+   * Returns the JSON
+   */
   public void sumUp() {
     mon = new Day(mondayTasks, mondayCompletedTasks, mondayEvents);
     weekSum.put(DayEnum.MONDAY, mon);

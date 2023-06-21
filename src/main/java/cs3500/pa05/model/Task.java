@@ -1,6 +1,7 @@
 package cs3500.pa05.model;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
@@ -47,6 +48,7 @@ public class Task {
     return this.completion;
   }
 
+  @JsonIgnore
   public String getCompletionString() {
     if (this.completion) {
       return "(Complete)";

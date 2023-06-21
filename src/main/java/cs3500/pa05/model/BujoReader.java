@@ -16,11 +16,12 @@ public class BujoReader {
 
   /**
    * Initializes the bujo reader
-   *
-   * @param readable
    */
-  BujoReader(Readable readable) {
-    input = readable;
-  }
+//  BujoReader() {
+//    input = readable;
+//  }
 
+//  public Week read() {
+//
+//  }
 }

@@ -1,4 +1,4 @@
-package cs3500.pa05.json;
+package cs3500.pa05.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.JsonNode;
