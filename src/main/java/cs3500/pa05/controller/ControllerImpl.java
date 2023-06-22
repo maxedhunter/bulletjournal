@@ -16,6 +16,7 @@ import cs3500.pa05.model.Time;
 import cs3500.pa05.model.Week;
 import cs3500.pa05.model.WeekJson;
 import cs3500.pa05.view.EventViewImpl;
+import cs3500.pa05.view.NewWeekViewImpl;
 import cs3500.pa05.view.TaskViewImpl;
 import cs3500.pa05.view.View;
 import java.util.ArrayList;
@@ -144,11 +145,13 @@ public class ControllerImpl implements Controller {
   private String weekName = "Week";
 
   @FXML
-  private MenuItem newFileButton;
+  private MenuItem newWeekButton;
 
+  private String fileName;
 
   private TaskControllerImpl taskController;
   private EventControllerImpl eventController;
+  private NewWeekControllerImpl newWeekController;
 
   /**
    * Initializes the main controllers with sub controllers.
@@ -156,9 +159,11 @@ public class ControllerImpl implements Controller {
    * @param taskController  represents a task controller
    * @param eventController represents an event controller
    */
-  public ControllerImpl(TaskControllerImpl taskController, EventControllerImpl eventController) {
+  public ControllerImpl(TaskControllerImpl taskController, EventControllerImpl eventController,
+                        NewWeekControllerImpl newWeekController) {
     this.taskController = taskController;
     this.eventController = eventController;
+    this.newWeekController = newWeekController;
   }
 
   /**
@@ -177,8 +182,21 @@ public class ControllerImpl implements Controller {
     openFileButton.setOnAction(event -> sumUp()); //TODO fix this
   }
 
+  /**
+   * Handles creating a new file.
+   */
   public void handleNewFile() {
-    newFileButton.setOnAction(event -> );
+    newWeekButton.setOnAction(event -> showNewFilePage());
+    newWeekButton.setAccelerator(KeyCombination.keyCombination("Ctrl+N"));
+  }
+
+  public void showNewFilePage() {
+    View newWeekView = new NewWeekViewImpl(newWeekController);
+    Stage popupStage = new Stage();
+    popupStage.setScene(newWeekView.load());
+    popupStage.showAndWait();
+    newWeekController.run();
+    fileName = newWeekController.getNewWeekFile();
   }
 
   public void loadFile(Week week) {
@@ -188,6 +206,9 @@ public class ControllerImpl implements Controller {
     mondayCompletedTasks.addAll(week.getDays().get(DayEnum.MONDAY).getCompletedTasks());
   }
 
+  /**
+   * Resets all the fields.
+   */
   public void reset() {
 
   }
@@ -242,7 +263,7 @@ public class ControllerImpl implements Controller {
   /**
    * Sets up creating task.
    */
-  public void creatTaskButton() {
+  public void createTaskButton() {
     Task task = taskController.getTaskCreated();
     Button taskButton = new Button(task.getName());
     VBox taskDetails = new VBox();
@@ -435,7 +456,7 @@ public class ControllerImpl implements Controller {
     popupStage.setScene(taskView.load());
     popupStage.showAndWait();
     taskController.run();
-    creatTaskButton();
+    createTaskButton();
   }
 
   private void showEventPage() {

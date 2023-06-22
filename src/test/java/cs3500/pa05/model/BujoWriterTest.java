@@ -88,6 +88,16 @@ class BujoWriterTest {
   }
 
   /**
+   * Test mock exceptions.
+   */
+  @Test
+  void testException2() {
+    BujoWriter writerException = new BujoWriter("asldkfjalskdjf");
+    assertThrows(IllegalArgumentException.class,
+        () -> writerException.writeToFile(weekJson, new StringBuilder()));
+  }
+
+  /**
    * Creates the week (adapted from createMessage)
    */
   private JsonNode createWeek(String weekName, Record tasks, Record events, Record days) {
@@ -98,6 +108,4 @@ class BujoWriterTest {
             JsonUtils.serializeRecord(days, new ObjectMapper()));
     return JsonUtils.serializeRecord(week, new ObjectMapper());
   }
-
-
 }

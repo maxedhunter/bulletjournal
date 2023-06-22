@@ -3,8 +3,8 @@ package cs3500.pa05;
 import cs3500.pa05.controller.Controller;
 import cs3500.pa05.controller.ControllerImpl;
 import cs3500.pa05.controller.EventControllerImpl;
+import cs3500.pa05.controller.NewWeekControllerImpl;
 import cs3500.pa05.controller.TaskControllerImpl;
-import cs3500.pa05.view.TaskViewImpl;
 import cs3500.pa05.view.View;
 import cs3500.pa05.view.WeekViewImpl;
 import javafx.application.Application;
@@ -23,7 +23,8 @@ public class Driver extends Application {
   public void start(Stage stage) {
     EventControllerImpl eventController = new EventControllerImpl();
     TaskControllerImpl taskController = new TaskControllerImpl();
-    Controller controller = new ControllerImpl(taskController, eventController);
+    NewWeekControllerImpl newWeekController = new NewWeekControllerImpl();
+    Controller controller = new ControllerImpl(taskController, eventController, newWeekController);
     View view = new WeekViewImpl(controller);
     stage.setTitle("Journal");
 

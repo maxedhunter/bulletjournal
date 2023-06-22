@@ -20,12 +20,9 @@
             <children>
                <MenuButton mnemonicParsing="false" prefHeight="29.0" prefWidth="77.0" text="File">
                  <items>
-                   <MenuItem fx:id="openFileButton" mnemonicParsing="false" text="OpenFile">
-                        <graphic>
-                           <TextField promptText="Enter a .bujo file:" />
-                        </graphic></MenuItem>
+                   <MenuItem fx:id="openFileButton" mnemonicParsing="false" text="OpenFile" />
                    <MenuItem fx:id="saveFileButton" mnemonicParsing="false" text="SaveFile" />
-                 <MenuItem mnemonicParsing="false" text="NewWeek" />
+                 <MenuItem fx:id="newWeekButton" mnemonicParsing="false" text="NewWeek" />
                  </items>
                   <font>
                      <Font size="10.0" />
@@ -272,7 +269,7 @@
                <Label fx:id="weeklyPercentage" prefHeight="18.0" prefWidth="76.0" />
             </children>
          </HBox>
-         <TextField fx:id="weekName" alignment="TOP_CENTER" layoutX="430.0" layoutY="43.0" prefHeight="31.0" prefWidth="164.0" promptText="Week Name">
+         <TextField fx:id="weekNameField" alignment="TOP_CENTER" layoutX="430.0" layoutY="43.0" prefHeight="31.0" prefWidth="164.0" promptText="Week Name">
             <font>
                <Font size="18.0" />
             </font>
