@@ -237,8 +237,15 @@ public class ControllerImpl implements Controller {
   public void loadFile(Week week) {
     reset();
     weekNameField.setText(week.getName());
-    mondayTasks.addAll(week.getDays().get(DayEnum.MONDAY).getTasks());
-    mondayCompletedTasks.addAll(week.getDays().get(DayEnum.MONDAY).getCompletedTasks());
+    tasksList.addAll(week.getTasks());
+    eventsList.addAll(week.getEvents());
+    for (Task task: tasksList) {
+      creatTaskButton(task);
+    }
+
+    for (Event event: eventsList) {
+      creatEventButton(event);
+    }
   }
 
   /**
@@ -297,9 +304,25 @@ public class ControllerImpl implements Controller {
   /**
    * Sets up creating task.
    */
+<<<<<<< Updated upstream
   public void createTaskButton() {
     Task task = taskController.getTaskCreated();
 
+=======
+<<<<<<< HEAD
+  public void creatTaskButton(Task task) {
+    Button taskButton = new Button(task.getName());
+    VBox taskDetails = new VBox();
+    Label description = new Label(task.getDescription());
+    Label completion = new Label(task.getCompletionString());
+
+    ContextMenu contextMenu = new ContextMenu();
+=======
+  public void createTaskButton() {
+    Task task = taskController.getTaskCreated();
+
+>>>>>>> 4141e0918c4bc3f235ea852227db0c1dd0bbe3b4
+>>>>>>> Stashed changes
     MenuItem removeButton = new MenuItem("Remove task");
     VBox taskDetails = new VBox();
     removeButton.setOnAction(event -> removeTask(task, taskDetails));
@@ -335,8 +358,22 @@ public class ControllerImpl implements Controller {
   /**
    * Sets up creating an event
    */
+<<<<<<< Updated upstream
   public void creatEventButton() {
     Event newEvent = eventController.getEventCreated();
+=======
+<<<<<<< HEAD
+  public void creatEventButton(Event newEvent) {
+    Button eventButton = new Button(newEvent.getName());
+    VBox eventDetails = new VBox();
+    Label description = new Label(newEvent.getDescription());
+    Label startTime = new Label(newEvent.getStartTime().toString());
+    Label duration = new Label(Integer.toString(newEvent.getDuration()));
+=======
+  public void creatEventButton() {
+    Event newEvent = eventController.getEventCreated();
+>>>>>>> 4141e0918c4bc3f235ea852227db0c1dd0bbe3b4
+>>>>>>> Stashed changes
 
     MenuItem removeButton = new MenuItem("Remove Event");
     VBox eventDetails = new VBox();
@@ -501,7 +538,16 @@ public class ControllerImpl implements Controller {
     popupStage.setScene(taskView.load());
     popupStage.showAndWait();
     taskController.run();
+<<<<<<< Updated upstream
     createTaskButton();
+=======
+<<<<<<< HEAD
+    Task task = taskController.getTaskCreated();
+    creatTaskButton(task);
+=======
+    createTaskButton();
+>>>>>>> 4141e0918c4bc3f235ea852227db0c1dd0bbe3b4
+>>>>>>> Stashed changes
   }
 
   /**
@@ -514,7 +560,8 @@ public class ControllerImpl implements Controller {
     popupStage.setScene(eventView.load());
     popupStage.showAndWait();
     eventController.run();
-    creatEventButton();
+    Event newEvent = eventController.getEventCreated();
+    creatEventButton(newEvent);
   }
 
   /**
