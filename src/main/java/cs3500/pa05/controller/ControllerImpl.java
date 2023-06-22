@@ -4,6 +4,7 @@ import static cs3500.pa05.model.Time.stringToTime;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import cs3500.pa05.model.BujoReader;
 import cs3500.pa05.model.BujoWriter;
 import cs3500.pa05.model.Day;
 import cs3500.pa05.model.DayEnum;
@@ -206,7 +207,8 @@ public class ControllerImpl implements Controller {
     popupStage.showAndWait();
     newWeekController.run();
     fileName = openController.getOpenWeekFile();
-    //TODO load it?
+    BujoReader reader = new BujoReader("src/test/resources/" + fileName);
+    loadFile(reader.read());
   }
 
   /**
