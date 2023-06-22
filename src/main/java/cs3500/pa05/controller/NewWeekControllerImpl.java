@@ -60,6 +60,9 @@ public class NewWeekControllerImpl implements Controller {
     stage.close();
   }
 
+  /**
+   * Provides a warning for the user
+   */
   private void warning() {
     view.showWarning();
     Stage stage = (Stage) submit.getScene().getWindow();
