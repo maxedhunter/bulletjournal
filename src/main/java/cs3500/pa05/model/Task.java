@@ -4,10 +4,14 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+
 /**
  * Represents a task.
  */
-public class Task extends Bullet {
+public class Task implements Bullet {
+  private String name;
+  private String description;
+  private final DayEnum dayEnum;
   private boolean completion;
 
   /**
@@ -23,7 +27,9 @@ public class Task extends Bullet {
               @JsonProperty("description") String description,
               @JsonProperty("day") DayEnum dayEnum,
               @JsonProperty("completion") boolean completion) {
-    super(name, description, dayEnum);
+    this.name = name;
+    this.description = description;
+    this.dayEnum = dayEnum;
     this.completion = completion;
   }
 
@@ -55,5 +61,30 @@ public class Task extends Bullet {
    */
   public void setCompletion() {
     this.completion = true;
+  }
+
+  @Override
+  public String getName() {
+    return this.name;
+  }
+
+  @Override
+  public String getDescription() {
+    return this.description;
+  }
+
+  @Override
+  public DayEnum getDay() {
+    return this.dayEnum;
+  }
+
+  @Override
+  public void setName(String newName) {
+    this.name = newName;
+  }
+
+  @Override
+  public void setDescription(String newDescription) {
+    this.description = newDescription;
   }
 }

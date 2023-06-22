@@ -10,7 +10,7 @@ import javafx.scene.Scene;
  */
 public class WeekViewImpl implements View {
 
-  FXMLLoader loader;
+  private final FXMLLoader loader;
 
   /**
    * Initializes a controller

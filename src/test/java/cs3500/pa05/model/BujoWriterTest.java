@@ -2,9 +2,7 @@ package cs3500.pa05.model;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.fail;
 
-import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.IOException;
@@ -38,13 +36,13 @@ class BujoWriterTest {
   public void setUp() {
     this.appendable = new StringBuilder();
     tasks = new ArrayList<>(Arrays.asList(new Task("todo", "do it!",
-        DayEnum.MONDAY, false)));
+        DayEnum.MONDAY, true)));
     tasksJson = new TasksJson(tasks);
     events = new ArrayList<>(Arrays.asList(new Event("an event",
         "test event", DayEnum.MONDAY, new Time(5, 6), 7)));
     eventsJson = new EventsJson(events);
     days = new HashMap<>();
-    days.put(DayEnum.MONDAY, new Day(tasks, null, events));
+    days.put(DayEnum.MONDAY, new Day(tasks, tasks, events));
     daysJson = new DaysJson(days);
     weekJson = createWeek("this week!", tasksJson, eventsJson,
         daysJson, 5, 5);
@@ -58,15 +56,16 @@ class BujoWriterTest {
     BujoWriter writer = new BujoWriter(PATH);
     writer.writeToFile(weekJson, new StringBuilder());
 
-    String expectedString = "{\"name\":\"this week!\",\"tasks\":{\"tasks\":[{\"name\":\""
-        + "todo\",\"description\":\"do it!\",\"day\":\"MONDAY\",\"completion\":false}]},\""
-        + "events\":{\"events\":[{\"name\":\"an event\",\"description\":\"test event\",\""
-        + "day\":\"MONDAY\",\"duration\":7,\"startTime\":{\"hour\":5,\"minute\":6}}]},\""
-        + "days\":{\"days\":{\"MONDAY\":{\"tasks\":[{\"name\":\"todo\",\"description\":\""
-        + "do it!\",\"day\":\"MONDAY\",\"completion\":false}],\"events\":[{\"name\":\"an "
+    String expectedString = "{\"name\":\"this week!\",\"tasks\":{\"tasks\":[{\"name\":"
+        + "\"todo\",\"description\":\"do it!\",\"day\":\"MONDAY\",\"completion\":true}]},"
+        + "\"events\":{\"events\":[{\"name\":\"an event\",\"description\":\"test event\","
+        + "\"day\":\"MONDAY\",\"duration\":7,\"startTime\":{\"hour\":5,\"minute\":6}}]},"
+        + "\"days\":{\"days\":{\"MONDAY\":{\"tasks\":[{\"name\":\"todo\",\"description\":"
+        + "\"do it!\",\"day\":\"MONDAY\",\"completion\":true}],\"events\":[{\"name\":\"an "
         + "event\",\"description\":\"test event\",\"day\":\"MONDAY\",\"duration\":7,\""
-        + "startTime\":{\"hour\":5,\"minute\":6}}],\"completedTasks\":null}}}"
-        + ",\"max-tasks\":5,\"max-events\":5}";
+        + "startTime\":{\"hour\":5,\"minute\":6}}],\"completedTasks\":[{\"name\":\"todo\","
+        + "\"description\":\"do it!\",\"day\":\"MONDAY\",\"completion\":true}]}}},\""
+        + "max-tasks\":5,\"max-events\":5}";
 
     String actualContent;
 

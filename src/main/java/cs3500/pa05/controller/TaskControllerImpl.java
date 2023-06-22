@@ -42,7 +42,7 @@ public class TaskControllerImpl implements Controller {
     submit.setOnAction(event -> submit());
   }
 
-  TaskViewImpl taskView = new TaskViewImpl(this);
+  private TaskViewImpl taskView = new TaskViewImpl(this);
 
 
   /**

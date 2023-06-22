@@ -11,7 +11,7 @@ import javafx.scene.control.Alert;
  */
 public class TaskViewImpl implements View {
 
-  FXMLLoader loader;
+  private final FXMLLoader loader;
 
   /**
    * Initializes a controller

@@ -6,18 +6,22 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 /**
  * Represents a bullet journal event.
  */
-public class Event extends Bullet {
+public class Event implements Bullet {
+  private String name;
+  private String description;
+  private final DayEnum dayEnum;
+
   private Time startTime;
   private int duration;
 
   /**
    * Initializes the values of an event
    *
-   * @param name name
+   * @param name        name
    * @param description description
-   * @param dayEnum which day of the week
-   * @param startTime a time
-   * @param duration how long the even lasts for
+   * @param dayEnum     which day of the week
+   * @param startTime   a time
+   * @param duration    how long the even lasts for
    */
   @JsonCreator
   public Event(@JsonProperty("name") String name,
@@ -25,7 +29,9 @@ public class Event extends Bullet {
                @JsonProperty("day") DayEnum dayEnum,
                @JsonProperty("time") Time startTime,
                @JsonProperty("duration") int duration) {
-    super(name, description, dayEnum);
+    this.name = name;
+    this.description = description;
+    this.dayEnum = dayEnum;
     this.startTime = startTime;
     this.duration = duration;
   }
@@ -64,5 +70,30 @@ public class Event extends Bullet {
    */
   public void setDuration(int newDuration) {
     this.duration = newDuration;
+  }
+
+  @Override
+  public String getName() {
+    return this.name;
+  }
+
+  @Override
+  public String getDescription() {
+    return this.description;
+  }
+
+  @Override
+  public DayEnum getDay() {
+    return this.dayEnum;
+  }
+
+  @Override
+  public void setName(String newName) {
+    this.name = newName;
+  }
+
+  @Override
+  public void setDescription(String newDescription) {
+    this.description = newDescription;
   }
 }

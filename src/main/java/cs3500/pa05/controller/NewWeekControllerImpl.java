@@ -30,7 +30,7 @@ public class NewWeekControllerImpl implements Controller {
   public void run() throws IllegalStateException {
   }
 
-  NewWeekViewImpl view = new NewWeekViewImpl(this);
+  private NewWeekViewImpl view = new NewWeekViewImpl(this);
 
   /**
    * Initializes the submit button

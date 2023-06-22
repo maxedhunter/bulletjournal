@@ -1,5 +1,6 @@
 package cs3500.pa05.controller;
 
+import static cs3500.pa05.model.StringUtils.parseLinks;
 import static cs3500.pa05.model.Time.stringToTime;
 
 import com.fasterxml.jackson.databind.JsonNode;
@@ -31,6 +32,7 @@ import javafx.scene.Node;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ContextMenu;
+import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.ProgressBar;
@@ -38,6 +40,8 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
+import javafx.scene.text.TextFlow;
 import javafx.stage.Stage;
 
 /**
@@ -108,8 +112,8 @@ public class ControllerImpl implements Controller {
   private Label totalEventCount;
 
   // default task + event max
-  int maxTask = 1000;
-  int maxEvent = 1000;
+  private int maxTask = 1000;
+  private int maxEvent = 1000;
 
   // progress bars
   @FXML
@@ -277,13 +281,13 @@ public class ControllerImpl implements Controller {
 
     sundayCompletedTasks.addAll(week.getDays().get(DayEnum.SUNDAY).getCompletedTasks());
 
-    for (Task task: tasksList) {
+    for (Task task : tasksList) {
       if (task.getCompletion()) {
         completedTasksList.add(task);
       }
     }
 
-    for (Task task: completedTasksList) {
+    for (Task task : completedTasksList) {
       updateProgress(task);
     }
     System.out.println(tuesdayCompletedTasks.size());
@@ -394,7 +398,7 @@ public class ControllerImpl implements Controller {
     MenuItem changeDescription = new MenuItem("Change description");
     TextField descriptionField = new TextField();
     changeDescription.setGraphic(descriptionField);
-    Label description = new Label(task.getDescription());
+    TextFlow description = updateUrls(task.getDescription());
     changeDescription.setOnAction(
         event -> changeTaskDescription(task, description, descriptionField.getText()));
 
@@ -431,7 +435,7 @@ public class ControllerImpl implements Controller {
     MenuItem changeDescription = new MenuItem("Change description");
     TextField descriptionField = new TextField();
     changeDescription.setGraphic(descriptionField);
-    Label description = new Label(newEvent.getDescription());
+    TextFlow description = updateUrls(newEvent.getDescription());
     changeDescription.setOnAction(
         event -> changeEventDescription(newEvent, description, descriptionField.getText()));
 
@@ -796,12 +800,59 @@ public class ControllerImpl implements Controller {
    * Changes the task description.
    *
    * @param task            to be updated
-   * @param taskDescription label to be updated
+   * @param taskDescription text flow to be updated
    * @param description     new description
    */
-  public void changeTaskDescription(Task task, Label taskDescription, String description) {
-    taskDescription.setText(description);
+  public void changeTaskDescription(Task task, TextFlow taskDescription, String description) {
+    taskDescription = updateUrls(description);
     task.setDescription(description);
+  }
+
+  /**
+   * Updates a label to have urls
+   *
+   * @param string to add urls to
+   */
+  private TextFlow updateUrls(String string) {
+    List<String> urls = parseLinks(string);
+
+    String newContent = string;
+    TextFlow textFlow = new TextFlow();
+
+    List<String> parts = new ArrayList<>();
+    int currentIndex = 0;
+    for (String url : urls) {
+      int urlIndex = newContent.indexOf(url, currentIndex);
+      if (urlIndex >= 0) {
+        String part = newContent.substring(currentIndex, urlIndex);
+        parts.add(part);
+
+        // Add the URL as a Hyperlink
+        Hyperlink hyperlink = new Hyperlink(url);
+        hyperlink.setOnAction(e -> {
+          try {
+            java.awt.Desktop.getDesktop().browse(new java.net.URI(url));
+          } catch (java.io.IOException | java.net.URISyntaxException ex) {
+            throw new IllegalArgumentException("Unable to open URL");
+          }
+        });
+
+        textFlow.getChildren().add(hyperlink);
+        currentIndex = urlIndex + url.length();
+      }
+    }
+
+    if (currentIndex < newContent.length()) {
+      String part = newContent.substring(currentIndex);
+      parts.add(part);
+    }
+
+    for (String part : parts) {
+      Text text = new Text(part);
+      textFlow.getChildren().add(text);
+    }
+
+    return textFlow;
   }
 
   /**
@@ -823,8 +874,8 @@ public class ControllerImpl implements Controller {
    * @param description    to be udpated
    * @param newDescription new event description
    */
-  public void changeEventDescription(Event event, Label description, String newDescription) {
-    description.setText(newDescription);
+  public void changeEventDescription(Event event, TextFlow description, String newDescription) {
+    description = updateUrls(newDescription);
     event.setDescription(newDescription);
   }
 

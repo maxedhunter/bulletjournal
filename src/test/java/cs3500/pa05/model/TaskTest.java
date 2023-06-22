@@ -3,6 +3,7 @@ package cs3500.pa05.model;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static cs3500.pa05.model.StringUtils.parseLinks;
 
 import java.util.List;
 import org.junit.jupiter.api.BeforeEach;
@@ -82,14 +83,14 @@ class TaskTest {
     Task taskWithUrl = new Task("", "This is a sample text containing a URL: "
         + "https://www.example.com and another URL: http://www.google.com",
         DayEnum.TUESDAY, true);
-    List<String> links = taskWithUrl.parseLinks(taskWithUrl.getDescription());
+    List<String> links = parseLinks(taskWithUrl.getDescription());
     assertEquals("https://www.example.com", links.get(1));
     assertEquals("http://www.google.com", links.get(0));
 
     // tests the opposite edge case
     Task taskWithUrl2 = new Task("", "This is a sample text containing a URL: "
         + "http://www.google.com and another URL: https://www.example.com", DayEnum.MONDAY, true);
-    List<String> links2 = taskWithUrl2.parseLinks(taskWithUrl2.getDescription());
+    List<String> links2 = parseLinks(taskWithUrl2.getDescription());
     assertEquals("https://www.example.com", links2.get(1));
     assertEquals("http://www.google.com", links2.get(0));
   }

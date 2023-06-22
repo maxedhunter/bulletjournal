@@ -13,9 +13,7 @@ import java.util.Map;
  */
 public class BujoReader {
 
-  private Path path;
-  private Readable input;
-  private Week week;
+  private final Path path;
 
   /**
    * Initializes a Bujo reader.
@@ -46,8 +44,10 @@ public class BujoReader {
 
 
   /**
-   * Try converting the current test log to a string of a certain class. Modified from
-   * mock example.
+   * Parses a week
+   *
+   * @param content to be parsed
+   * @return week object
    */
   public Week parseWeek(String content) {
     String name;

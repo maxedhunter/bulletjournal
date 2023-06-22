@@ -26,7 +26,7 @@ class BujoReaderTest {
     assertEquals("todo", task.getName());
     assertEquals("do it!", task.getDescription());
     assertEquals(DayEnum.MONDAY, task.getDay());
-    assertEquals(false, task.getCompletion());
+    assertEquals(true, task.getCompletion());
 
     List<Event> events = week.getEvents();
     Event event = events.get(0);
@@ -43,6 +43,13 @@ class BujoReaderTest {
     Day monday = week.getDays().get(DayEnum.MONDAY);
     assertEquals(1, monday.getTasks().size());
     assertEquals(1, monday.getEvents().size());
+    assertEquals(1, monday.getCompletedTasks().size());
+
+    Task mondayTask = monday.getCompletedTasks().get(0);
+    assertEquals("todo", mondayTask.getName());
+    assertEquals("do it!", mondayTask.getDescription());
+    assertEquals(DayEnum.MONDAY, mondayTask.getDay());
+    assertEquals(true, mondayTask.getCompletion());
   }
 
   /**
