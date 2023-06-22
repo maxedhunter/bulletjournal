@@ -58,4 +58,12 @@ class EventTest {
     event.setDuration(5);
     assertEquals(5, event.getDuration());
   }
+
+  /**
+   * Tests getting day
+   */
+  @Test
+  void testGetDay() {
+    assertEquals(DayEnum.TUESDAY, event.getDay());
+  }
 }
