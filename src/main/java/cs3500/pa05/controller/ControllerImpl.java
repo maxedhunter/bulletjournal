@@ -872,10 +872,8 @@ public class ControllerImpl implements Controller {
     TasksJson tasksJson = new TasksJson(tasksList);
     EventsJson eventsJson = new EventsJson(eventsList);
 
-    JsonNode week = createWeek(weekName, tasksJson, eventsJson, daysJson,
-        Integer.parseInt(this.maximumTasks.toString()),
-        Integer.parseInt(this.maximumEvents.toString()));
-    return week;
+    return createWeek(weekName, tasksJson, eventsJson, daysJson,
+        maxTask, maxEvent);
   }
 
   /**
