@@ -13,6 +13,8 @@ public class Week {
   private final List<Task> tasks;
   private final List<Event> events;
   private final Map<DayEnum, Day> days;
+  private int maxTasks;
+  private int maxEvents;
 
   /**
    * constructs a week
@@ -25,8 +27,10 @@ public class Week {
   @JsonCreator
   public Week(@JsonProperty("name") String name,
               @JsonProperty("tasks") List<Task> tasks,
-              @JsonProperty ("events") List<Event> events,
-              @JsonProperty ("days") Map<DayEnum, Day> days) {
+              @JsonProperty("events") List<Event> events,
+              @JsonProperty("days") Map<DayEnum, Day> days,
+              @JsonProperty("max-tasks") int maxTasks,
+              @JsonProperty("max-events") int maxEvents) {
     this.name = name;
     this.tasks = tasks;
     this.events = events;
@@ -67,5 +71,23 @@ public class Week {
    */
   public Map<DayEnum, Day> getDays() {
     return this.days;
+  }
+
+  /**
+   * Returns a week's max set of tasks
+   *
+   * @return max number of tasks
+   */
+  public int getMaxTasks() {
+    return this.maxTasks;
+  }
+
+  /**
+   * Returns a week's max set of events
+   *
+   * @return max number of events
+   */
+  public int getMaxEvents() {
+    return this.maxEvents;
   }
 }

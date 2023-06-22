@@ -258,6 +258,8 @@ public class ControllerImpl implements Controller {
   public void loadFile(Week week) {
     reset();
     weekNameField.setText(week.getName());
+    maximumTasks.setText(String.valueOf(week.getMaxTasks()));
+    maximumEvents.setText(String.valueOf(week.getMaxEvents()));
 
     for (Task task : week.getTasks()) {
       creatTaskButton(task);
@@ -992,6 +994,7 @@ public class ControllerImpl implements Controller {
    * Returns the JSON.
    */
   private JsonNode sumUp() {
+    getWeekName();
     Day mon = new Day(mondayTasks, mondayCompletedTasks, mondayEvents);
     weekSum.put(DayEnum.MONDAY, mon);
     Day tues = new Day(tuesdayTasks, tuesdayCompletedTasks, tuesdayEvents);
@@ -1012,7 +1015,7 @@ public class ControllerImpl implements Controller {
     EventsJson eventsJson = new EventsJson(eventsList);
 
     return createWeek(weekName, tasksJson, eventsJson, daysJson,
-        maxTask, maxEvent);
+        Integer.parseInt(maximumTasks.getText()), Integer.parseInt(maximumEvents.getText()));
   }
 
   /**

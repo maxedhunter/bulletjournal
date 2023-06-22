@@ -54,6 +54,8 @@ public class BujoReader {
     List<Task> tasks;
     List<Event> events;
     Map<DayEnum, Day> days;
+    int maxTasks;
+    int maxEvents;
 
     try {
       JsonParser jsonParser = new ObjectMapper().createParser(content);
@@ -72,6 +74,8 @@ public class BujoReader {
       DaysJson daysJson = jsonParser3.readValueAs(DaysJson.class);
       days = daysJson.days();
 
+      maxTasks = weekJson.maxTasks();
+      maxEvents = weekJson.maxEvents();
     } catch (IOException e) {
       // Could not read
       // -> exception thrown
@@ -80,6 +84,6 @@ public class BujoReader {
       throw new IllegalArgumentException("Unable to parse content");
     }
 
-    return new Week(name, tasks, events, days);
+    return new Week(name, tasks, events, days, maxTasks, maxEvents);
   }
 }
