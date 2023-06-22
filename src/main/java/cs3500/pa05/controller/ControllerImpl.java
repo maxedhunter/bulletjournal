@@ -304,12 +304,6 @@ public class ControllerImpl implements Controller {
   /**
    * Sets up creating task.
    */
-<<<<<<< Updated upstream
-  public void createTaskButton() {
-    Task task = taskController.getTaskCreated();
-
-=======
-<<<<<<< HEAD
   public void creatTaskButton(Task task) {
     Button taskButton = new Button(task.getName());
     VBox taskDetails = new VBox();
@@ -317,37 +311,26 @@ public class ControllerImpl implements Controller {
     Label completion = new Label(task.getCompletionString());
 
     ContextMenu contextMenu = new ContextMenu();
-=======
-  public void createTaskButton() {
-    Task task = taskController.getTaskCreated();
-
->>>>>>> 4141e0918c4bc3f235ea852227db0c1dd0bbe3b4
->>>>>>> Stashed changes
     MenuItem removeButton = new MenuItem("Remove task");
-    VBox taskDetails = new VBox();
     removeButton.setOnAction(event -> removeTask(task, taskDetails));
     removeButton.setAccelerator(KeyCombination.keyCombination("Ctrl+R"));
 
     MenuItem changeName = new MenuItem("Change name");
     TextField nameField = new TextField();
     changeName.setGraphic(nameField);
-    Button taskButton = new Button(task.getName());
     changeName.setOnAction(
         event -> changeTaskName(task, taskButton, taskDetails, nameField.getText()));
 
     MenuItem changeDescription = new MenuItem("Change description");
     TextField descriptionField = new TextField();
     changeDescription.setGraphic(descriptionField);
-    Label description = new Label(task.getDescription());
     changeDescription.setOnAction(
         event -> changeTaskDescription(task, description, descriptionField.getText()));
 
     MenuItem completeButton = new MenuItem("Set complete");
     completeButton.setAccelerator(KeyCombination.keyCombination("Ctrl+C"));
-    Label completion = new Label(task.getCompletionString());
     completeButton.setOnAction(event -> setCompletion(task, completion));
 
-    ContextMenu contextMenu = new ContextMenu();
     contextMenu.getItems().addAll(removeButton, completeButton, changeName, changeDescription);
     taskButton.setContextMenu(contextMenu);
     taskDetails.getChildren().addAll(taskButton, description, completion);
@@ -358,53 +341,38 @@ public class ControllerImpl implements Controller {
   /**
    * Sets up creating an event
    */
-<<<<<<< Updated upstream
-  public void creatEventButton() {
-    Event newEvent = eventController.getEventCreated();
-=======
-<<<<<<< HEAD
   public void creatEventButton(Event newEvent) {
     Button eventButton = new Button(newEvent.getName());
     VBox eventDetails = new VBox();
     Label description = new Label(newEvent.getDescription());
     Label startTime = new Label(newEvent.getStartTime().toString());
     Label duration = new Label(Integer.toString(newEvent.getDuration()));
-=======
-  public void creatEventButton() {
-    Event newEvent = eventController.getEventCreated();
->>>>>>> 4141e0918c4bc3f235ea852227db0c1dd0bbe3b4
->>>>>>> Stashed changes
 
     MenuItem removeButton = new MenuItem("Remove Event");
-    VBox eventDetails = new VBox();
     removeButton.setOnAction(event -> removeEvent(newEvent, eventDetails));
     removeButton.setAccelerator(KeyCombination.keyCombination("Ctrl+D"));
 
     MenuItem changeName = new MenuItem("Change name");
     TextField nameField = new TextField();
     changeName.setGraphic(nameField);
-    Button eventButton = new Button(newEvent.getName());
     changeName.setOnAction(
         event -> changeEventName(newEvent, eventButton, nameField.getText()));
 
     MenuItem changeDescription = new MenuItem("Change description");
     TextField descriptionField = new TextField();
     changeDescription.setGraphic(descriptionField);
-    Label description = new Label(newEvent.getDescription());
     changeDescription.setOnAction(
         event -> changeEventDescription(newEvent, description, descriptionField.getText()));
 
     MenuItem changeStartTime = new MenuItem("Change start time");
     TextField startTimeField = new TextField();
     changeStartTime.setGraphic(startTimeField);
-    Label startTime = new Label(newEvent.getStartTime().toString());
     changeStartTime.setOnAction(
         event -> changeEventStartTime(newEvent, startTime, stringToTime(startTimeField.getText())));
 
     MenuItem changeDuration = new MenuItem("Change duration");
     TextField durationField = new TextField();
     changeDuration.setGraphic(durationField);
-    Label duration = new Label(Integer.toString(newEvent.getDuration()));
     changeDuration.setOnAction(
         event -> changeEventDuration(newEvent, duration,
             Integer.parseInt(durationField.getText())));
@@ -538,16 +506,8 @@ public class ControllerImpl implements Controller {
     popupStage.setScene(taskView.load());
     popupStage.showAndWait();
     taskController.run();
-<<<<<<< Updated upstream
-    createTaskButton();
-=======
-<<<<<<< HEAD
     Task task = taskController.getTaskCreated();
     creatTaskButton(task);
-=======
-    createTaskButton();
->>>>>>> 4141e0918c4bc3f235ea852227db0c1dd0bbe3b4
->>>>>>> Stashed changes
   }
 
   /**
