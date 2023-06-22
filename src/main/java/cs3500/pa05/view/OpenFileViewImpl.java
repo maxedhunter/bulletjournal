@@ -7,7 +7,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 
 /**
- *
+ * Represents an open file view
  */
 public class OpenFileViewImpl implements View {
 
@@ -37,7 +37,7 @@ public class OpenFileViewImpl implements View {
   }
 
   /**
-   * Loads a scene for a new week implementation creation in GUI layout.
+   * Loads a scene for an open week implementation creation in GUI layout.
    *
    * @return the layout
    */
@@ -47,7 +47,7 @@ public class OpenFileViewImpl implements View {
     try {
       return this.loader.load();
     } catch (IOException exc) {
-      throw new IllegalStateException("Unable to load layout.");
+      throw new IllegalStateException("Unable to load layout." + exc); //TODO remove exc
     }
   }
 }

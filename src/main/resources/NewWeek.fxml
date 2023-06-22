@@ -14,7 +14,7 @@
          <children>
             <VBox prefHeight="101.0" prefWidth="278.0">
                <children>
-                  <Label alignment="CENTER" text="New Week  File (must end in .bujo)">
+                  <Label alignment="CENTER" text="New Week File (must end in .bujo)">
                      <font>
                         <Font size="18.0" />
                      </font>
