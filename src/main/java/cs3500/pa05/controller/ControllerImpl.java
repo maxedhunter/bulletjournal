@@ -21,7 +21,6 @@ import cs3500.pa05.view.NewWeekViewImpl;
 import cs3500.pa05.view.OpenFileViewImpl;
 import cs3500.pa05.view.TaskViewImpl;
 import cs3500.pa05.view.View;
-import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -45,43 +44,37 @@ import javafx.stage.Stage;
  */
 public class ControllerImpl implements Controller {
   private static final String PATH = "src/test/resources/";
-  private Map<DayEnum, Day> weekSum = new HashMap<>();
-  private Day mon;
-  private Day tues;
-  private Day wed;
-  private Day thurs;
-  private Day fri;
-  private Day sat;
-  private Day sun;
+  private final Map<DayEnum, Day> weekSum = new HashMap<>();
+  private final List<Task> tasksList = new ArrayList<>();
+  private final List<Event> eventsList = new ArrayList<>();
 
-  private List<Task> tasksList = new ArrayList<>();
-  private List<Event> eventsList = new ArrayList<>();
+  private final List<Task> mondayTasks = new ArrayList<>();
+  private final List<Task> tuesdayTasks = new ArrayList<>();
+  private final List<Task> wednesdayTasks = new ArrayList<>();
+  private final List<Task> thursdayTasks = new ArrayList<>();
+  private final List<Task> fridayTasks = new ArrayList<>();
+  private final List<Task> saturdayTasks = new ArrayList<>();
+  private final List<Task> sundayTasks = new ArrayList<>();
 
-  private List<Task> mondayTasks = new ArrayList<>();
-  private List<Task> tuesdayTasks = new ArrayList<>();
-  private List<Task> wednesdayTasks = new ArrayList<>();
-  private List<Task> thursdayTasks = new ArrayList<>();
-  private List<Task> fridayTasks = new ArrayList<>();
-  private List<Task> saturdayTasks = new ArrayList<>();
-  private List<Task> sundayTasks = new ArrayList<>();
+  private final List<Task> completedTasksList = new ArrayList<>();
 
-  private List<Task> completedTasksList = new ArrayList<>();
+  private final List<Task> mondayCompletedTasks = new ArrayList<>();
+  private final List<Task> tuesdayCompletedTasks = new ArrayList<>();
+  private final List<Task> wednesdayCompletedTasks = new ArrayList<>();
+  private final List<Task> thursdayCompletedTasks = new ArrayList<>();
+  private final List<Task> fridayCompletedTasks = new ArrayList<>();
+  private final List<Task> saturdayCompletedTasks = new ArrayList<>();
+  private final List<Task> sundayCompletedTasks = new ArrayList<>();
 
-  private List<Task> mondayCompletedTasks = new ArrayList<>();
-  private List<Task> tuesdayCompletedTasks = new ArrayList<>();
-  private List<Task> wednesdayCompletedTasks = new ArrayList<>();
-  private List<Task> thursdayCompletedTasks = new ArrayList<>();
-  private List<Task> fridayCompletedTasks = new ArrayList<>();
-  private List<Task> saturdayCompletedTasks = new ArrayList<>();
-  private List<Task> sundayCompletedTasks = new ArrayList<>();
+  private final List<Event> mondayEvents = new ArrayList<>();
+  private final List<Event> tuesdayEvents = new ArrayList<>();
+  private final List<Event> wednesdayEvents = new ArrayList<>();
+  private final List<Event> thursdayEvents = new ArrayList<>();
+  private final List<Event> fridayEvents = new ArrayList<>();
+  private final List<Event> saturdayEvents = new ArrayList<>();
+  private final List<Event> sundayEvents = new ArrayList<>();
 
-  private List<Event> mondayEvents = new ArrayList<>();
-  private List<Event> tuesdayEvents = new ArrayList<>();
-  private List<Event> wednesdayEvents = new ArrayList<>();
-  private List<Event> thursdayEvents = new ArrayList<>();
-  private List<Event> fridayEvents = new ArrayList<>();
-  private List<Event> saturdayEvents = new ArrayList<>();
-  private List<Event> sundayEvents = new ArrayList<>();
+  // FXML fields
   @FXML
   private HBox weekdays;
   @FXML
@@ -113,9 +106,11 @@ public class ControllerImpl implements Controller {
   @FXML
   private Label totalEventCount;
 
+  // default task + event max
   int maxTask = 1000;
   int maxEvent = 1000;
 
+  // progress bars
   @FXML
   private ProgressBar sundayProgress;
   @FXML
@@ -130,39 +125,36 @@ public class ControllerImpl implements Controller {
   private ProgressBar fridayProgress;
   @FXML
   private ProgressBar saturdayProgress;
-
   @FXML
   private Label weeklyPercentage;
-
   @FXML
   private TextField weekNameField;
-
   @FXML
   private MenuItem openFileButton;
-
   @FXML
   private TextField filePath;
-
   @FXML
   private MenuItem saveWeekButton;
-
-  private String weekName = "Week";
-
   @FXML
   private MenuItem newWeekButton;
 
+  private String weekName = "Week";
   private String fileName = "defaultOutput.bujo";
 
-  private TaskControllerImpl taskController;
-  private EventControllerImpl eventController;
-  private NewWeekControllerImpl newWeekController;
-  private OpenControllerImpl openController;
+  // controllers
+
+  private final TaskControllerImpl taskController;
+  private final EventControllerImpl eventController;
+  private final NewWeekControllerImpl newWeekController;
+  private final OpenControllerImpl openController;
 
   /**
    * Initializes the main controllers with sub controllers.
    *
    * @param taskController  represents a task controller
    * @param eventController represents an event controller
+   * @param newWeekController represents a new week controller
+   * @param openController represents an open controller
    */
   public ControllerImpl(TaskControllerImpl taskController, EventControllerImpl eventController,
                         NewWeekControllerImpl newWeekController,
@@ -180,21 +172,33 @@ public class ControllerImpl implements Controller {
     weekName = weekNameField.getText();
   }
 
+  /**
+   * Handles saving the file
+   */
   public void handleSaveFile() {
     saveWeekButton.setOnAction(event -> saveToFile());
     openFileButton.setAccelerator(KeyCombination.keyCombination("Ctrl+S"));
   }
 
+  /**
+   * Saves to a file using the Bujo file writer.
+   */
   public void saveToFile() {
     BujoWriter writer = new BujoWriter(PATH + this.fileName);
     writer.writeToFile(sumUp(), new StringBuilder());
   }
 
+  /**
+   * Handles opening a file.
+   */
   public void handleOpenFile() {
     openFileButton.setOnAction(event -> showOpenFile());
     openFileButton.setAccelerator(KeyCombination.keyCombination("Ctrl+O"));
   }
 
+  /**
+   * Shows the screen for opening a file.
+   */
   public void showOpenFile() {
     View openFileView = new OpenFileViewImpl(openController);
     Stage popupStage = new Stage();
@@ -213,6 +217,9 @@ public class ControllerImpl implements Controller {
     newWeekButton.setAccelerator(KeyCombination.keyCombination("Ctrl+N"));
   }
 
+  /**
+   * Shows creating a new file page.
+   */
   public void showNewFilePage() {
     View newWeekView = new NewWeekViewImpl(newWeekController);
     Stage popupStage = new Stage();
@@ -222,6 +229,11 @@ public class ControllerImpl implements Controller {
     fileName = newWeekController.getNewWeekFile();
   }
 
+  /**
+   * Loads the given week file to the display.
+   *
+   * @param week to be loaded
+   */
   public void loadFile(Week week) {
     reset();
     weekNameField.setText(week.getName());
@@ -270,8 +282,7 @@ public class ControllerImpl implements Controller {
   public void removeFromQueue(VBox task) {
     Button toBeRemoved = null;
     for (Node child : tasks.getChildren()) {
-      if (child instanceof Button) {
-        Button button = (Button) child;
+      if (child instanceof Button button) {
         if (button.getText().contains(task.getId())) {
           toBeRemoved = button;
           break;
@@ -370,8 +381,10 @@ public class ControllerImpl implements Controller {
   }
 
   /**
-   * @param task
-   * @param taskDetails
+   * Adds a task
+   *
+   * @param task to be added
+   * @param taskDetails the details to be added
    */
   public void addTask(Task task, VBox taskDetails) {
     if (task.getDay() == DayEnum.MONDAY) {
@@ -427,6 +440,12 @@ public class ControllerImpl implements Controller {
     updateWeeklyProgress();
   }
 
+  /**
+   * Adds an event
+   *
+   * @param newEvent to be added
+   * @param eventDetails details to be added
+   */
   public void addEvent(Event newEvent, VBox eventDetails) {
     if (newEvent.getDay() == DayEnum.MONDAY) {
       monday.getChildren().add(eventDetails);
@@ -472,6 +491,9 @@ public class ControllerImpl implements Controller {
     }
   }
 
+  /**
+   * Shows the task page
+   */
   private void showTaskPage() {
     checkTaskCommitment();
     View taskView = new TaskViewImpl(taskController);
@@ -482,6 +504,9 @@ public class ControllerImpl implements Controller {
     createTaskButton();
   }
 
+  /**
+   * Shows the event page
+   */
   private void showEventPage() {
     checkEventCommitment();
     View eventView = new EventViewImpl(eventController);
@@ -492,6 +517,10 @@ public class ControllerImpl implements Controller {
     creatEventButton();
   }
 
+  /**
+   * Checks task commitment, handles creating a new task
+   * if less than max number of tasks
+   */
   public void checkTaskCommitment() {
     if (!(maximumTasks.getText().equals(""))) {
       maxTask = Integer.parseInt(maximumTasks.getText()) - 1;
@@ -506,6 +535,10 @@ public class ControllerImpl implements Controller {
     }
   }
 
+  /**
+   * Checks event commitment, handles creating a new event
+   * if less than the number of max events
+   */
   public void checkEventCommitment() {
     if (!(maximumEvents.getText().equals(""))) {
       maxEvent = Integer.parseInt(maximumEvents.getText()) - 1;
@@ -520,6 +553,9 @@ public class ControllerImpl implements Controller {
     }
   }
 
+  /**
+   * Displays a commitment warning
+   */
   public void showCommitmentWarning() {
     Alert alert = new Alert(Alert.AlertType.WARNING);
     alert.setTitle("Alert");
@@ -528,6 +564,12 @@ public class ControllerImpl implements Controller {
     alert.showAndWait();
   }
 
+  /**
+   * Removes a task
+   *
+   * @param task to be removed
+   * @param taskBox that holds the task
+   */
   public void removeTask(Task task, VBox taskBox) {
     VBox parent = (VBox) taskBox.getParent();
     parent.getChildren().remove(taskBox);
@@ -567,6 +609,12 @@ public class ControllerImpl implements Controller {
     updateWeeklyProgress();
   }
 
+  /**
+   * Removes an event
+   *
+   * @param removedEvent to be removed
+   * @param eventBox that has the event
+   */
   public void removeEvent(Event removedEvent, VBox eventBox) {
     VBox parent = (VBox) eventBox.getParent();
     parent.getChildren().remove(eventBox);
@@ -595,14 +643,30 @@ public class ControllerImpl implements Controller {
     }
   }
 
+  /**
+   * Updates the total events
+   *
+   * @param events to be updated to
+   */
   public void updateTotalEvent(List<Event> events) {
     totalEventCount.setText(String.valueOf(events.size()));
   }
 
+  /**
+   * Updates the total tasks
+   *
+   * @param tasks to be updated to
+   */
   public void updateTotalTask(List<Task> tasks) {
     totalTaskCount.setText(String.valueOf(tasks.size()));
   }
 
+  /**
+   * Sets a given task to completed
+   *
+   * @param task to be updated
+   * @param completion label to be updated
+   */
   public void setCompletion(Task task, Label completion) {
     task.setCompletion();
     completion.setText(task.getCompletionString());
@@ -633,6 +697,14 @@ public class ControllerImpl implements Controller {
     updateWeeklyProgress();
   }
 
+  /**
+   * Changes the task name.
+   *
+   * @param task to be updated
+   * @param taskButton button to be updated
+   * @param taskDetails vbox to be updated
+   * @param name new name
+   */
   public void changeTaskName(Task task, Button taskButton, VBox taskDetails, String name) {
     taskButton.setText(name);
     taskDetails.setId(name);
@@ -640,31 +712,71 @@ public class ControllerImpl implements Controller {
     task.setName(name);
   }
 
+  /**
+   * Changes the task description.
+   *
+   * @param task to be updated
+   * @param taskDescription label to be updated
+   * @param description new description
+   */
   public void changeTaskDescription(Task task, Label taskDescription, String description) {
     taskDescription.setText(description);
     task.setDescription(description);
   }
 
+  /**
+   * Changes the event name
+   *
+   * @param event to be updated
+   * @param eventButton to be updated
+   * @param name new event name
+   */
   public void changeEventName(Event event, Button eventButton, String name) {
     eventButton.setText(name);
     event.setName(name);
   }
 
+  /**
+   * Changes the event description
+   *
+   * @param event to be updated
+   * @param description to be udpated
+   * @param newDescription new event description
+   */
   public void changeEventDescription(Event event, Label description, String newDescription) {
     description.setText(newDescription);
     event.setDescription(newDescription);
   }
 
+  /**
+   * Changes the event start time
+   *
+   * @param event to be updated
+   * @param startTime to be updated
+   * @param newTime new event start time
+   */
   public void changeEventStartTime(Event event, Label startTime, Time newTime) {
     startTime.setText(String.valueOf(newTime));
     event.setStartTime(newTime);
   }
 
+  /**
+   * Changes the event duration
+   *
+   * @param event to be updated
+   * @param duration to be updated
+   * @param newDuration new event duration
+   */
   public void changeEventDuration(Event event, Label duration, int newDuration) {
     duration.setText(String.valueOf(newDuration));
     event.setDuration(newDuration);
   }
 
+  /**
+   * Updates the progress bar
+   *
+   * @param task that updates progress
+   */
   public void updateProgress(Task task) {
     if (task.getDay() == DayEnum.MONDAY) {
       mondayProgress.setProgress((double) mondayCompletedTasks.size() / mondayTasks.size());
@@ -690,15 +802,22 @@ public class ControllerImpl implements Controller {
     }
   }
 
+  /**
+   * Updates the total weekly progress
+   */
   public void updateWeeklyProgress() {
     double percentage = (double) completedTasksList.size() / tasksList.size();
     weeklyPercentage.setText(Math.round(percentage * 100.0) + "%");
   }
 
+  /**
+   * Updates completion in queue
+   *
+   * @param task to be updated
+   */
   public void setCompletionInQueue(Task task) {
     for (Node child : tasks.getChildren()) {
-      if (child instanceof Button) {
-        Button button = (Button) child;
+      if (child instanceof Button button) {
         if (button.getText().contains(task.getName())) {
           button.setText(task.getName() + " " + task.getCompletionString());
           break;
@@ -707,10 +826,15 @@ public class ControllerImpl implements Controller {
     }
   }
 
+  /**
+   * Updates the name in queue
+   *
+   * @param task to be updated
+   * @param name new name
+   */
   public void changeNameInQueue(Task task, String name) {
     for (Node child : tasks.getChildren()) {
-      if (child instanceof Button) {
-        Button button = (Button) child;
+      if (child instanceof Button button) {
         if (button.getText().contains(task.getName())) {
           button.setText(name + " " + task.getCompletionString());
           break;
@@ -723,19 +847,19 @@ public class ControllerImpl implements Controller {
    * Returns the JSON.
    */
   private JsonNode sumUp() {
-    mon = new Day(mondayTasks, mondayCompletedTasks, mondayEvents);
+    Day mon = new Day(mondayTasks, mondayCompletedTasks, mondayEvents);
     weekSum.put(DayEnum.MONDAY, mon);
-    tues = new Day(tuesdayTasks, tuesdayCompletedTasks, tuesdayEvents);
+    Day tues = new Day(tuesdayTasks, tuesdayCompletedTasks, tuesdayEvents);
     weekSum.put(DayEnum.TUESDAY, tues);
-    wed = new Day(wednesdayTasks, wednesdayCompletedTasks, wednesdayEvents);
+    Day wed = new Day(wednesdayTasks, wednesdayCompletedTasks, wednesdayEvents);
     weekSum.put(DayEnum.WEDNESDAY, wed);
-    thurs = new Day(thursdayTasks, thursdayCompletedTasks, thursdayEvents);
+    Day thurs = new Day(thursdayTasks, thursdayCompletedTasks, thursdayEvents);
     weekSum.put(DayEnum.THURSDAY, thurs);
-    fri = new Day(fridayTasks, fridayCompletedTasks, fridayEvents);
+    Day fri = new Day(fridayTasks, fridayCompletedTasks, fridayEvents);
     weekSum.put(DayEnum.FRIDAY, fri);
-    sat = new Day(saturdayTasks, saturdayCompletedTasks, saturdayEvents);
+    Day sat = new Day(saturdayTasks, saturdayCompletedTasks, saturdayEvents);
     weekSum.put(DayEnum.SATURDAY, sat);
-    sun = new Day(sundayTasks, sundayCompletedTasks, sundayEvents);
+    Day sun = new Day(sundayTasks, sundayCompletedTasks, sundayEvents);
     weekSum.put(DayEnum.SUNDAY, sun);
 
     DaysJson daysJson = new DaysJson(weekSum);
@@ -759,17 +883,15 @@ public class ControllerImpl implements Controller {
   }
 
   /**
-   * Initializes a game of Whack-a-Mole.
-   *
-   * @throws IllegalStateException if the game board is not defined
+   * Initializes a bullet journal
    */
   @FXML
-  public void run() throws IllegalStateException {
+  public void run() {
     getWeekName();
     checkTaskCommitment();
     checkEventCommitment();
     handleNewFile();
     handleOpenFile();
-//    handleSaveFile();
+    handleSaveFile();
   }
 }
