@@ -46,7 +46,8 @@ class BujoWriterTest {
     days = new HashMap<>();
     days.put(DayEnum.MONDAY, new Day(tasks, null, events));
     daysJson = new DaysJson(days);
-    weekJson = createWeek("this week!", tasksJson, eventsJson, daysJson);
+    weekJson = createWeek("this week!", tasksJson, eventsJson,
+        daysJson, 5, 5);
   }
 
   /**
@@ -58,13 +59,14 @@ class BujoWriterTest {
     writer.writeToFile(weekJson, new StringBuilder());
 
     String expectedString = "{\"name\":\"this week!\",\"tasks\":{\"tasks\":[{\"name\":\""
-            + "todo\",\"description\":\"do it!\",\"day\":\"MONDAY\",\"completion\":false}]},\""
-            + "events\":{\"events\":[{\"name\":\"an event\",\"description\":\"test event\",\""
-            + "day\":\"MONDAY\",\"duration\":7,\"startTime\":{\"hour\":5,\"minute\":6}}]},\""
-            + "days\":{\"days\":{\"MONDAY\":{\"tasks\":[{\"name\":\"todo\",\"description\":\""
-            + "do it!\",\"day\":\"MONDAY\",\"completion\":false}],\"events\":[{\"name\":\"an "
-            + "event\",\"description\":\"test event\",\"day\":\"MONDAY\",\"duration\":7,\""
-            + "startTime\":{\"hour\":5,\"minute\":6}}],\"completedTasks\":null}}}}";
+        + "todo\",\"description\":\"do it!\",\"day\":\"MONDAY\",\"completion\":false}]},\""
+        + "events\":{\"events\":[{\"name\":\"an event\",\"description\":\"test event\",\""
+        + "day\":\"MONDAY\",\"duration\":7,\"startTime\":{\"hour\":5,\"minute\":6}}]},\""
+        + "days\":{\"days\":{\"MONDAY\":{\"tasks\":[{\"name\":\"todo\",\"description\":\""
+        + "do it!\",\"day\":\"MONDAY\",\"completion\":false}],\"events\":[{\"name\":\"an "
+        + "event\",\"description\":\"test event\",\"day\":\"MONDAY\",\"duration\":7,\""
+        + "startTime\":{\"hour\":5,\"minute\":6}}],\"completedTasks\":null}}}"
+        + ",\"max-tasks\":5,\"max-events\":5}";
 
     String actualContent;
 
@@ -100,12 +102,14 @@ class BujoWriterTest {
   /**
    * Creates the week (adapted from createMessage)
    */
-  private JsonNode createWeek(String weekName, Record tasks, Record events, Record days) {
+  private JsonNode createWeek(String weekName, Record tasks,
+                              Record events, Record days, int maxTasks, int maxEvents) {
     WeekJson week =
         new WeekJson(weekName,
             JsonUtils.serializeRecord(tasks, new ObjectMapper()),
             JsonUtils.serializeRecord(events, new ObjectMapper()),
-            JsonUtils.serializeRecord(days, new ObjectMapper()));
+            JsonUtils.serializeRecord(days, new ObjectMapper()),
+            maxTasks, maxEvents);
     return JsonUtils.serializeRecord(week, new ObjectMapper());
   }
 }

@@ -151,10 +151,10 @@ public class ControllerImpl implements Controller {
   /**
    * Initializes the main controllers with sub controllers.
    *
-   * @param taskController  represents a task controller
-   * @param eventController represents an event controller
+   * @param taskController    represents a task controller
+   * @param eventController   represents an event controller
    * @param newWeekController represents a new week controller
-   * @param openController represents an open controller
+   * @param openController    represents an open controller
    */
   public ControllerImpl(TaskControllerImpl taskController, EventControllerImpl eventController,
                         NewWeekControllerImpl newWeekController,
@@ -239,11 +239,11 @@ public class ControllerImpl implements Controller {
     weekNameField.setText(week.getName());
     tasksList.addAll(week.getTasks());
     eventsList.addAll(week.getEvents());
-    for (Task task: tasksList) {
+    for (Task task : tasksList) {
       creatTaskButton(task);
     }
 
-    for (Event event: eventsList) {
+    for (Event event : eventsList) {
       creatEventButton(event);
     }
   }
@@ -305,32 +305,31 @@ public class ControllerImpl implements Controller {
    * Sets up creating task.
    */
   public void creatTaskButton(Task task) {
-    Button taskButton = new Button(task.getName());
-    VBox taskDetails = new VBox();
-    Label description = new Label(task.getDescription());
-    Label completion = new Label(task.getCompletionString());
-
-    ContextMenu contextMenu = new ContextMenu();
     MenuItem removeButton = new MenuItem("Remove task");
+    VBox taskDetails = new VBox();
     removeButton.setOnAction(event -> removeTask(task, taskDetails));
     removeButton.setAccelerator(KeyCombination.keyCombination("Ctrl+R"));
 
     MenuItem changeName = new MenuItem("Change name");
     TextField nameField = new TextField();
     changeName.setGraphic(nameField);
+    Button taskButton = new Button(task.getName());
     changeName.setOnAction(
         event -> changeTaskName(task, taskButton, taskDetails, nameField.getText()));
 
     MenuItem changeDescription = new MenuItem("Change description");
     TextField descriptionField = new TextField();
     changeDescription.setGraphic(descriptionField);
+    Label description = new Label(task.getDescription());
     changeDescription.setOnAction(
         event -> changeTaskDescription(task, description, descriptionField.getText()));
 
     MenuItem completeButton = new MenuItem("Set complete");
     completeButton.setAccelerator(KeyCombination.keyCombination("Ctrl+C"));
+    Label completion = new Label(task.getCompletionString());
     completeButton.setOnAction(event -> setCompletion(task, completion));
 
+    ContextMenu contextMenu = new ContextMenu();
     contextMenu.getItems().addAll(removeButton, completeButton, changeName, changeDescription);
     taskButton.setContextMenu(contextMenu);
     taskDetails.getChildren().addAll(taskButton, description, completion);
@@ -342,11 +341,7 @@ public class ControllerImpl implements Controller {
    * Sets up creating an event
    */
   public void creatEventButton(Event newEvent) {
-    Button eventButton = new Button(newEvent.getName());
     VBox eventDetails = new VBox();
-    Label description = new Label(newEvent.getDescription());
-    Label startTime = new Label(newEvent.getStartTime().toString());
-    Label duration = new Label(Integer.toString(newEvent.getDuration()));
 
     MenuItem removeButton = new MenuItem("Remove Event");
     removeButton.setOnAction(event -> removeEvent(newEvent, eventDetails));
@@ -355,24 +350,28 @@ public class ControllerImpl implements Controller {
     MenuItem changeName = new MenuItem("Change name");
     TextField nameField = new TextField();
     changeName.setGraphic(nameField);
+    Button eventButton = new Button(newEvent.getName());
     changeName.setOnAction(
         event -> changeEventName(newEvent, eventButton, nameField.getText()));
 
     MenuItem changeDescription = new MenuItem("Change description");
     TextField descriptionField = new TextField();
     changeDescription.setGraphic(descriptionField);
+    Label description = new Label(newEvent.getDescription());
     changeDescription.setOnAction(
         event -> changeEventDescription(newEvent, description, descriptionField.getText()));
 
     MenuItem changeStartTime = new MenuItem("Change start time");
     TextField startTimeField = new TextField();
     changeStartTime.setGraphic(startTimeField);
+    Label startTime = new Label(newEvent.getStartTime().toString());
     changeStartTime.setOnAction(
         event -> changeEventStartTime(newEvent, startTime, stringToTime(startTimeField.getText())));
 
     MenuItem changeDuration = new MenuItem("Change duration");
     TextField durationField = new TextField();
     changeDuration.setGraphic(durationField);
+    Label duration = new Label(Integer.toString(newEvent.getDuration()));
     changeDuration.setOnAction(
         event -> changeEventDuration(newEvent, duration,
             Integer.parseInt(durationField.getText())));
@@ -388,7 +387,7 @@ public class ControllerImpl implements Controller {
   /**
    * Adds a task
    *
-   * @param task to be added
+   * @param task        to be added
    * @param taskDetails the details to be added
    */
   public void addTask(Task task, VBox taskDetails) {
@@ -448,7 +447,7 @@ public class ControllerImpl implements Controller {
   /**
    * Adds an event
    *
-   * @param newEvent to be added
+   * @param newEvent     to be added
    * @param eventDetails details to be added
    */
   public void addEvent(Event newEvent, VBox eventDetails) {
@@ -574,7 +573,7 @@ public class ControllerImpl implements Controller {
   /**
    * Removes a task
    *
-   * @param task to be removed
+   * @param task    to be removed
    * @param taskBox that holds the task
    */
   public void removeTask(Task task, VBox taskBox) {
@@ -620,7 +619,7 @@ public class ControllerImpl implements Controller {
    * Removes an event
    *
    * @param removedEvent to be removed
-   * @param eventBox that has the event
+   * @param eventBox     that has the event
    */
   public void removeEvent(Event removedEvent, VBox eventBox) {
     VBox parent = (VBox) eventBox.getParent();
@@ -671,7 +670,7 @@ public class ControllerImpl implements Controller {
   /**
    * Sets a given task to completed
    *
-   * @param task to be updated
+   * @param task       to be updated
    * @param completion label to be updated
    */
   public void setCompletion(Task task, Label completion) {
@@ -707,10 +706,10 @@ public class ControllerImpl implements Controller {
   /**
    * Changes the task name.
    *
-   * @param task to be updated
-   * @param taskButton button to be updated
+   * @param task        to be updated
+   * @param taskButton  button to be updated
    * @param taskDetails vbox to be updated
-   * @param name new name
+   * @param name        new name
    */
   public void changeTaskName(Task task, Button taskButton, VBox taskDetails, String name) {
     taskButton.setText(name);
@@ -722,9 +721,9 @@ public class ControllerImpl implements Controller {
   /**
    * Changes the task description.
    *
-   * @param task to be updated
+   * @param task            to be updated
    * @param taskDescription label to be updated
-   * @param description new description
+   * @param description     new description
    */
   public void changeTaskDescription(Task task, Label taskDescription, String description) {
     taskDescription.setText(description);
@@ -734,9 +733,9 @@ public class ControllerImpl implements Controller {
   /**
    * Changes the event name
    *
-   * @param event to be updated
+   * @param event       to be updated
    * @param eventButton to be updated
-   * @param name new event name
+   * @param name        new event name
    */
   public void changeEventName(Event event, Button eventButton, String name) {
     eventButton.setText(name);
@@ -746,8 +745,8 @@ public class ControllerImpl implements Controller {
   /**
    * Changes the event description
    *
-   * @param event to be updated
-   * @param description to be udpated
+   * @param event          to be updated
+   * @param description    to be udpated
    * @param newDescription new event description
    */
   public void changeEventDescription(Event event, Label description, String newDescription) {
@@ -758,9 +757,9 @@ public class ControllerImpl implements Controller {
   /**
    * Changes the event start time
    *
-   * @param event to be updated
+   * @param event     to be updated
    * @param startTime to be updated
-   * @param newTime new event start time
+   * @param newTime   new event start time
    */
   public void changeEventStartTime(Event event, Label startTime, Time newTime) {
     startTime.setText(String.valueOf(newTime));
@@ -770,8 +769,8 @@ public class ControllerImpl implements Controller {
   /**
    * Changes the event duration
    *
-   * @param event to be updated
-   * @param duration to be updated
+   * @param event       to be updated
+   * @param duration    to be updated
    * @param newDuration new event duration
    */
   public void changeEventDuration(Event event, Label duration, int newDuration) {
@@ -873,19 +872,23 @@ public class ControllerImpl implements Controller {
     TasksJson tasksJson = new TasksJson(tasksList);
     EventsJson eventsJson = new EventsJson(eventsList);
 
-    JsonNode week = createWeek(weekName, tasksJson, eventsJson, daysJson);
+    JsonNode week = createWeek(weekName, tasksJson, eventsJson, daysJson,
+        Integer.parseInt(this.maximumTasks.toString()),
+        Integer.parseInt(this.maximumEvents.toString()));
     return week;
   }
 
   /**
    * Creates the week (adapted from createMessage)
    */
-  private JsonNode createWeek(String weekName, Record tasks, Record events, Record days) {
+  private JsonNode createWeek(String weekName, Record tasks, Record events,
+                              Record days, int maxTasks, int maxEvents) {
     WeekJson week =
         new WeekJson(weekName,
             JsonUtils.serializeRecord(tasks, new ObjectMapper()),
             JsonUtils.serializeRecord(events, new ObjectMapper()),
-            JsonUtils.serializeRecord(days, new ObjectMapper()));
+            JsonUtils.serializeRecord(days, new ObjectMapper()),
+            maxTasks, maxEvents);
     return JsonUtils.serializeRecord(week, new ObjectMapper());
   }
 
