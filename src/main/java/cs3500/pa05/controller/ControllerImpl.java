@@ -292,8 +292,7 @@ public class ControllerImpl implements Controller {
     for (Task task : completedTasksList) {
       updateProgress(task);
     }
-    System.out.println(tuesdayCompletedTasks.size());
-    System.out.println(tuesdayTasks.size());
+
     updateWeeklyProgress();
     updateTotalTask(tasksList);
     updateTotalEvent(eventsList);
@@ -1015,7 +1014,7 @@ public class ControllerImpl implements Controller {
     EventsJson eventsJson = new EventsJson(eventsList);
 
     return createWeek(weekName, tasksJson, eventsJson, daysJson,
-        Integer.parseInt(maximumTasks.getText()), Integer.parseInt(maximumEvents.getText()));
+        maxTask, maxEvent);
   }
 
   /**

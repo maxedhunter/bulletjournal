@@ -80,10 +80,8 @@ public class BujoReader {
       // Could not read
       // -> exception thrown
       // -> test fails since it must have been the wrong type of response.
-      System.out.print(e);
       throw new IllegalArgumentException("Unable to parse content");
     }
-
     return new Week(name, tasks, events, days, maxTasks, maxEvents);
   }
 }

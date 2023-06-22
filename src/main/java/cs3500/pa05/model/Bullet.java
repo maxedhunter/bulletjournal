@@ -9,28 +9,28 @@ public interface Bullet {
    *
    * @return name
    */
-   String getName();
+  String getName();
 
   /**
    * Returns the description of a bullet
    *
    * @return description
    */
-   String getDescription();
+  String getDescription();
 
   /**
    * Returns the day for a bullet
    *
    * @return day
    */
-   DayEnum getDay();
+  DayEnum getDay();
 
   /**
    * Sets the name of a bullet to the new name
    *
    * @param newName for bullet to be set to
    */
-   void setName(String newName);
+  void setName(String newName);
 
   /**
    * Sets the description of a bullet to the new one

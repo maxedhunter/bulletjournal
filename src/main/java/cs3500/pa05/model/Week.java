@@ -35,6 +35,8 @@ public class Week {
     this.tasks = tasks;
     this.events = events;
     this.days = days;
+    this.maxTasks = maxTasks;
+    this.maxEvents = maxEvents;
   }
 
   /**
