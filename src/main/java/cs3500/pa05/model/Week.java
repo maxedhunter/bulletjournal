@@ -8,7 +8,7 @@ import java.util.Map;
 /**
  * represents a week for a bullet journal
  */
-public class Week  {
+public class Week {
   private final String name;
   private final List<Task> tasks;
   private final List<Event> events;

@@ -25,6 +25,9 @@ public class NewWeekViewImpl implements View {
     this.loader.setController(controller);
   }
 
+  /**
+   * Shows a warning if the file name input is invalid
+   */
   public void showWarning() {
     Alert alert = new Alert(Alert.AlertType.WARNING);
     alert.setTitle("Alert");

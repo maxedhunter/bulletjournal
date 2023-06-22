@@ -1,3 +1,6 @@
+/**
+ * Module file for PA05
+ */
 module cs3500.pa05 {
   requires javafx.controls;
   requires javafx.fxml;

@@ -43,6 +43,9 @@ public class EventControllerImpl implements Controller {
   public void run() throws IllegalStateException {
   }
 
+  /**
+   * Initializes the submit button
+   */
   public void initialize() {
     submit.setOnAction(event -> submit());
   }
@@ -86,6 +89,11 @@ public class EventControllerImpl implements Controller {
     stage.close();
   }
 
+  /**
+   * Returns the created event
+   *
+   * @return event
+   */
   public Event getEventCreated() {
     return this.eventCreated;
   }

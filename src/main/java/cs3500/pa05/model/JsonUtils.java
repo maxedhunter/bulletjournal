@@ -1,7 +1,6 @@
 package cs3500.pa05.model;
 
 import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.MapperFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 /**
@@ -12,10 +11,12 @@ public class JsonUtils {
    * Converts a given record object to a JsonNode.
    *
    * @param record the record to convert
+   * @param mapper an object mapper
    * @return the JsonNode representation of the given record
    * @throws IllegalArgumentException if the record could not be converted correctly
    */
-  public static JsonNode serializeRecord(Record record, ObjectMapper mapper) throws IllegalArgumentException {
+  public static JsonNode serializeRecord(Record record, ObjectMapper mapper)
+      throws IllegalArgumentException {
     try {
       return mapper.convertValue(record, JsonNode.class);
     } catch (IllegalArgumentException e) {

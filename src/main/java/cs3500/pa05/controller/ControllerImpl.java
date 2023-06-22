@@ -299,32 +299,32 @@ public class ControllerImpl implements Controller {
    */
   public void createTaskButton() {
     Task task = taskController.getTaskCreated();
-    Button taskButton = new Button(task.getName());
-    VBox taskDetails = new VBox();
-    Label description = new Label(task.getDescription());
-    Label completion = new Label(task.getCompletionString());
 
-    ContextMenu contextMenu = new ContextMenu();
     MenuItem removeButton = new MenuItem("Remove task");
+    VBox taskDetails = new VBox();
     removeButton.setOnAction(event -> removeTask(task, taskDetails));
     removeButton.setAccelerator(KeyCombination.keyCombination("Ctrl+R"));
 
     MenuItem changeName = new MenuItem("Change name");
     TextField nameField = new TextField();
     changeName.setGraphic(nameField);
+    Button taskButton = new Button(task.getName());
     changeName.setOnAction(
         event -> changeTaskName(task, taskButton, taskDetails, nameField.getText()));
 
     MenuItem changeDescription = new MenuItem("Change description");
     TextField descriptionField = new TextField();
     changeDescription.setGraphic(descriptionField);
+    Label description = new Label(task.getDescription());
     changeDescription.setOnAction(
         event -> changeTaskDescription(task, description, descriptionField.getText()));
 
     MenuItem completeButton = new MenuItem("Set complete");
     completeButton.setAccelerator(KeyCombination.keyCombination("Ctrl+C"));
+    Label completion = new Label(task.getCompletionString());
     completeButton.setOnAction(event -> setCompletion(task, completion));
 
+    ContextMenu contextMenu = new ContextMenu();
     contextMenu.getItems().addAll(removeButton, completeButton, changeName, changeDescription);
     taskButton.setContextMenu(contextMenu);
     taskDetails.getChildren().addAll(taskButton, description, completion);
@@ -337,41 +337,42 @@ public class ControllerImpl implements Controller {
    */
   public void creatEventButton() {
     Event newEvent = eventController.getEventCreated();
-    Button eventButton = new Button(newEvent.getName());
-    VBox eventDetails = new VBox();
-    Label description = new Label(newEvent.getDescription());
-    Label startTime = new Label(newEvent.getStartTime().toString());
-    Label duration = new Label(Integer.toString(newEvent.getDuration()));
 
-    ContextMenu contextMenu = new ContextMenu();
     MenuItem removeButton = new MenuItem("Remove Event");
+    VBox eventDetails = new VBox();
     removeButton.setOnAction(event -> removeEvent(newEvent, eventDetails));
     removeButton.setAccelerator(KeyCombination.keyCombination("Ctrl+D"));
 
     MenuItem changeName = new MenuItem("Change name");
     TextField nameField = new TextField();
     changeName.setGraphic(nameField);
+    Button eventButton = new Button(newEvent.getName());
     changeName.setOnAction(
         event -> changeEventName(newEvent, eventButton, nameField.getText()));
 
     MenuItem changeDescription = new MenuItem("Change description");
     TextField descriptionField = new TextField();
     changeDescription.setGraphic(descriptionField);
+    Label description = new Label(newEvent.getDescription());
     changeDescription.setOnAction(
         event -> changeEventDescription(newEvent, description, descriptionField.getText()));
 
     MenuItem changeStartTime = new MenuItem("Change start time");
     TextField startTimeField = new TextField();
     changeStartTime.setGraphic(startTimeField);
+    Label startTime = new Label(newEvent.getStartTime().toString());
     changeStartTime.setOnAction(
         event -> changeEventStartTime(newEvent, startTime, stringToTime(startTimeField.getText())));
 
     MenuItem changeDuration = new MenuItem("Change duration");
     TextField durationField = new TextField();
     changeDuration.setGraphic(durationField);
+    Label duration = new Label(Integer.toString(newEvent.getDuration()));
     changeDuration.setOnAction(
-        event -> changeEventDuration(newEvent, duration, Integer.parseInt(durationField.getText())));
+        event -> changeEventDuration(newEvent, duration,
+            Integer.parseInt(durationField.getText())));
 
+    ContextMenu contextMenu = new ContextMenu();
     contextMenu.getItems()
         .addAll(removeButton, changeName, changeDescription, changeStartTime, changeDuration);
     eventButton.setContextMenu(contextMenu);

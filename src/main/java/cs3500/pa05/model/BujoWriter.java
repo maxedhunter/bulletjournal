@@ -6,15 +6,17 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.Objects;
 
+/**
+ * Represents a writer for a bullet journal
+ */
 public class BujoWriter {
   private final Path writeTo;
 
   /**
    * Initializes writer.
    *
-   * @param path
+   * @param path a path to write to
    */
   public BujoWriter(String path) {
     writeTo = Path.of(path);
@@ -30,8 +32,6 @@ public class BujoWriter {
     ObjectMapper mapper = new ObjectMapper();
     String values;
 
-    Appendable appendToThis = appendable;
-
     try {
       values = mapper.writeValueAsString(data);
     } catch (JsonProcessingException e) {
@@ -39,7 +39,7 @@ public class BujoWriter {
     }
 
     try {
-      appendToThis.append(values);
+      appendable.append(values);
     } catch (IOException e) {
       throw new RuntimeException("Unable to append the provided week.");
     }

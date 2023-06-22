@@ -18,7 +18,6 @@ public class TaskControllerImpl implements Controller {
   private DayEnum dayEnum;
   @FXML
   private TextField nameField;
-  private String name;
   @FXML
   private TextField descField;
   private String description = "";
@@ -27,10 +26,18 @@ public class TaskControllerImpl implements Controller {
 
   private Task taskCreated;
 
+  /**
+   * FXML run method
+   *
+   * @throws IllegalStateException if run fails
+   */
   @FXML
   public void run() throws IllegalStateException {
   }
 
+  /**
+   * Initializes the submit button
+   */
   public void initialize() {
     submit.setOnAction(event -> submit());
   }
@@ -49,15 +56,19 @@ public class TaskControllerImpl implements Controller {
       Stage stage = (Stage) submit.getScene().getWindow();
       stage.close();
     }
-    this.name = this.nameField.getText();
+    String name = this.nameField.getText();
     this.description = this.descField.getText();
 
-    Task submittedTask = new Task(this.name, this.description, this.dayEnum, false);
-    taskCreated = submittedTask;
+    taskCreated = new Task(name, this.description, this.dayEnum, false);
     Stage stage = (Stage) submit.getScene().getWindow();
     stage.close();
   }
 
+  /**
+   * Returns the created task
+   *
+   * @return task
+   */
   public Task getTaskCreated() {
     return this.taskCreated;
   }
