@@ -13,10 +13,9 @@
 - Progress Bar
 - Takesie-basksies
 
-## Section 3: Power Ups
-
-
 ## Section 4: Quality of Life
+- Link
+- Mind Change
 
 
 ## Section 5: Extra Credit
