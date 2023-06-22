@@ -4,6 +4,7 @@ import static cs3500.pa05.model.Time.stringToTime;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import cs3500.pa05.model.BujoWriter;
 import cs3500.pa05.model.Day;
 import cs3500.pa05.model.DayEnum;
 import cs3500.pa05.model.DaysJson;
@@ -17,8 +18,10 @@ import cs3500.pa05.model.Week;
 import cs3500.pa05.model.WeekJson;
 import cs3500.pa05.view.EventViewImpl;
 import cs3500.pa05.view.NewWeekViewImpl;
+import cs3500.pa05.view.OpenFileViewImpl;
 import cs3500.pa05.view.TaskViewImpl;
 import cs3500.pa05.view.View;
+import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -41,6 +44,7 @@ import javafx.stage.Stage;
  * Represents the controller for a bullet journal.
  */
 public class ControllerImpl implements Controller {
+  private static final String PATH = "src/test/resources/";
   private Map<DayEnum, Day> weekSum = new HashMap<>();
   private Day mon;
   private Day tues;
@@ -147,11 +151,12 @@ public class ControllerImpl implements Controller {
   @FXML
   private MenuItem newWeekButton;
 
-  private String fileName;
+  private String fileName = "defaultOutput.bujo";
 
   private TaskControllerImpl taskController;
   private EventControllerImpl eventController;
   private NewWeekControllerImpl newWeekController;
+  private OpenControllerImpl openController;
 
   /**
    * Initializes the main controllers with sub controllers.
@@ -165,6 +170,7 @@ public class ControllerImpl implements Controller {
     this.taskController = taskController;
     this.eventController = eventController;
     this.newWeekController = newWeekController;
+    this.openController = openController;
   }
 
   /**
@@ -174,13 +180,29 @@ public class ControllerImpl implements Controller {
     weekName = weekNameField.getText();
   }
 
-  //TODO
   public void handleSaveFile() {
-    saveWeekButton.setOnAction(event -> sumUp());
+    saveWeekButton.setOnAction(event -> saveToFile());
+    openFileButton.setAccelerator(KeyCombination.keyCombination("Ctrl+S"));
+  }
+
+  public void saveToFile() {
+    BujoWriter writer = new BujoWriter(PATH + this.fileName);
+    writer.writeToFile(sumUp(), new StringBuilder());
   }
 
   public void handleOpenFile() {
-    openFileButton.setOnAction(event -> sumUp()); //TODO fix this
+    openFileButton.setOnAction(event -> showOpenFile());
+    openFileButton.setAccelerator(KeyCombination.keyCombination("Ctrl+O"));
+  }
+
+  public void showOpenFile() {
+    View openFileView = new OpenFileViewImpl(openController);
+    Stage popupStage = new Stage();
+    popupStage.setScene(openFileView.load());
+    popupStage.showAndWait();
+    newWeekController.run();
+    fileName = openController.getOpenWeekFile();
+    //TODO load it?
   }
 
   /**
@@ -746,5 +768,8 @@ public class ControllerImpl implements Controller {
     getWeekName();
     checkTaskCommitment();
     checkEventCommitment();
+    handleNewFile();
+    handleOpenFile();
+//    handleSaveFile();
   }
 }

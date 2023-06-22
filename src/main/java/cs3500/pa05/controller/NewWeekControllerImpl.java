@@ -11,7 +11,7 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
 public class NewWeekControllerImpl implements Controller {
-  private static final String SOURCE_DIRECTORY = "src/test/resources";
+  private static final String SOURCE_DIRECTORY = "src/test/resources/";
 
   @FXML
   private TextField newWeekField;

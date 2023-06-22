@@ -8,7 +8,7 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
 public class OpenControllerImpl implements Controller {
-  private static final String SOURCE_DIRECTORY = "src/test/resources";
+  private static final String SOURCE_DIRECTORY = "src/test/resources/";
 
   @FXML
   private TextField openWeekField;
@@ -40,7 +40,7 @@ public class OpenControllerImpl implements Controller {
 
     File file = new File(SOURCE_DIRECTORY + this.openWeekFile);
 
-    // shows warning if the file does not end in .bujo
+    // shows warning if the file does not end in .bujo and if it doesn't exist
     if ((!(openWeekFile.endsWith(".bujo"))) || !file.exists()) {
       warning();
     }
