@@ -19,6 +19,9 @@ class EventTest {
    */
   @Test
   void testSetName() {
+    assertEquals("an event", event.getName());
+    event.setName("beep");
+    assertEquals("beep", event.getName());
   }
 
   /**
@@ -26,6 +29,9 @@ class EventTest {
    */
   @Test
   void testSetDescription() {
+    assertEquals("an event description", event.getDescription());
+    event.setDescription("beep");
+    assertEquals("beep", event.getDescription());
   }
 
   /**
@@ -33,6 +39,14 @@ class EventTest {
    */
   @Test
   void testSetStartTime() {
+    Time originalTime = event.getStartTime();
+    assertEquals(5, originalTime.getHour());
+    assertEquals(6, originalTime.getMinute());
+
+    event.setStartTime(new Time(8, 9));
+    Time newTime = event.getStartTime();
+    assertEquals(8, newTime.getHour());
+    assertEquals(9, newTime.getMinute());
   }
 
   /**
@@ -40,6 +54,8 @@ class EventTest {
    */
   @Test
   void testSetDuration() {
-    assertEquals()
+    assertEquals(6, event.getDuration());
+    event.setDuration(5);
+    assertEquals(5, event.getDuration());
   }
 }
