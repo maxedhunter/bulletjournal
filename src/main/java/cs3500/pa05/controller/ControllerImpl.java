@@ -45,35 +45,35 @@ import javafx.stage.Stage;
  */
 public class ControllerImpl implements Controller {
   private static final String PATH = "src/test/resources/";
-  private final Map<DayEnum, Day> weekSum = new HashMap<>();
-  private final List<Task> tasksList = new ArrayList<>();
-  private final List<Event> eventsList = new ArrayList<>();
+  private Map<DayEnum, Day> weekSum = new HashMap<>();
+  private List<Task> tasksList = new ArrayList<>();
+  private List<Event> eventsList = new ArrayList<>();
 
-  private final List<Task> mondayTasks = new ArrayList<>();
-  private final List<Task> tuesdayTasks = new ArrayList<>();
-  private final List<Task> wednesdayTasks = new ArrayList<>();
-  private final List<Task> thursdayTasks = new ArrayList<>();
-  private final List<Task> fridayTasks = new ArrayList<>();
-  private final List<Task> saturdayTasks = new ArrayList<>();
-  private final List<Task> sundayTasks = new ArrayList<>();
+  private List<Task> mondayTasks = new ArrayList<>();
+  private List<Task> tuesdayTasks = new ArrayList<>();
+  private List<Task> wednesdayTasks = new ArrayList<>();
+  private List<Task> thursdayTasks = new ArrayList<>();
+  private List<Task> fridayTasks = new ArrayList<>();
+  private List<Task> saturdayTasks = new ArrayList<>();
+  private List<Task> sundayTasks = new ArrayList<>();
 
-  private final List<Task> completedTasksList = new ArrayList<>();
+  private List<Task> completedTasksList = new ArrayList<>();
 
-  private final List<Task> mondayCompletedTasks = new ArrayList<>();
-  private final List<Task> tuesdayCompletedTasks = new ArrayList<>();
-  private final List<Task> wednesdayCompletedTasks = new ArrayList<>();
-  private final List<Task> thursdayCompletedTasks = new ArrayList<>();
-  private final List<Task> fridayCompletedTasks = new ArrayList<>();
-  private final List<Task> saturdayCompletedTasks = new ArrayList<>();
-  private final List<Task> sundayCompletedTasks = new ArrayList<>();
+  private List<Task> mondayCompletedTasks = new ArrayList<>();
+  private List<Task> tuesdayCompletedTasks = new ArrayList<>();
+  private List<Task> wednesdayCompletedTasks = new ArrayList<>();
+  private List<Task> thursdayCompletedTasks = new ArrayList<>();
+  private List<Task> fridayCompletedTasks = new ArrayList<>();
+  private List<Task> saturdayCompletedTasks = new ArrayList<>();
+  private List<Task> sundayCompletedTasks = new ArrayList<>();
 
-  private final List<Event> mondayEvents = new ArrayList<>();
-  private final List<Event> tuesdayEvents = new ArrayList<>();
-  private final List<Event> wednesdayEvents = new ArrayList<>();
-  private final List<Event> thursdayEvents = new ArrayList<>();
-  private final List<Event> fridayEvents = new ArrayList<>();
-  private final List<Event> saturdayEvents = new ArrayList<>();
-  private final List<Event> sundayEvents = new ArrayList<>();
+  private List<Event> mondayEvents = new ArrayList<>();
+  private List<Event> tuesdayEvents = new ArrayList<>();
+  private List<Event> wednesdayEvents = new ArrayList<>();
+  private List<Event> thursdayEvents = new ArrayList<>();
+  private List<Event> fridayEvents = new ArrayList<>();
+  private List<Event> saturdayEvents = new ArrayList<>();
+  private List<Event> sundayEvents = new ArrayList<>();
 
   // FXML fields
   @FXML
@@ -138,6 +138,21 @@ public class ControllerImpl implements Controller {
   private MenuItem saveFileButton;
   @FXML
   private MenuItem newWeekButton;
+
+  @FXML
+  private Label sundayRemainingTask;
+  @FXML
+  private Label mondayRemainingTask;
+  @FXML
+  private Label tuesdayRemainingTask;
+  @FXML
+  private Label wednesdayRemainingTask;
+  @FXML
+  private Label thursdayRemainingTask;
+  @FXML
+  private Label fridayRemainingTask;
+  @FXML
+  private Label saturdayRemainingTask;
 
   private String weekName = "Week";
   private String fileName = "defaultOutput.bujo";
@@ -207,7 +222,7 @@ public class ControllerImpl implements Controller {
     popupStage.showAndWait();
     newWeekController.run();
     fileName = openController.getOpenWeekFile();
-    BujoReader reader = new BujoReader("src/test/resources/" + fileName);
+    BujoReader reader = new BujoReader(PATH + fileName);
     loadFile(reader.read());
   }
 
@@ -239,22 +254,78 @@ public class ControllerImpl implements Controller {
   public void loadFile(Week week) {
     reset();
     weekNameField.setText(week.getName());
-    tasksList.addAll(week.getTasks());
-    eventsList.addAll(week.getEvents());
-    for (Task task : tasksList) {
+
+    for (Task task : week.getTasks()) {
       creatTaskButton(task);
     }
 
-    for (Event event : eventsList) {
+    for (Event event : week.getEvents()) {
       creatEventButton(event);
     }
+
+    mondayCompletedTasks.addAll(week.getDays().get(DayEnum.MONDAY).getCompletedTasks());
+
+    tuesdayCompletedTasks.addAll(week.getDays().get(DayEnum.TUESDAY).getCompletedTasks());
+
+    wednesdayCompletedTasks.addAll(week.getDays().get(DayEnum.WEDNESDAY).getCompletedTasks());
+
+    thursdayCompletedTasks.addAll(week.getDays().get(DayEnum.THURSDAY).getCompletedTasks());
+
+    fridayCompletedTasks.addAll(week.getDays().get(DayEnum.FRIDAY).getCompletedTasks());
+
+    saturdayCompletedTasks.addAll(week.getDays().get(DayEnum.SATURDAY).getCompletedTasks());
+
+    sundayCompletedTasks.addAll(week.getDays().get(DayEnum.SUNDAY).getCompletedTasks());
+
+    for (Task task: tasksList) {
+      if (task.getCompletion()) {
+        completedTasksList.add(task);
+      }
+    }
+
+    for (Task task: completedTasksList) {
+      updateProgress(task);
+    }
+    System.out.println(tuesdayCompletedTasks.size());
+    System.out.println(tuesdayTasks.size());
+    updateWeeklyProgress();
+    updateTotalTask(tasksList);
+    updateTotalEvent(eventsList);
   }
 
   /**
    * Resets all the fields.
    */
   public void reset() {
+    this.weekSum = new HashMap<>();
+    this.tasksList = new ArrayList<>();
+    this.eventsList = new ArrayList<>();
 
+    this.mondayTasks = new ArrayList<>();
+    this.tuesdayTasks = new ArrayList<>();
+    this.wednesdayTasks = new ArrayList<>();
+    this.thursdayTasks = new ArrayList<>();
+    this.fridayTasks = new ArrayList<>();
+    this.saturdayTasks = new ArrayList<>();
+    this.sundayTasks = new ArrayList<>();
+
+    this.completedTasksList = new ArrayList<>();
+
+    this.mondayCompletedTasks = new ArrayList<>();
+    this.tuesdayCompletedTasks = new ArrayList<>();
+    this.wednesdayCompletedTasks = new ArrayList<>();
+    this.thursdayCompletedTasks = new ArrayList<>();
+    this.fridayCompletedTasks = new ArrayList<>();
+    this.saturdayCompletedTasks = new ArrayList<>();
+    this.sundayCompletedTasks = new ArrayList<>();
+
+    this.mondayEvents = new ArrayList<>();
+    this.tuesdayEvents = new ArrayList<>();
+    this.wednesdayEvents = new ArrayList<>();
+    this.thursdayEvents = new ArrayList<>();
+    this.fridayEvents = new ArrayList<>();
+    this.saturdayEvents = new ArrayList<>();
+    this.sundayEvents = new ArrayList<>();
   }
 
   /**
@@ -307,8 +378,9 @@ public class ControllerImpl implements Controller {
    * Sets up creating task.
    */
   public void creatTaskButton(Task task) {
-    MenuItem removeButton = new MenuItem("Remove task");
     VBox taskDetails = new VBox();
+
+    MenuItem removeButton = new MenuItem("Remove task");
     removeButton.setOnAction(event -> removeTask(task, taskDetails));
     removeButton.setAccelerator(KeyCombination.keyCombination("Ctrl+R"));
 
@@ -788,25 +860,39 @@ public class ControllerImpl implements Controller {
   public void updateProgress(Task task) {
     if (task.getDay() == DayEnum.MONDAY) {
       mondayProgress.setProgress((double) mondayCompletedTasks.size() / mondayTasks.size());
+      mondayRemainingTask.setText(String.valueOf(mondayTasks.size()
+          - mondayCompletedTasks.size()));
     }
     if (task.getDay() == DayEnum.TUESDAY) {
       tuesdayProgress.setProgress((double) tuesdayCompletedTasks.size() / tuesdayTasks.size());
+      tuesdayRemainingTask.setText(String.valueOf(tuesdayTasks.size()
+          - tuesdayCompletedTasks.size()));
     }
     if (task.getDay() == DayEnum.WEDNESDAY) {
       wednesdayProgress.setProgress(
           (double) wednesdayCompletedTasks.size() / wednesdayTasks.size());
+      wednesdayRemainingTask.setText(String.valueOf(wednesdayTasks.size()
+          - wednesdayCompletedTasks.size()));
     }
     if (task.getDay() == DayEnum.THURSDAY) {
       thursdayProgress.setProgress((double) thursdayCompletedTasks.size() / thursdayTasks.size());
+      thursdayRemainingTask.setText(String.valueOf(thursdayTasks.size()
+          - thursdayCompletedTasks.size()));
     }
     if (task.getDay() == DayEnum.FRIDAY) {
       fridayProgress.setProgress((double) fridayCompletedTasks.size() / fridayTasks.size());
+      fridayRemainingTask.setText(String.valueOf(fridayTasks.size()
+          - fridayCompletedTasks.size()));
     }
     if (task.getDay() == DayEnum.SATURDAY) {
       saturdayProgress.setProgress((double) saturdayCompletedTasks.size() / saturdayTasks.size());
+      saturdayRemainingTask.setText(String.valueOf(saturdayTasks.size()
+          - saturdayCompletedTasks.size()));
     }
     if (task.getDay() == DayEnum.SUNDAY) {
       sundayProgress.setProgress((double) sundayCompletedTasks.size() / sundayTasks.size());
+      sundayRemainingTask.setText(String.valueOf(sundayTasks.size()
+          - sundayCompletedTasks.size()));
     }
   }
 

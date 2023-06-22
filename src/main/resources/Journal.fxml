@@ -20,7 +20,10 @@
             <children>
                <MenuButton mnemonicParsing="false" prefHeight="29.0" prefWidth="77.0" text="File">
                  <items>
-                   <MenuItem fx:id="openFileButton" mnemonicParsing="false" text="OpenFile" />
+                   <MenuItem fx:id="openFileButton" mnemonicParsing="false" text="OpenFile">
+                        <graphic>
+                           <TextField fx:id="filePath" promptText="Enter a .bujo filename:" />
+                        </graphic></MenuItem>
                    <MenuItem fx:id="saveFileButton" mnemonicParsing="false" text="SaveFile" />
                  <MenuItem fx:id="newWeekButton" mnemonicParsing="false" text="NewWeek" />
                  </items>
@@ -57,9 +60,9 @@
                                        <Font size="8.0" />
                                     </font>
                                  </Label>
-                                 <Label fx:id="remainingTask">
+                                 <Label fx:id="sundayRemainingTask">
                                     <font>
-                                       <Font size="5.0" />
+                                       <Font size="8.0" />
                                     </font>
                                  </Label>
                               </children>
@@ -84,9 +87,9 @@
                                        <Font size="8.0" />
                                     </font>
                                  </Label>
-                                 <Label fx:id="remainingTask2">
+                                 <Label fx:id="mondayRemainingTask">
                                     <font>
-                                       <Font size="5.0" />
+                                       <Font size="8.0" />
                                     </font>
                                  </Label>
                               </children>
@@ -112,9 +115,9 @@
                                        <Font size="8.0" />
                                     </font>
                                  </Label>
-                                 <Label fx:id="remainingTask7">
+                                 <Label fx:id="tuesdayRemainingTask">
                                     <font>
-                                       <Font size="5.0" />
+                                       <Font size="8.0" />
                                     </font>
                                  </Label>
                               </children>
@@ -140,9 +143,9 @@
                                        <Font size="8.0" />
                                     </font>
                                  </Label>
-                                 <Label fx:id="remainingTask1">
+                                 <Label fx:id="wednesdayRemainingTask">
                                     <font>
-                                       <Font size="5.0" />
+                                       <Font size="8.0" />
                                     </font>
                                  </Label>
                               </children>
@@ -168,9 +171,9 @@
                                        <Font size="8.0" />
                                     </font>
                                  </Label>
-                                 <Label fx:id="remainingTask3">
+                                 <Label fx:id="thursdayRemainingTask">
                                     <font>
-                                       <Font size="5.0" />
+                                       <Font size="8.0" />
                                     </font>
                                  </Label>
                               </children>
@@ -196,9 +199,9 @@
                                        <Font size="8.0" />
                                     </font>
                                  </Label>
-                                 <Label fx:id="remainingTask4">
+                                 <Label fx:id="fridayRemainingTask">
                                     <font>
-                                       <Font size="5.0" />
+                                       <Font size="8.0" />
                                     </font>
                                  </Label>
                               </children>
@@ -224,9 +227,9 @@
                                        <Font size="8.0" />
                                     </font>
                                  </Label>
-                                 <Label fx:id="remainingTask5">
+                                 <Label fx:id="saturdayRemainingTask">
                                     <font>
-                                       <Font size="5.0" />
+                                       <Font size="8.0" />
                                     </font>
                                  </Label>
                               </children>
