@@ -160,7 +160,8 @@ public class ControllerImpl implements Controller {
    * @param eventController represents an event controller
    */
   public ControllerImpl(TaskControllerImpl taskController, EventControllerImpl eventController,
-                        NewWeekControllerImpl newWeekController) {
+                        NewWeekControllerImpl newWeekController,
+                        OpenControllerImpl openController) {
     this.taskController = taskController;
     this.eventController = eventController;
     this.newWeekController = newWeekController;

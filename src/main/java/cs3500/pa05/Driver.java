@@ -4,6 +4,7 @@ import cs3500.pa05.controller.Controller;
 import cs3500.pa05.controller.ControllerImpl;
 import cs3500.pa05.controller.EventControllerImpl;
 import cs3500.pa05.controller.NewWeekControllerImpl;
+import cs3500.pa05.controller.OpenControllerImpl;
 import cs3500.pa05.controller.TaskControllerImpl;
 import cs3500.pa05.view.View;
 import cs3500.pa05.view.WeekViewImpl;
@@ -24,7 +25,9 @@ public class Driver extends Application {
     EventControllerImpl eventController = new EventControllerImpl();
     TaskControllerImpl taskController = new TaskControllerImpl();
     NewWeekControllerImpl newWeekController = new NewWeekControllerImpl();
-    Controller controller = new ControllerImpl(taskController, eventController, newWeekController);
+    OpenControllerImpl openController = new OpenControllerImpl();
+    Controller controller = new ControllerImpl(taskController, eventController,
+        newWeekController, openController);
     View view = new WeekViewImpl(controller);
     stage.setTitle("Journal");
 

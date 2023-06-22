@@ -1,22 +1,19 @@
 package cs3500.pa05.controller;
 
-import cs3500.pa05.model.DayEnum;
-import cs3500.pa05.model.Task;
 import cs3500.pa05.view.NewWeekViewImpl;
 import java.io.File;
-import java.nio.file.Path;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
-public class NewWeekControllerImpl implements Controller {
+public class OpenControllerImpl implements Controller {
   private static final String SOURCE_DIRECTORY = "src/test/resources";
 
   @FXML
-  private TextField newWeekField;
+  private TextField openWeekField;
 
-  private String newWeekFile;
+  private String openWeekFile;
 
   @FXML
   private Button submit;
@@ -36,15 +33,15 @@ public class NewWeekControllerImpl implements Controller {
    */
   public void submit() {
     try {
-      this.newWeekFile = this.newWeekField.getText();
+      this.openWeekFile = this.openWeekField.getText();
     } catch (IllegalArgumentException e) {
       warning();
     }
 
-    File file = new File(SOURCE_DIRECTORY + this.newWeekFile);
+    File file = new File(SOURCE_DIRECTORY + this.openWeekFile);
 
     // shows warning if the file does not end in .bujo
-    if ((!(newWeekFile.endsWith(".bujo"))) || file.exists()) {
+    if ((!(openWeekFile.endsWith(".bujo"))) || !file.exists()) {
       warning();
     }
 
@@ -58,7 +55,7 @@ public class NewWeekControllerImpl implements Controller {
     stage.close();
   }
 
-  public String getNewWeekFile() {
-    return this.newWeekFile;
+  public String getOpenWeekFile() {
+    return this.openWeekFile;
   }
 }
