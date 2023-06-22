@@ -69,6 +69,11 @@ public class Time {
     return time;
   }
 
+  /**
+   * Converts a time into its string form
+   *
+   * @return the string version of a time
+   */
   public String toString() {
     StringBuilder builder = new StringBuilder();
     if (hour < 10) {

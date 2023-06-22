@@ -134,7 +134,7 @@ public class ControllerImpl implements Controller {
   @FXML
   private TextField filePath;
   @FXML
-  private MenuItem saveWeekButton;
+  private MenuItem saveFileButton;
   @FXML
   private MenuItem newWeekButton;
 
@@ -176,8 +176,8 @@ public class ControllerImpl implements Controller {
    * Handles saving the file
    */
   public void handleSaveFile() {
-    saveWeekButton.setOnAction(event -> saveToFile());
-    openFileButton.setAccelerator(KeyCombination.keyCombination("Ctrl+S"));
+    saveFileButton.setOnAction(event -> saveToFile());
+    saveFileButton.setAccelerator(KeyCombination.keyCombination("Ctrl+S"));
   }
 
   /**
