@@ -1,15 +1,15 @@
 package cs3500.pa05.controller;
 
-import cs3500.pa05.model.DayEnum;
-import cs3500.pa05.model.Task;
 import cs3500.pa05.view.NewWeekViewImpl;
 import java.io.File;
-import java.nio.file.Path;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
+/**
+ * Represents a controller for making a new week.
+ */
 public class NewWeekControllerImpl implements Controller {
   private static final String SOURCE_DIRECTORY = "src/test/resources/";
 
@@ -21,12 +21,20 @@ public class NewWeekControllerImpl implements Controller {
   @FXML
   private Button submit;
 
+  /**
+   * FXML run method
+   *
+   * @throws IllegalStateException if running fails
+   */
   @FXML
   public void run() throws IllegalStateException {
   }
 
   NewWeekViewImpl view = new NewWeekViewImpl(this);
 
+  /**
+   * Initializes the submit button
+   */
   public void initialize() {
     submit.setOnAction(event -> submit());
   }
@@ -58,6 +66,11 @@ public class NewWeekControllerImpl implements Controller {
     stage.close();
   }
 
+  /**
+   * Returns a string representation of a new week file
+   *
+   * @return the new file path
+   */
   public String getNewWeekFile() {
     return this.newWeekFile;
   }

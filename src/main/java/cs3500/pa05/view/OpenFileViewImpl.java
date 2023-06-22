@@ -25,6 +25,9 @@ public class OpenFileViewImpl implements View {
     this.loader.setController(controller);
   }
 
+  /**
+   * Shows a warning if invalid file name is provided
+   */
   public void showWarning() {
     Alert alert = new Alert(Alert.AlertType.WARNING);
     alert.setTitle("Alert");

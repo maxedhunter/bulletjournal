@@ -25,6 +25,9 @@ public class TaskViewImpl implements View {
     this.loader.setController(controller);
   }
 
+  /**
+   * Shows a warning if invalid input is received for a day
+   */
   public void showWarning() {
     Alert alert = new Alert(Alert.AlertType.WARNING);
     alert.setTitle("Alert");

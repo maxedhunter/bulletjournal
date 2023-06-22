@@ -25,6 +25,9 @@ public class EventViewImpl implements View {
     this.loader.setController(controller);
   }
 
+  /**
+   * Shows a warning if an invalid day input is received
+   */
   public void showDayWarning() {
     Alert alert = new Alert(Alert.AlertType.WARNING);
     alert.setTitle("Alert");
@@ -33,6 +36,9 @@ public class EventViewImpl implements View {
     alert.showAndWait();
   }
 
+  /**
+   * Shows a warning if an invalid time input is received
+   */
   public void showTimeWarning() {
     Alert alert = new Alert(Alert.AlertType.WARNING);
     alert.setTitle("Alert");
@@ -41,11 +47,14 @@ public class EventViewImpl implements View {
     alert.showAndWait();
   }
 
+  /**
+   * Shows a warning if an invalid duration input is received
+   */
   public void showDurationWarning() {
     Alert alert = new Alert(Alert.AlertType.WARNING);
     alert.setTitle("Alert");
     alert.setHeaderText("Warning");
-    alert.setContentText("Invalid input for time");
+    alert.setContentText("Invalid input for duration");
     alert.showAndWait();
   }
 

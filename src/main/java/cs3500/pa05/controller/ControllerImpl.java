@@ -270,8 +270,8 @@ public class ControllerImpl implements Controller {
    * @param task to be added
    */
   public void addTaskQueue(Task task) {
-    Button taskQButton = new Button(task.getName() + " " + task.getCompletionString());
-    tasks.getChildren().add(taskQButton);
+    Button taskQueueButton = new Button(task.getName() + " " + task.getCompletionString());
+    tasks.getChildren().add(taskQueueButton);
   }
 
   /**
@@ -303,7 +303,6 @@ public class ControllerImpl implements Controller {
     VBox taskDetails = new VBox();
     Label description = new Label(task.getDescription());
     Label completion = new Label(task.getCompletionString());
-
 
     ContextMenu contextMenu = new ContextMenu();
     MenuItem removeButton = new MenuItem("Remove task");

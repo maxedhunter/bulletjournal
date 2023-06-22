@@ -7,6 +7,9 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
+/**
+ * Represents a controller for opening a .bujo file
+ */
 public class OpenControllerImpl implements Controller {
   private static final String SOURCE_DIRECTORY = "src/test/resources/";
 
@@ -18,12 +21,20 @@ public class OpenControllerImpl implements Controller {
   @FXML
   private Button submit;
 
+  /**
+   * Run method
+   *
+   * @throws IllegalStateException if running fails
+   */
   @FXML
   public void run() throws IllegalStateException {
   }
 
   NewWeekViewImpl view = new NewWeekViewImpl(this);
 
+  /**
+   * Initializes the buttons
+   */
   public void initialize() {
     submit.setOnAction(event -> submit());
   }
@@ -55,6 +66,11 @@ public class OpenControllerImpl implements Controller {
     stage.close();
   }
 
+  /**
+   * Returns the file string.
+   *
+   * @return the open week file string
+   */
   public String getOpenWeekFile() {
     return this.openWeekFile;
   }
